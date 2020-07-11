@@ -1,0 +1,3 @@
+[submodule "Jass/vendor/spdlog"]
+	path = Jass/vendor/spdlog
+	url = https://github.com/gabime/spdlog
