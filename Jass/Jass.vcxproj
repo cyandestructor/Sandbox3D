@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>JASS_PLATFORM_WINDOWS;JASS_BUILD_DLL;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Jass\vendor\spdlog\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Jass\vendor\spdlog\include;$(SolutionDir)\Jass\src;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -74,7 +74,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>JASS_PLATFORM_WINDOWS;JASS_BUILD_DLL;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Jass\vendor\spdlog\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Jass\vendor\spdlog\include;$(SolutionDir)\Jass\src;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -88,6 +88,17 @@
     <ClInclude Include="src\Jass\Core.h" />
     <ClInclude Include="src\Jass.h" />
     <ClInclude Include="src\Jass\EntryPoint.h" />
+    <ClInclude Include="src\Jass\Events\Event.h" />
+    <ClInclude Include="src\Jass\Events\EventEnums.h" />
+    <ClInclude Include="src\Jass\Events\KeyEvent.h" />
+    <ClInclude Include="src\Jass\Events\KeyPressedEvent.h" />
+    <ClInclude Include="src\Jass\Events\KeyReleasedEvent.h" />
+    <ClInclude Include="src\Jass\Events\MouseButtonEvent.h" />
+    <ClInclude Include="src\Jass\Events\MouseButtonPressedEvent.h" />
+    <ClInclude Include="src\Jass\Events\MouseButtonReleasedEvent.h" />
+    <ClInclude Include="src\Jass\Events\MouseEvents.h" />
+    <ClInclude Include="src\Jass\Events\MouseMovedEvent.h" />
+    <ClInclude Include="src\Jass\Events\MouseScrolledEvent.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
