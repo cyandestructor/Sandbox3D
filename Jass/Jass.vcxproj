@@ -88,6 +88,9 @@
     <ClInclude Include="src\Jass\Core.h" />
     <ClInclude Include="src\Jass.h" />
     <ClInclude Include="src\Jass\EntryPoint.h" />
+    <ClInclude Include="src\Jass\Log.h" />
+    <ClInclude Include="src\Jass\LogEnums.h" />
+    <ClInclude Include="src\Jass\SpdLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp" />
