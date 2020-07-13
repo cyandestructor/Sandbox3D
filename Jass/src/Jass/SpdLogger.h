@@ -4,13 +4,14 @@
 #include <memory>
 #include <exception>
 
+#include "Core.h"
 #include "LogEnums.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace Jass {
 
-	class SpdLogger {
+	class JASS_API SpdLogger {
 
 	public:
 		SpdLogger() : m_logger(nullptr) {}
@@ -54,13 +55,6 @@ namespace Jass {
 		}
 
 		m_logger->log(level, fmt, args...);
-	}
-
-	void SpdLogger::Init(const std::string& loggerName)
-	{
-		m_logger = spdlog::stdout_color_mt(loggerName);
-		m_logger->set_pattern("%^[%T] %n: %v%$");
-		m_logger->set_level(spdlog::level::trace);
 	}
 
 }
