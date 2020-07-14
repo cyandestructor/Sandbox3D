@@ -7,10 +7,7 @@ extern Jass::Application* Jass::CreateApplication();
 
 int main(int argc, char** argv) {
 
-	Jass::WindowResizeEvent e(1280, 720);
-
 	JASS_CORE_TRACE(Jass::SpdLogger, "Welcome to Jass");
-	JASS_CLIENT_WARN(Jass::SpdLogger, e);
 
 	auto app = Jass::CreateApplication();
 	app->Run();

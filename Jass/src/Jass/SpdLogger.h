@@ -54,6 +54,8 @@ namespace Jass {
 		case LogLevel::CRITICAL:
 			level = spdlog::level::level_enum::critical;
 			break;
+		default:
+			throw std::invalid_argument("invalid log level");
 		}
 
 		m_logger->log(level, fmt, args...);
