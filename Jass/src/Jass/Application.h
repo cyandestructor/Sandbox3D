@@ -2,6 +2,9 @@
 #define JASS_APPLICATION_H
 
 #include "Core.h"
+#include "Jass/Events/ApplicationEvents.h"
+#include "Log.h"
+#include "SpdLogger.h"
 
 namespace Jass {
 	

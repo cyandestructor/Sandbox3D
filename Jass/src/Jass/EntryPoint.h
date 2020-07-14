@@ -7,11 +7,10 @@ extern Jass::Application* Jass::CreateApplication();
 
 int main(int argc, char** argv) {
 
-	auto log = Jass::Log<Jass::SpdLogger>
-		(std::make_shared<Jass::SpdLogger>(), std::make_shared<Jass::SpdLogger>());
+	Jass::WindowResizeEvent e(1280, 720);
 
-	log.LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::INFO, "Welcome to Jass");
-	log.LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::WARN, "Hello world");
+	JASS_CORE_TRACE(Jass::SpdLogger, "Welcome to Jass");
+	JASS_CLIENT_WARN(Jass::SpdLogger, e);
 
 	auto app = Jass::CreateApplication();
 	app->Run();

@@ -16,6 +16,7 @@ namespace Jass {
 
 	public:
 		SpdLogger() : m_logger(nullptr) {}
+		SpdLogger(const std::string& loggerName) { Init(loggerName); }
 
 		void Init(const std::string&);
 
