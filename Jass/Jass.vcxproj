@@ -88,9 +88,12 @@
     <ClInclude Include="src\Jass\Core.h" />
     <ClInclude Include="src\Jass.h" />
     <ClInclude Include="src\Jass\EntryPoint.h" />
+    <ClInclude Include="src\Jass\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Jass\Events\Event.h" />
+    <ClInclude Include="src\Jass\Events\EventDispatcher.h" />
     <ClInclude Include="src\Jass\Events\EventEnums.h" />
     <ClInclude Include="src\Jass\Events\KeyEvent.h" />
+    <ClInclude Include="src\Jass\Events\KeyEvents.h" />
     <ClInclude Include="src\Jass\Events\KeyPressedEvent.h" />
     <ClInclude Include="src\Jass\Events\KeyReleasedEvent.h" />
     <ClInclude Include="src\Jass\Events\MouseButtonEvent.h" />
@@ -99,6 +102,8 @@
     <ClInclude Include="src\Jass\Events\MouseEvents.h" />
     <ClInclude Include="src\Jass\Events\MouseMovedEvent.h" />
     <ClInclude Include="src\Jass\Events\MouseScrolledEvent.h" />
+    <ClInclude Include="src\Jass\Events\WindowCloseEvent.h" />
+    <ClInclude Include="src\Jass\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
