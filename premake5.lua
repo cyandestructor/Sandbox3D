@@ -20,19 +20,19 @@ project "Jass"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "lastest"
+		systemversion "latest"
 
 		defines { "JASS_PLATFORM_WINDOWS", "JASS_BUILD_DLL" }
 
-	filter "configurations.Debug"
+	filter "configurations:Debug"
 		defines "JASS_DEBUG"
 		symbols "On"
 
-	filter "configurations.Release"
+	filter "configurations:Release"
 		defines "JASS_RELEASE"
 		optimize "On"
 
-	filter "configurations.Dist"
+	filter "configurations:Dist"
 		defines "JASS_DIST"
 		optimize "On"
 
@@ -53,20 +53,20 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "lastest"
+		systemversion "latest"
 
 		defines { "JASS_PLATFORM_WINDOWS" }
 
-		postbuildcommands { "{COPY} ..bin/" .. outputdir .. "/Jass/Jass.dll %{cfg.buildtarget.directory}" }
+		postbuildcommands { "{COPY} ../bin/" .. outputdir .. "/Jass/Jass.dll %{cfg.buildtarget.directory}" }
 
-	filter "configurations.Debug"
+	filter "configurations:Debug"
 		defines "JASS_DEBUG"
 		symbols "On"
 
-	filter "configurations.Release"
+	filter "configurations:Release"
 		defines "JASS_RELEASE"
 		optimize "On"
 
-	filter "configurations.Dist"
+	filter "configurations:Dist"
 		defines "JASS_DIST"
 		optimize "On"
