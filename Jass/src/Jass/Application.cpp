@@ -1,3 +1,4 @@
+#include "jasspch.h"
 #include "Application.h"
 
 #include "Jass/Events/ApplicationEvents.h"

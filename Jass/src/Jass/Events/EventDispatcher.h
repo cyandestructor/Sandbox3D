@@ -1,8 +1,6 @@
 #ifndef JASS_EVENTDISPATCHER_H
 #define JASS_EVENTDISPATCHER_H
 
-#include <functional>
-
 #include "Event.h"
 
 namespace Jass {

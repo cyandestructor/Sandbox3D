@@ -13,6 +13,9 @@ project "Jass"
 	targetdir ("bin/".. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
 
+	pchheader "jasspch.h"
+	pchsource "Jass/src/jasspch.cpp"
+
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
 	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src" }

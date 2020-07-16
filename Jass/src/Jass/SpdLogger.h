@@ -1,9 +1,6 @@
 #ifndef JASS_SPDLOGGER_H
 #define JASS_SPDLOGGER_H
 
-#include <memory>
-#include <exception>
-
 #include "Core.h"
 #include "LogEnums.h"
 #include "spdlog/spdlog.h"

@@ -1,3 +1,4 @@
+#include "jasspch.h"
 #include "SpdLogger.h"
 
 namespace Jass {

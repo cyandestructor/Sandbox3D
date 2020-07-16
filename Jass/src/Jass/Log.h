@@ -1,7 +1,6 @@
 #ifndef JASS_LOG_H
 #define JASS_LOG_H
 
-#include <memory>
 #include "LogEnums.h"
 
 namespace Jass {
