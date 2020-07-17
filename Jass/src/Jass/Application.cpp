@@ -2,8 +2,6 @@
 #include "Application.h"
 
 #include "Jass/Events/ApplicationEvents.h"
-#include "Log.h"
-#include "SpdLogger.h"
 
 namespace Jass {
 
@@ -21,7 +19,7 @@ namespace Jass {
 
 	void Application::Run() {
 	
-		JASS_CORE_INFO(SpdLogger, "Hello world!");
+		JASS_CORE_INFO("Hello world!");
 
 		while (true);
 

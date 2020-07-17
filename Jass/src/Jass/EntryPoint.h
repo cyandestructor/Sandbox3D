@@ -7,7 +7,7 @@ extern Jass::Application* Jass::CreateApplication();
 
 int main(int argc, char** argv) {
 
-	JASS_CORE_TRACE(Jass::SpdLogger, "Welcome to Jass");
+	JASS_CORE_TRACE("Welcome to Jass");
 
 	auto app = Jass::CreateApplication();
 	app->Run();

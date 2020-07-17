@@ -1,11 +1,14 @@
 #ifndef JASS_LOG_H
 #define JASS_LOG_H
 
+#include "SpdLogger.h"
 #include "LogEnums.h"
 
 namespace Jass {
 
-	template <typename Logger>
+	typedef SpdLogger MainLogger;
+
+	template <typename Logger = MainLogger>
 	class Log {
 
 	public:
@@ -41,19 +44,19 @@ namespace Jass {
 		}
 	}
 
-#define JASS_CORE_TRACE(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::TRACE, __VA_ARGS__)
-#define JASS_CORE_INFO(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::INFO, __VA_ARGS__)
-#define JASS_CORE_DEBUG(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::DEBUG, __VA_ARGS__)
-#define JASS_CORE_WARN(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::WARN, __VA_ARGS__)
-#define JASS_CORE_ERR(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::ERR, __VA_ARGS__)
-#define JASS_CORE_CRITICAL(type, ...)	Jass::Log<type>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::CRITICAL, __VA_ARGS__)
+#define JASS_CORE_TRACE(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::TRACE, __VA_ARGS__)
+#define JASS_CORE_INFO(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::INFO, __VA_ARGS__)
+#define JASS_CORE_DEBUG(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::DEBUG, __VA_ARGS__)
+#define JASS_CORE_WARN(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::WARN, __VA_ARGS__)
+#define JASS_CORE_ERR(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::ERR, __VA_ARGS__)
+#define JASS_CORE_CRITICAL(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::CRITICAL, __VA_ARGS__)
 
-#define JASS_CLIENT_TRACE(type, ...)	Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::TRACE, __VA_ARGS__)
-#define JASS_CLIENT_INFO(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::INFO, __VA_ARGS__)
-#define JASS_CLIENT_DEBUG(type, ...)	Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::DEBUG, __VA_ARGS__)
-#define JASS_CLIENT_WARN(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::WARN, __VA_ARGS__)
-#define JASS_CLIENT_ERR(type, ...)		Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::ERR, __VA_ARGS__)
-#define JASS_CLIENT_CRITICAL(type, ...)	Jass::Log<type>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::CRITICAL, __VA_ARGS__)
+#define JASS_CLIENT_TRACE(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::TRACE, __VA_ARGS__)
+#define JASS_CLIENT_INFO(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::INFO, __VA_ARGS__)
+#define JASS_CLIENT_DEBUG(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::DEBUG, __VA_ARGS__)
+#define JASS_CLIENT_WARN(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::WARN, __VA_ARGS__)
+#define JASS_CLIENT_ERR(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::ERR, __VA_ARGS__)
+#define JASS_CLIENT_CRITICAL(...)	Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::CRITICAL, __VA_ARGS__)
 
 }
 

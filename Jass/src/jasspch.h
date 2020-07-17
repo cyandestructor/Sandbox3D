@@ -13,6 +13,8 @@
 #include <vector>
 #include <list>
 
+#include "Jass/Log.h"
+
 #ifdef JASS_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif // JASS_PLATFORM_WINDOWS
