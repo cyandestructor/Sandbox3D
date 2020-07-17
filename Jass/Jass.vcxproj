@@ -160,10 +160,12 @@
     <ClInclude Include="src\Jass\Events\MouseScrolledEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowCloseEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h" />
+    <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
     <ClInclude Include="src\jasspch.h" />
+    <ClInclude Include="src\Platform\Windows\WinWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="src\jasspch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

@@ -44,19 +44,19 @@ namespace Jass {
 		}
 	}
 
-#define JASS_CORE_TRACE(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::TRACE, __VA_ARGS__)
-#define JASS_CORE_INFO(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::INFO, __VA_ARGS__)
-#define JASS_CORE_DEBUG(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::DEBUG, __VA_ARGS__)
-#define JASS_CORE_WARN(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::WARN, __VA_ARGS__)
-#define JASS_CORE_ERR(...)			Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::ERR, __VA_ARGS__)
-#define JASS_CORE_CRITICAL(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::CRITICAL, __VA_ARGS__)
+#define JASS_CORE_TRACE(...)      Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::TRACE, __VA_ARGS__)
+#define JASS_CORE_INFO(...)       Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::INFO, __VA_ARGS__)
+#define JASS_CORE_DEBUG(...)      Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::DEBUG, __VA_ARGS__)
+#define JASS_CORE_WARN(...)       Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::WARN, __VA_ARGS__)
+#define JASS_CORE_ERR(...)        Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::ERR, __VA_ARGS__)
+#define JASS_CORE_CRITICAL(...)   Jass::Log<>::LogMsg(Jass::LoggerType::CORE, Jass::LogLevel::CRITICAL, __VA_ARGS__)
 
-#define JASS_CLIENT_TRACE(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::TRACE, __VA_ARGS__)
-#define JASS_CLIENT_INFO(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::INFO, __VA_ARGS__)
-#define JASS_CLIENT_DEBUG(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::DEBUG, __VA_ARGS__)
-#define JASS_CLIENT_WARN(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::WARN, __VA_ARGS__)
-#define JASS_CLIENT_ERR(...)		Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::ERR, __VA_ARGS__)
-#define JASS_CLIENT_CRITICAL(...)	Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::CRITICAL, __VA_ARGS__)
+#define JASS_LOG_TRACE(...)       Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::TRACE, __VA_ARGS__)
+#define JASS_LOG_INFO(...)        Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::INFO, __VA_ARGS__)
+#define JASS_LOG_DEBUG(...)       Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::DEBUG, __VA_ARGS__)
+#define JASS_LOG_WARN(...)        Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::WARN, __VA_ARGS__)
+#define JASS_LOG_ERR(...)         Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::ERR, __VA_ARGS__)
+#define JASS_LOG_CRITICAL(...)    Jass::Log<>::LogMsg(Jass::LoggerType::CLIENT, Jass::LogLevel::CRITICAL, __VA_ARGS__)
 
 }
 

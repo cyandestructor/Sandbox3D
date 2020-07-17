@@ -2,6 +2,7 @@
 #define JASS_APPLICATION_H
 
 #include "Core.h"
+#include "IWindow.h"
 
 namespace Jass {
 	
@@ -12,6 +13,11 @@ namespace Jass {
 		virtual ~Application();
 
 		void Run();
+
+	private:
+		std::unique_ptr<IWindow> m_window;
+		bool m_isRunning = true;
+
 	};
 
 	//Must be defined in client

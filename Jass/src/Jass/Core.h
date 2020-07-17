@@ -11,6 +11,14 @@
 	#error Jass only support Windows.
 #endif
 
+#ifdef JASS_ENABLE_ASSERTS
+	#define JASS_ASSERT(x, ...) { if(!(x)) { JASS_ERR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define JASS_CORE_ASSERT(x, ...) { if(!(x)) { JASS_CORE_ERR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define JASS_ASSERT(x, ...)
+	#define JASS_CORE_ASSERT(x, ...)
+#endif
+
 #define BIT(x) (1 << x)
 
 #endif

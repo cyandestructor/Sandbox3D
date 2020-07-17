@@ -5,23 +5,20 @@
 
 namespace Jass {
 
-	Application::Application() {
+	Application::Application()
+	{
+		m_window = std::unique_ptr<IWindow>(IWindow::Create());
+	}
 
-
+	Application::~Application()
+	{
 
 	}
 
-	Application::~Application() {
-
-
-
-	}
-
-	void Application::Run() {
-	
-		JASS_CORE_INFO("Hello world!");
-
-		while (true);
-
+	void Application::Run()
+	{
+		while (m_isRunning) {
+			m_window->OnUpdate();
+		}
 	}
 }

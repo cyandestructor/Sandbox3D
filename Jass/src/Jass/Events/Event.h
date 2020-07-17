@@ -1,8 +1,6 @@
 #ifndef JASS_EVENT_H
 #define JASS_EVENT_H
 
-#include <sstream>
-
 #include "EventEnums.h"
 
 namespace Jass {
