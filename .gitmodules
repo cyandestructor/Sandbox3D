@@ -1,3 +1,6 @@
 [submodule "Jass/vendor/spdlog"]
 	path = Jass/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Jass/vendor/GLFW"]
+	path = Jass/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW

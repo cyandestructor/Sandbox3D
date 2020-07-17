@@ -5,6 +5,12 @@ workspace "Jass"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+--include directories relative to solution directory
+IncludeDir = {}
+IncludeDir["GLFW"] = "Jass/vendor/GLFW/include"
+
+include "Jass/vendor/GLFW"
+
 project "Jass"
 	location "Jass"
 	kind "SharedLib"
@@ -18,7 +24,9 @@ project "Jass"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src" }
+	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src", "%{IncludeDir.GLFW}" }
+
+	links { "GLFW", "opengl32.lib" }
 
 	filter "system:windows"
 		cppdialect "C++17"
