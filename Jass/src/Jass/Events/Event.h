@@ -1,25 +1,24 @@
 #ifndef JASS_EVENT_H
 #define JASS_EVENT_H
 
+#include "jasspch.h"
 #include "EventEnums.h"
 
 namespace Jass {
 
 	class JASS_API Event {
 
-		friend class EventDispatcher;
 	public:
+		bool Handled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
-
+		
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & (int)category;
 		}
-
-	protected:
-		bool isHandled = false;
 
 	};
 

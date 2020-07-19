@@ -3,6 +3,7 @@
 
 #include "Jass/Log.h"
 #include "Jass/Application.h"
+#include "Jass/Layer.h"
 
 //------------------------EntryPoint------------------------
 #include "Jass/EntryPoint.h"

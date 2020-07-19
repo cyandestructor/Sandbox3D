@@ -7,6 +7,12 @@
     <Filter Include="Jass\Events">
       <UniqueIdentifier>{9A3A2641-06F0-9E36-8FE4-980DFB98953A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Jass.h" />
@@ -29,6 +35,9 @@
       <Filter>Jass\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\EventEnums.h">
+      <Filter>Jass\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Events\Events.h">
       <Filter>Jass\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\KeyEvent.h">
@@ -67,6 +76,15 @@
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h">
       <Filter>Jass\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\IWindow.h">
+      <Filter>Jass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Layer.h">
+      <Filter>Jass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\LayerStack.h">
+      <Filter>Jass</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Log.h">
       <Filter>Jass</Filter>
     </ClInclude>
@@ -76,19 +94,27 @@
     <ClInclude Include="src\Jass\SpdLogger.h">
       <Filter>Jass</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WinWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\jasspch.h" />
-    <ClInclude Include="src\Jass\IWindow.h" />
-    <ClInclude Include="src\Platform\Windows\WinWindow.h" />
-    <ClInclude Include="src\Jass\Events\Events.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
       <Filter>Jass</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Layer.cpp">
+      <Filter>Jass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\LayerStack.cpp">
+      <Filter>Jass</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\SpdLogger.cpp">
       <Filter>Jass</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WinWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\jasspch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
   </ItemGroup>
 </Project>

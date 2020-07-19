@@ -26,7 +26,7 @@ namespace Jass {
 	inline bool EventDispatcher::Dispatch(EventFn<T> func)
 	{
 		if (m_event.GetEventType() == T::GetStaticType()) {
-			m_event.isHandled = func(*(T*)&m_event);
+			m_event.Handled = func(*(T*)&m_event);
 			return true;
 		}
 		return false;

@@ -84,6 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,6 +107,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -129,6 +131,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -162,19 +165,23 @@
     <ClInclude Include="src\Jass\Events\WindowCloseEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h" />
     <ClInclude Include="src\Jass\IWindow.h" />
+    <ClInclude Include="src\Jass\Layer.h" />
+    <ClInclude Include="src\Jass\LayerStack.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
-    <ClInclude Include="src\jasspch.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
+    <ClInclude Include="src\jasspch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp" />
+    <ClCompile Include="src\Jass\Layer.cpp" />
+    <ClCompile Include="src\Jass\LayerStack.cpp" />
     <ClCompile Include="src\Jass\SpdLogger.cpp" />
+    <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\jasspch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

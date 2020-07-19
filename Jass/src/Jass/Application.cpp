@@ -23,11 +23,33 @@ namespace Jass {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 		JASS_CORE_TRACE("{0}", e);
+
+		for (auto it = m_layerStack.rbegin(); it != m_layerStack.rend();) {
+			// Pass the event though the layers
+			(*it++)->OnEvent(e);
+			// Stop when the event has been handled
+			if (e.Handled)
+				break;
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_layerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_layerStack.PushOverlay(layer);
 	}
 
 	void Application::Run()
 	{
 		while (m_isRunning) {
+
+			for (Layer* layer : m_layerStack)
+				layer->OnUpdate();
+
 			m_window->OnUpdate();
 		}
 	}

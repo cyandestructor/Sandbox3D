@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "IWindow.h"
 #include "Jass/Events/ApplicationEvents.h"
+#include "LayerStack.h"
 
 namespace Jass {
 	
@@ -15,6 +16,9 @@ namespace Jass {
 
 		void OnEvent(Event& e);
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
+
 		void Run();
 
 	private:
@@ -22,6 +26,7 @@ namespace Jass {
 
 		std::unique_ptr<IWindow> m_window;
 		bool m_isRunning = true;
+		LayerStack m_layerStack;
 
 	};
 
