@@ -50,6 +50,14 @@ namespace Jass {
 
 		WindowData m_windowData;
 
+		void SetWindowEventCallbacks();
+		void SetWindowSizeCallback();
+		void SetWindowCloseCallback();
+		void SetWindowKeyCallback();
+		void SetWindowMouseButtonCallback();
+		void SetWindowMouseMoveCallback();
+		void SetWindowMouseScrollCallback();
+
 	};
 
 }

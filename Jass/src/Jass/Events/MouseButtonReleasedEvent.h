@@ -14,6 +14,8 @@ namespace Jass {
 		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseButtonReleased (" << m_button << ")";
+
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)

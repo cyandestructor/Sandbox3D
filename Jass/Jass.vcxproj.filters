@@ -79,6 +79,7 @@
     <ClInclude Include="src\jasspch.h" />
     <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
+    <ClInclude Include="src\Jass\Events\Events.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">

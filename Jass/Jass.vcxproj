@@ -148,6 +148,7 @@
     <ClInclude Include="src\Jass\Events\Event.h" />
     <ClInclude Include="src\Jass\Events\EventDispatcher.h" />
     <ClInclude Include="src\Jass\Events\EventEnums.h" />
+    <ClInclude Include="src\Jass\Events\Events.h" />
     <ClInclude Include="src\Jass\Events\KeyEvent.h" />
     <ClInclude Include="src\Jass\Events\KeyEvents.h" />
     <ClInclude Include="src\Jass\Events\KeyPressedEvent.h" />
