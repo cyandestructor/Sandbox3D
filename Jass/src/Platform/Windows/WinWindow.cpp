@@ -1,6 +1,8 @@
 #include "jasspch.h"
 #include "WinWindow.h"
 
+#include <glad/glad.h>
+
 #include "Jass/Events/Events.h"
 
 namespace Jass {
@@ -54,6 +56,8 @@ namespace Jass {
 		m_window = glfwCreateWindow((int)m_windowData.Width, (int)m_windowData.Height,
 			m_windowData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		JASS_CORE_ASSERT(status, "Could not initialize Glad");
 		glfwSetWindowUserPointer(m_window, &m_windowData);
 		SetVSync(true);
 

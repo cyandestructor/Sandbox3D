@@ -8,8 +8,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 --include directories relative to solution directory
 IncludeDir = {}
 IncludeDir["GLFW"] = "Jass/vendor/GLFW/include"
+IncludeDir["Glad"] = "Jass/vendor/Glad/include"
 
 include "Jass/vendor/GLFW"
+include "Jass/vendor/Glad"
 
 project "Jass"
 	location "Jass"
@@ -24,16 +26,16 @@ project "Jass"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src", "%{IncludeDir.GLFW}" }
+	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src", "%{IncludeDir.GLFW}", "%{IncludeDir.Glad}" }
 
-	links { "GLFW", "opengl32.lib" }
+	links { "GLFW", "opengl32.lib", "Glad" }
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
-		defines { "JASS_PLATFORM_WINDOWS", "JASS_BUILD_DLL" }
+		defines { "JASS_PLATFORM_WINDOWS", "JASS_BUILD_DLL", "GLFW_INCLUDE_NONE" }
 
 	filter "configurations:Debug"
 		defines "JASS_DEBUG"

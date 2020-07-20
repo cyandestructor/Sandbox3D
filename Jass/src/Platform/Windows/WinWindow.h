@@ -2,7 +2,7 @@
 #define JASS_WINWINDOW_H
 
 #include "Jass/IWindow.h"
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace Jass {
 
