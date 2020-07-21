@@ -9,9 +9,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Jass/vendor/GLFW/include"
 IncludeDir["Glad"] = "Jass/vendor/Glad/include"
+IncludeDir["ImGui"] = "Jass/vendor/imgui"
 
 include "Jass/vendor/GLFW"
 include "Jass/vendor/Glad"
+include "Jass/vendor/imgui"
 
 project "Jass"
 	location "Jass"
@@ -26,9 +28,9 @@ project "Jass"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src", "%{IncludeDir.GLFW}", "%{IncludeDir.Glad}" }
+	includedirs { "%{prj.name}/vendor/spdlog/include", "Jass/src", "%{IncludeDir.GLFW}", "%{IncludeDir.Glad}", "%{IncludeDir.ImGui}" }
 
-	links { "GLFW", "opengl32.lib", "Glad" }
+	links { "GLFW", "opengl32.lib", "Glad", "ImGui" }
 
 	filter "system:windows"
 		cppdialect "C++17"

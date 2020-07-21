@@ -25,6 +25,7 @@ class Sandbox : public Jass::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Jass::ImGuiLayer());
 	}
 
 	~Sandbox() {

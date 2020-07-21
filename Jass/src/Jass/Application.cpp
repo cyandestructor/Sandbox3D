@@ -7,8 +7,12 @@ namespace Jass {
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+	Application* Application::s_instance = nullptr;
+
 	Application::Application()
 	{
+		JASS_CORE_ASSERT(!s_instance, "Application already exists");
+		s_instance = this;
 		m_window = std::unique_ptr<IWindow>(IWindow::Create());
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
 	}
@@ -35,11 +39,13 @@ namespace Jass {
 
 	void Application::PushLayer(Layer* layer)
 	{
+		layer->OnAttach();
 		m_layerStack.PushLayer(layer);
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		layer->OnAttach();
 		m_layerStack.PushOverlay(layer);
 	}
 

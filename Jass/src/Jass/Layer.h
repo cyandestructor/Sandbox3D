@@ -14,7 +14,7 @@ namespace Jass {
 		virtual ~Layer();
 
 		virtual void OnAttach() {}
-		virtual void OnDettach() {}
+		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
 		virtual void OnEvent(Event& e) {}
 

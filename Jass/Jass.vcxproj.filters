@@ -98,6 +98,8 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\jasspch.h" />
+    <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -116,5 +118,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\jasspch.cpp" />
+    <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

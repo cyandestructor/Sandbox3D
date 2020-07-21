@@ -14,6 +14,9 @@ namespace Jass {
 		Application();
 		virtual ~Application();
 
+		static Application& Get() { return *s_instance; }
+		inline IWindow& GetWindow() { return *m_window; }
+
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
@@ -23,6 +26,8 @@ namespace Jass {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+
+		static Application* s_instance;
 
 		std::unique_ptr<IWindow> m_window;
 		bool m_isRunning = true;

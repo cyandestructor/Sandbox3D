@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>jasspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>JASS_PLATFORM_WINDOWS;JASS_BUILD_DLL;GLFW_INCLUDE_NONE;JASS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -100,7 +100,7 @@
       <PrecompiledHeaderFile>jasspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>JASS_PLATFORM_WINDOWS;JASS_BUILD_DLL;GLFW_INCLUDE_NONE;JASS_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -124,7 +124,7 @@
       <PrecompiledHeaderFile>jasspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>JASS_PLATFORM_WINDOWS;JASS_BUILD_DLL;GLFW_INCLUDE_NONE;JASS_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -164,20 +164,24 @@
     <ClInclude Include="src\Jass\Events\MouseScrolledEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowCloseEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h" />
+    <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Jass\Layer.h" />
     <ClInclude Include="src\Jass\LayerStack.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
     <ClInclude Include="src\jasspch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp" />
+    <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Jass\Layer.cpp" />
     <ClCompile Include="src\Jass\LayerStack.cpp" />
     <ClCompile Include="src\Jass\SpdLogger.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\jasspch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -189,6 +193,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
