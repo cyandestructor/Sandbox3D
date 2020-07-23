@@ -29,6 +29,7 @@ namespace Jass {
 		
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
+		virtual void* GetNativeWindow() const = 0;
 
 		virtual void SetEventCallBack(const EventCallbackFn& eventCallback) = 0;
 		virtual void SetVSync(bool enable) = 0;

@@ -5,6 +5,7 @@
 
 // TEMPORARY
 #include <glad/glad.h>
+#include "Input.h"
 
 namespace Jass {
 
@@ -59,6 +60,9 @@ namespace Jass {
 
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
+
+			auto [x, y] = Input::GetMousePos();
+			JASS_CORE_TRACE("{0}, {1}", x, y);
 
 			m_window->OnUpdate();
 		}

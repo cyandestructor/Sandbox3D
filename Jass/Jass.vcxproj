@@ -162,6 +162,7 @@
     <ClInclude Include="src\Jass\Events\MouseScrolledEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowCloseEvent.h" />
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h" />
+    <ClInclude Include="src\Jass\Input.h" />
     <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Jass\Layer.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WinInput.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
     <ClInclude Include="src\jasspch.h" />
   </ItemGroup>
@@ -180,6 +182,7 @@
     <ClCompile Include="src\Jass\LayerStack.cpp" />
     <ClCompile Include="src\Jass\SpdLogger.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\jasspch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

@@ -22,6 +22,8 @@ namespace Jass {
 		
 		inline unsigned int GetHeight() const override { return m_windowData.Height; }
 		
+		inline void* GetNativeWindow() const override { return m_window; }
+
 		inline void SetEventCallBack(const EventCallbackFn& eventCallback) override {
 			m_windowData.EventCallback = eventCallback;
 		}

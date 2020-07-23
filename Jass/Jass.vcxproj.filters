@@ -113,6 +113,8 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\jasspch.h" />
+    <ClInclude Include="src\Jass\Input.h" />
+    <ClInclude Include="src\Platform\Windows\WinInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -137,5 +139,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\jasspch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
   </ItemGroup>
 </Project>
