@@ -7,8 +7,14 @@
     <Filter Include="Jass\Events">
       <UniqueIdentifier>{9A3A2641-06F0-9E36-8FE4-980DFB98953A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jass\ImGui">
+      <UniqueIdentifier>{2005E7AC-0CBD-28FA-75C4-0156619BC3EA}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -52,6 +58,9 @@
     <ClInclude Include="src\Jass\Events\KeyReleasedEvent.h">
       <Filter>Jass\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Events\KeyTypedEvent.h">
+      <Filter>Jass\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Events\MouseButtonEvent.h">
       <Filter>Jass\Events</Filter>
     </ClInclude>
@@ -79,6 +88,9 @@
     <ClInclude Include="src\Jass\IWindow.h">
       <Filter>Jass</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h">
+      <Filter>Jass\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Layer.h">
       <Filter>Jass</Filter>
     </ClInclude>
@@ -94,17 +106,20 @@
     <ClInclude Include="src\Jass\SpdLogger.h">
       <Filter>Jass</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WinWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\jasspch.h" />
-    <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
-    <ClInclude Include="src\Jass\Events\KeyTypedEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
       <Filter>Jass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp">
+      <Filter>Jass\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Layer.cpp">
       <Filter>Jass</Filter>
@@ -115,11 +130,12 @@
     <ClCompile Include="src\Jass\SpdLogger.cpp">
       <Filter>Jass</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\jasspch.cpp" />
-    <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

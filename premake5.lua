@@ -19,6 +19,7 @@ project "Jass"
 	location "Jass"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/".. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
@@ -34,30 +35,30 @@ project "Jass"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines { "JASS_PLATFORM_WINDOWS", "JASS_BUILD_DLL", "GLFW_INCLUDE_NONE" }
 
 	filter "configurations:Debug"
 		defines "JASS_DEBUG"
+		runtime "Debug"
 		symbols "On"
-		buildoptions "/MDd"
 
 	filter "configurations:Release"
 		defines "JASS_RELEASE"
+		runtime "Release"
 		optimize "On"
-		buildoptions "/MD"
 
 	filter "configurations:Dist"
 		defines "JASS_DIST"
+		runtime "Release"
 		optimize "On"
-		buildoptions "/MD"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/".. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
@@ -70,7 +71,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines { "JASS_PLATFORM_WINDOWS" }
@@ -79,15 +79,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "JASS_DEBUG"
+		runtime "Debug"
 		symbols "On"
-		buildoptions "/MDd"
 
 	filter "configurations:Release"
 		defines "JASS_RELEASE"
+		runtime "Release"
 		optimize "On"
-		buildoptions "/MD"
 
 	filter "configurations:Dist"
 		defines "JASS_DIST"
+		runtime "Release"
 		optimize "On"
-		buildoptions "/MD"
