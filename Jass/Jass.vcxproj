@@ -165,10 +165,12 @@
     <ClInclude Include="src\Jass\Input.h" />
     <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Jass\KeyCodes.h" />
     <ClInclude Include="src\Jass\Layer.h" />
     <ClInclude Include="src\Jass\LayerStack.h" />
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
+    <ClInclude Include="src\Jass\MouseButtonCodes.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />

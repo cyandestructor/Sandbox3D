@@ -115,6 +115,8 @@
     <ClInclude Include="src\jasspch.h" />
     <ClInclude Include="src\Jass\Input.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="src\Jass\KeyCodes.h" />
+    <ClInclude Include="src\Jass\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
