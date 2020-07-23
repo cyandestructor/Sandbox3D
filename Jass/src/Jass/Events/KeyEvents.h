@@ -3,5 +3,6 @@
 
 #include "KeyPressedEvent.h"
 #include "KeyReleasedEvent.h"
+#include "KeyTypedEvent.h"
 
 #endif // !JASS_KEYEVENTS_H

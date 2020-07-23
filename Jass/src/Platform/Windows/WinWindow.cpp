@@ -75,6 +75,7 @@ namespace Jass {
 		SetWindowSizeCallback();
 		SetWindowCloseCallback();
 		SetWindowKeyCallback();
+		SetWindowCharCallback();
 		SetWindowMouseButtonCallback();
 		SetWindowMouseScrollCallback();
 		SetWindowMouseMoveCallback();
@@ -129,6 +130,16 @@ namespace Jass {
 					break;
 				}
 			}
+			});
+	}
+
+	void WinWindow::SetWindowCharCallback()
+	{
+		glfwSetCharCallback(m_window, [](GLFWwindow* window, unsigned int codepoint) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent e(codepoint);
+
+			data.EventCallback(e);
 			});
 	}
 

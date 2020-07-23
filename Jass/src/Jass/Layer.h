@@ -2,7 +2,7 @@
 #define JASS_LAYER_H
 
 #include "Core.h"
-#include "Events/Event.h"
+#include "Events/Events.h"
 
 namespace Jass {
 

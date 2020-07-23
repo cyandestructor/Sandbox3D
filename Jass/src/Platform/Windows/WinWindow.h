@@ -54,6 +54,7 @@ namespace Jass {
 		void SetWindowSizeCallback();
 		void SetWindowCloseCallback();
 		void SetWindowKeyCallback();
+		void SetWindowCharCallback();
 		void SetWindowMouseButtonCallback();
 		void SetWindowMouseMoveCallback();
 		void SetWindowMouseScrollCallback();

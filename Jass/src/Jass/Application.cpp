@@ -3,9 +3,10 @@
 
 #include "Jass/Events/EventDispatcher.h"
 
-namespace Jass {
+// TEMPORARY
+#include <glad/glad.h>
 
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+namespace Jass {
 
 	Application* Application::s_instance = nullptr;
 
@@ -52,6 +53,9 @@ namespace Jass {
 	void Application::Run()
 	{
 		while (m_isRunning) {
+
+			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();

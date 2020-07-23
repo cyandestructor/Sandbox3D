@@ -156,6 +156,7 @@
     <ClInclude Include="src\Jass\Events\KeyEvents.h" />
     <ClInclude Include="src\Jass\Events\KeyPressedEvent.h" />
     <ClInclude Include="src\Jass\Events\KeyReleasedEvent.h" />
+    <ClInclude Include="src\Jass\Events\KeyTypedEvent.h" />
     <ClInclude Include="src\Jass\Events\MouseButtonEvent.h" />
     <ClInclude Include="src\Jass\Events\MouseButtonPressedEvent.h" />
     <ClInclude Include="src\Jass\Events\MouseButtonReleasedEvent.h" />
