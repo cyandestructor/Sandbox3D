@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "IWindow.h"
 #include "Jass/Events/ApplicationEvents.h"
+#include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 
 namespace Jass {
@@ -30,6 +31,7 @@ namespace Jass {
 		static Application* s_instance;
 
 		std::unique_ptr<IWindow> m_window;
+		ImGuiLayer* m_imGuiLayer;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
 

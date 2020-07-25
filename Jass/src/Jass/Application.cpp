@@ -17,6 +17,9 @@ namespace Jass {
 		s_instance = this;
 		m_window = std::unique_ptr<IWindow>(IWindow::Create());
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
+
+		m_imGuiLayer = new ImGuiLayer();
+		PushOverlay(m_imGuiLayer);
 	}
 
 	Application::~Application()
@@ -61,8 +64,10 @@ namespace Jass {
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
 
-			auto [x, y] = Input::GetMousePos();
-			JASS_CORE_TRACE("{0}, {1}", x, y);
+			m_imGuiLayer->Begin();
+			for (Layer* layer : m_layerStack)
+				layer->OnImGuiRender();
+			m_imGuiLayer->End();
 
 			m_window->OnUpdate();
 		}

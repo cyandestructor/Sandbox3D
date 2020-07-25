@@ -11,11 +11,11 @@ public:
 	}
 
 	void OnUpdate() override {
-		JASS_LOG_INFO("ExampleClass::Update");
+		//JASS_LOG_INFO("ExampleClass::Update");
 	}
 
 	void OnEvent(Jass::Event& e) override {
-		JASS_LOG_TRACE("{0}", e);
+		//JASS_LOG_TRACE("{0}", e);
 	}
 
 };
@@ -25,7 +25,6 @@ class Sandbox : public Jass::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Jass::ImGuiLayer());
 	}
 
 	~Sandbox() {

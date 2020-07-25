@@ -141,9 +141,6 @@
     <ClInclude Include="src\Jass\SpdLogger.h">
       <Filter>src\Jass</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WinInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
@@ -1394,9 +1391,6 @@
     <ClCompile Include="src\Jass\SpdLogger.cpp">
       <Filter>src\Jass</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WinInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1406,5 +1400,6 @@
     <ClCompile Include="src\jasspch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp" />
   </ItemGroup>
 </Project>

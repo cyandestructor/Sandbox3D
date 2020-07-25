@@ -172,7 +172,6 @@
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\MouseButtonCodes.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
     <ClInclude Include="src\jasspch.h" />
@@ -587,11 +586,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp" />
+    <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp" />
     <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Jass\Layer.cpp" />
     <ClCompile Include="src\Jass\LayerStack.cpp" />
     <ClCompile Include="src\Jass\SpdLogger.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\jasspch.cpp">
