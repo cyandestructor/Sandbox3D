@@ -1,7 +1,10 @@
 #ifndef JASS_WINWINDOW_H
 #define JASS_WINWINDOW_H
 
+#include "jasspch.h"
 #include "Jass/IWindow.h"
+#include "Jass/Renderer/IRenderContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Jass {
@@ -40,6 +43,7 @@ namespace Jass {
 		static bool s_glfwInitialized;
 
 		GLFWwindow* m_window;
+		std::unique_ptr<IRenderContext> m_context;
 
 		struct WindowData {
 			std::string Title;
