@@ -2,10 +2,14 @@
 #define JASS_CORE_H
 
 #ifdef JASS_PLATFORM_WINDOWS
-	#ifdef JASS_BUILD_DLL
-		#define JASS_API __declspec(dllexport)
+	#ifdef JASS_DYNAMIC_LINK
+		#ifdef JASS_BUILD_DLL
+			#define JASS_API __declspec(dllexport)
+		#else
+			#define JASS_API __declspec(dllimport)
+		#endif
 	#else
-		#define JASS_API __declspec(dllimport)
+		#define JASS_API
 	#endif
 #else
 	#error Jass only support Windows.

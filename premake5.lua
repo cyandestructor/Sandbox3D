@@ -18,9 +18,10 @@ include "Jass/vendor/imgui"
 
 project "Jass"
 	location "Jass"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "On"
 
 	targetdir ("bin/".. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
@@ -47,9 +48,8 @@ project "Jass"
 	links { "GLFW", "opengl32.lib", "Glad", "ImGui" }
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
-
+		
 		defines { "JASS_PLATFORM_WINDOWS", "JASS_BUILD_DLL", "GLFW_INCLUDE_NONE" }
 
 	filter "configurations:Debug"
@@ -71,7 +71,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "On"
 
 	targetdir ("bin/".. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
@@ -83,12 +84,9 @@ project "Sandbox"
 	links { "Jass" }
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines { "JASS_PLATFORM_WINDOWS" }
-
-		postbuildcommands { "{COPY} ../bin/" .. outputdir .. "/Jass/Jass.dll %{cfg.buildtarget.directory}" }
 
 	filter "configurations:Debug"
 		defines "JASS_DEBUG"
