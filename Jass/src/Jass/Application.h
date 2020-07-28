@@ -35,6 +35,11 @@ namespace Jass {
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
 
+		//TEMPORARY
+		unsigned int m_vertexArray;
+		unsigned int m_vertexBuffer;
+		unsigned int m_indexBuffer;
+
 	};
 
 	//Must be defined in client

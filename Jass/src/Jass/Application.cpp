@@ -5,7 +5,6 @@
 
 // TEMPORARY
 #include <glad/glad.h>
-#include "Input.h"
 
 namespace Jass {
 
@@ -20,6 +19,35 @@ namespace Jass {
 
 		m_imGuiLayer = new ImGuiLayer();
 		PushOverlay(m_imGuiLayer);
+
+		// TEMPORARY
+
+		float positions[]{
+			-0.5f, -0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f,
+			0.0f, 0.5f, 0.0f
+		};
+
+		unsigned int indices[]{
+			0, 1, 2
+		};
+
+		glGenVertexArrays(1, &m_vertexArray);
+		glBindVertexArray(m_vertexArray);
+
+		glGenBuffers(1, &m_vertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), positions, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		glGenBuffers(1, &m_indexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+
+		//----------------
+
 	}
 
 	Application::~Application()
@@ -58,8 +86,15 @@ namespace Jass {
 	{
 		while (m_isRunning) {
 
-			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+			glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			// TEMPORARY
+
+			glBindVertexArray(m_vertexArray);
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+
+			//--------------
 
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
