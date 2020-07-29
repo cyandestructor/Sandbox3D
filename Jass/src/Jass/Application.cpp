@@ -22,6 +22,7 @@ namespace Jass {
 
 		// TEMPORARY
 
+
 		float positions[]{
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
@@ -31,6 +32,32 @@ namespace Jass {
 		unsigned int indices[]{
 			0, 1, 2
 		};
+
+		std::string vertexShader = R"(
+			#version 330 core
+
+			layout(location = 0) in vec4 position;
+	
+			void main()
+			{
+				gl_Position = position;
+			}
+			
+		)";
+
+		std::string fragmentShader = R"(
+			#version 330 core
+
+			layout ( location = 0) out vec4 color;
+	
+			void main()
+			{
+				color = vec4(0.2, 0.4, 0.8, 1.0);
+			}
+			
+		)";
+
+		m_shader = std::make_unique<Shader>(vertexShader, fragmentShader);
 
 		glGenVertexArrays(1, &m_vertexArray);
 		glBindVertexArray(m_vertexArray);
@@ -91,6 +118,7 @@ namespace Jass {
 
 			// TEMPORARY
 
+			m_shader->Bind();
 			glBindVertexArray(m_vertexArray);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 

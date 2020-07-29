@@ -7,6 +7,9 @@
 #include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 
+// TEMPORARY
+#include "Renderer/Shader.h"
+
 namespace Jass {
 	
 	class JASS_API Application
@@ -31,6 +34,7 @@ namespace Jass {
 		static Application* s_instance;
 
 		std::unique_ptr<IWindow> m_window;
+		std::unique_ptr<Shader> m_shader;
 		ImGuiLayer* m_imGuiLayer;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
