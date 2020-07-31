@@ -9,6 +9,8 @@
 
 // TEMPORARY
 #include "Renderer/Shader.h"
+#include "Renderer/VertexBuffer.h"
+#include "Renderer/IndexBuffer.h"
 
 namespace Jass {
 	
@@ -34,16 +36,17 @@ namespace Jass {
 		static Application* s_instance;
 
 		std::unique_ptr<IWindow> m_window;
-		std::unique_ptr<Shader> m_shader;
+
 		ImGuiLayer* m_imGuiLayer;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
 
 		//TEMPORARY
 		unsigned int m_vertexArray;
-		unsigned int m_vertexBuffer;
-		unsigned int m_indexBuffer;
 
+		std::unique_ptr<Shader> m_shader;
+		std::unique_ptr<VertexBuffer> m_vertexBuffer;
+		std::unique_ptr<IndexBuffer> m_indexBuffer;
 	};
 
 	//Must be defined in client
