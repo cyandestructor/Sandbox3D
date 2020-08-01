@@ -1380,6 +1380,7 @@
     <ClInclude Include="src\Jass\Renderer\Renderer.h" />
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Jass\Renderer\BufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">

@@ -171,6 +171,7 @@
     <ClInclude Include="src\Jass\Log.h" />
     <ClInclude Include="src\Jass\LogEnums.h" />
     <ClInclude Include="src\Jass\MouseButtonCodes.h" />
+    <ClInclude Include="src\Jass\Renderer\BufferLayout.h" />
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h" />
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\IRenderContext.h" />
