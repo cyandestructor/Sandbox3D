@@ -10,11 +10,11 @@ namespace Jass {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
-			JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
-			return nullptr;
-		case RendererAPI::OpenGL:
-			return new OpenGLVertexBuffer(config);
+			case RendererAPI::None:
+				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
+				return nullptr;
+			case RendererAPI::OpenGL:
+				return new OpenGLVertexBuffer(config);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

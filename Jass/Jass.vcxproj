@@ -175,12 +175,14 @@
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h" />
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\IRenderContext.h" />
+    <ClInclude Include="src\Jass\Renderer\VertexArray.h" />
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\Renderer.h" />
     <ClInclude Include="src\Jass\Renderer\Shader.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Platform\Windows\WinInput.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
@@ -603,10 +605,12 @@
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Jass\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Jass\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Jass\SpdLogger.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />

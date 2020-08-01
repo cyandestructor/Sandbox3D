@@ -8,31 +8,6 @@
 
 namespace Jass {
 
-	// Temporary function
-	static GLenum ToGLenum(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case ShaderDataType::Float:
-			case ShaderDataType::Float2:
-			case ShaderDataType::Float3:
-			case ShaderDataType::Float4:
-			case ShaderDataType::Mat3:
-			case ShaderDataType::Mat4:
-				return GL_FLOAT;
-			case ShaderDataType::Int:
-			case ShaderDataType::Int2:
-			case ShaderDataType::Int3:
-			case ShaderDataType::Int4:
-				return GL_INT;
-			case ShaderDataType::Bool:
-				return GL_BOOL;
-		}
-
-		JASS_CORE_ASSERT(false, "Unknown Shader Data type");
-		return 0;
-	}
-
 	Application* Application::s_instance = nullptr;
 
 	Application::Application()
@@ -46,76 +21,7 @@ namespace Jass {
 		PushOverlay(m_imGuiLayer);
 
 		// TEMPORARY
-
-		float positions[]{
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.1f, 0.4f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.1f, 0.2f, 0.8f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.2f, 0.5f, 0.5f, 1.0f
-		};
-
-		unsigned int indices[]{
-			0, 1, 2
-		};
-
-		std::string vertexShader = R"(
-			#version 330 core
-
-			layout(location = 0) in vec4 position;
-			layout(location = 1) in vec4 v_color;
-	
-			out vec4 color;			
-
-			void main()
-			{
-				gl_Position = position;
-				color = v_color;
-			}
-			
-		)";
-
-		std::string fragmentShader = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 o_color;
-				
-			in vec4 color;
-
-			void main()
-			{
-				o_color = color;
-			}
-			
-		)";
-
-		m_shader = std::make_unique<Shader>(vertexShader, fragmentShader);
-
-		glGenVertexArrays(1, &m_vertexArray);
-		glBindVertexArray(m_vertexArray);
-
-		m_vertexBuffer.reset(VertexBuffer::Create({ positions,21 * sizeof(float),DataUsage::StaticDraw }));
-
-		BufferLayout layout = {
-			{ShaderDataType::Float3, "position" },
-			{ShaderDataType::Float4, "v_color"}
-		};
-
-		m_vertexBuffer->SetLayout(layout);
-
-		unsigned int index = 0;
-		for (const auto& element : m_vertexBuffer->GetLayout()) {
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetElementCount(),
-				ToGLenum(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				m_vertexBuffer->GetLayout().GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
-
-		m_indexBuffer.reset(IndexBuffer::Create({ indices,3,DataUsage::StaticDraw }));
-
-		//----------------
+		RendererAPITest();
 
 	}
 
@@ -161,7 +67,7 @@ namespace Jass {
 			// TEMPORARY
 
 			m_shader->Bind();
-			glBindVertexArray(m_vertexArray);
+			m_vertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			//--------------
@@ -183,4 +89,66 @@ namespace Jass {
 		m_isRunning = false;
 		return true;
 	}
+
+	void Application::RendererAPITest()
+	{
+		float positions[]{
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.1f, 0.4f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.1f, 0.2f, 0.8f, 1.0f,
+			0.0f, 0.5f, 0.0f, 0.2f, 0.5f, 0.5f, 1.0f
+		};
+
+		unsigned int indices[]{
+			0, 1, 2
+		};
+
+		std::string vertexShader = R"(
+			#version 330 core
+
+			layout(location = 0) in vec4 position;
+			layout(location = 1) in vec4 v_color;
+	
+			out vec4 color;			
+
+			void main()
+			{
+				gl_Position = position;
+				color = v_color;
+			}
+			
+		)";
+
+		std::string fragmentShader = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 o_color;
+				
+			in vec4 color;
+
+			void main()
+			{
+				o_color = color;
+			}
+			
+		)";
+
+		m_shader = std::make_shared<Shader>(vertexShader, fragmentShader);
+
+		m_vertexArray.reset(VertexArray::Create());
+
+		m_vertexBuffer.reset(VertexBuffer::Create({ positions,21 * sizeof(float),DataUsage::StaticDraw }));
+
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "position" },
+			{ShaderDataType::Float4, "v_color"}
+		};
+		m_vertexBuffer->SetLayout(layout);
+
+		m_vertexArray->AddVertexBuffer(m_vertexBuffer);
+
+		m_indexBuffer.reset(IndexBuffer::Create({ indices,3,DataUsage::StaticDraw }));
+
+		m_vertexArray->SetIndexBuffer(m_indexBuffer);
+	}
+
 }
