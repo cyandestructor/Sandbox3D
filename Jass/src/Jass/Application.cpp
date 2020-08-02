@@ -4,7 +4,7 @@
 #include "Jass/Events/EventDispatcher.h"
 
 // TEMPORARY
-#include <glad/glad.h>
+#include "Jass/Renderer/Renderer.h"
 
 namespace Jass {
 
@@ -61,18 +61,16 @@ namespace Jass {
 	{
 		while (m_isRunning) {
 
-			glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
+			RenderCommand::Clear();
 
 			// TEMPORARY
 
+			Renderer::BeginScene();
 			m_shader->Bind();
-			m_vertexArray->Bind();
-			glDrawElements(GL_TRIANGLES,
-				m_vertexArray->GetIndexBuffer()->GetCount(),
-				GL_UNSIGNED_INT,
-				nullptr);
-
+			
+			Renderer::Submit(m_vertexArray);
+			Renderer::EndScene();
 			//--------------
 
 			for (Layer* layer : m_layerStack)

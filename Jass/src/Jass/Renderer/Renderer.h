@@ -1,20 +1,19 @@
 #ifndef RENDERER_H_JASS
 #define RENDERER_H_JASS
 
-namespace Jass {
+#include "RenderCommand.h"
 
-	enum class RendererAPI
-	{
-		None = 0, OpenGL
-	};
+namespace Jass {
 
 	class JASS_API Renderer {
 
 	public:
-		inline static RendererAPI GetAPI() { return s_rendererAPI; }
+		static void BeginScene();
+		static void EndScene();
 
-	private:
-		static RendererAPI s_rendererAPI;
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
 	};
 

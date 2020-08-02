@@ -3,6 +3,17 @@
 
 namespace Jass {
 
-	RendererAPI Renderer::s_rendererAPI = RendererAPI::OpenGL;	//TEMPORARY
+	void Renderer::BeginScene()
+	{
+	}
+
+	void Renderer::EndScene()
+	{
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	{
+		RenderCommand::DrawIndexed(vertexArray);
+	}
 
 }
