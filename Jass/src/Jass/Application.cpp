@@ -68,7 +68,10 @@ namespace Jass {
 
 			m_shader->Bind();
 			m_vertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES,
+				m_vertexArray->GetIndexBuffer()->GetCount(),
+				GL_UNSIGNED_INT,
+				nullptr);
 
 			//--------------
 
@@ -136,19 +139,21 @@ namespace Jass {
 
 		m_vertexArray.reset(VertexArray::Create());
 
-		m_vertexBuffer.reset(VertexBuffer::Create({ positions,21 * sizeof(float),DataUsage::StaticDraw }));
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create({ positions,sizeof(positions),DataUsage::StaticDraw }));
 
 		BufferLayout layout = {
 			{ShaderDataType::Float3, "position" },
 			{ShaderDataType::Float4, "v_color"}
 		};
-		m_vertexBuffer->SetLayout(layout);
+		vertexBuffer->SetLayout(layout);
 
-		m_vertexArray->AddVertexBuffer(m_vertexBuffer);
+		m_vertexArray->AddVertexBuffer(vertexBuffer);
 
-		m_indexBuffer.reset(IndexBuffer::Create({ indices,3,DataUsage::StaticDraw }));
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create({ indices,3,DataUsage::StaticDraw }));
 
-		m_vertexArray->SetIndexBuffer(m_indexBuffer);
+		m_vertexArray->SetIndexBuffer(indexBuffer);
 	}
 
 }

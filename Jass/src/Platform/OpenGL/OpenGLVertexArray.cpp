@@ -78,6 +78,8 @@ namespace Jass {
 		JASS_CORE_ASSERT(indexBuffer != nullptr, "Index buffer should not be nullptr");
 		glBindVertexArray(m_rendererID);
 		indexBuffer->Bind();
+
+		m_indexBuffer = indexBuffer;
 	}
 
 }
