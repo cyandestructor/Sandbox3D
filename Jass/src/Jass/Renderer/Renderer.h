@@ -2,6 +2,8 @@
 #define RENDERER_H_JASS
 
 #include "RenderCommand.h"
+// TEMPORARY
+#include "Shader.h"
 
 namespace Jass {
 

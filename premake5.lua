@@ -79,7 +79,7 @@ project "Sandbox"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "Jass/vendor/spdlog/include", "Jass/src" }
+	includedirs { "Jass/vendor/spdlog/include", "Jass/src", "%{IncludeDir.glm}" }
 
 	links { "Jass" }
 

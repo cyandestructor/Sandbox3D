@@ -173,14 +173,14 @@
     <ClInclude Include="src\Jass\MouseButtonCodes.h" />
     <ClInclude Include="src\Jass\Renderer\BufferLayout.h" />
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h" />
-    <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\IRenderContext.h" />
+    <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Jass\Renderer\Renderer.h" />
     <ClInclude Include="src\Jass\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Jass\Renderer\Shader.h" />
     <ClInclude Include="src\Jass\Renderer\VertexArray.h" />
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h" />
-    <ClInclude Include="src\Jass\Renderer\Renderer.h" />
-    <ClInclude Include="src\Jass\Renderer\Shader.h" />
     <ClInclude Include="src\Jass\SpdLogger.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />

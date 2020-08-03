@@ -9,6 +9,8 @@
 #include "Jass/KeyCodes.h"
 #include "Jass/MouseButtonCodes.h"
 
+#include "Jass/Renderer/Renderer.h"
+
 //TEMPORARY
 #include "Jass/ImGui/ImGuiLayer.h"
 

@@ -20,9 +20,6 @@ namespace Jass {
 		m_imGuiLayer = new ImGuiLayer();
 		PushOverlay(m_imGuiLayer);
 
-		// TEMPORARY
-		RendererAPITest();
-
 	}
 
 	Application::~Application()
@@ -64,15 +61,6 @@ namespace Jass {
 			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
 			RenderCommand::Clear();
 
-			// TEMPORARY
-
-			Renderer::BeginScene();
-			m_shader->Bind();
-			
-			Renderer::Submit(m_vertexArray);
-			Renderer::EndScene();
-			//--------------
-
 			for (Layer* layer : m_layerStack)
 				layer->OnUpdate();
 
@@ -89,69 +77,6 @@ namespace Jass {
 	{
 		m_isRunning = false;
 		return true;
-	}
-
-	void Application::RendererAPITest()
-	{
-		float positions[]{
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.1f, 0.4f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.1f, 0.2f, 0.8f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.2f, 0.5f, 0.5f, 1.0f
-		};
-
-		unsigned int indices[]{
-			0, 1, 2
-		};
-
-		std::string vertexShader = R"(
-			#version 330 core
-
-			layout(location = 0) in vec4 position;
-			layout(location = 1) in vec4 v_color;
-	
-			out vec4 color;			
-
-			void main()
-			{
-				gl_Position = position;
-				color = v_color;
-			}
-			
-		)";
-
-		std::string fragmentShader = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 o_color;
-				
-			in vec4 color;
-
-			void main()
-			{
-				o_color = color;
-			}
-			
-		)";
-
-		m_shader = std::make_shared<Shader>(vertexShader, fragmentShader);
-
-		m_vertexArray.reset(VertexArray::Create());
-
-		std::shared_ptr<VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(VertexBuffer::Create({ positions,sizeof(positions),DataUsage::StaticDraw }));
-
-		BufferLayout layout = {
-			{ShaderDataType::Float3, "position" },
-			{ShaderDataType::Float4, "v_color"}
-		};
-		vertexBuffer->SetLayout(layout);
-
-		m_vertexArray->AddVertexBuffer(vertexBuffer);
-
-		std::shared_ptr<IndexBuffer> indexBuffer;
-		indexBuffer.reset(IndexBuffer::Create({ indices,3,DataUsage::StaticDraw }));
-
-		m_vertexArray->SetIndexBuffer(indexBuffer);
 	}
 
 }

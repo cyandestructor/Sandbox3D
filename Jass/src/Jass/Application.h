@@ -7,12 +7,6 @@
 #include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 
-// TEMPORARY
-#include "Renderer/Shader.h"
-#include "Renderer/VertexArray.h"
-#include "Renderer/VertexBuffer.h"
-#include "Renderer/IndexBuffer.h"
-
 namespace Jass {
 	
 	class JASS_API Application
@@ -41,12 +35,6 @@ namespace Jass {
 		ImGuiLayer* m_imGuiLayer;
 		bool m_isRunning = true;
 		LayerStack m_layerStack;
-
-		//TEMPORARY
-		std::shared_ptr<VertexArray> m_vertexArray;
-		std::shared_ptr<Shader> m_shader;
-
-		void RendererAPITest();
 
 	};
 

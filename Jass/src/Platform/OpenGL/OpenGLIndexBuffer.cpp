@@ -33,36 +33,37 @@ namespace Jass {
 	{
 		switch (usage)
 		{
-		case DataUsage::StreamDraw:
-			return GL_STREAM_DRAW;
-			break;
-		case DataUsage::StreamRead:
-			return GL_STREAM_READ;
-			break;
-		case DataUsage::StreamCopy:
-			return GL_STREAM_COPY;
-			break;
-		case DataUsage::StaticDraw:
-			return GL_STATIC_DRAW;
-			break;
-		case DataUsage::StaticRead:
-			return GL_STATIC_READ;
-			break;
-		case DataUsage::StaticCopy:
-			return GL_STATIC_COPY;
-			break;
-		case DataUsage::DynamicDraw:
-			return GL_DYNAMIC_DRAW;
-			break;
-		case DataUsage::DynamicRead:
-			return GL_DYNAMIC_READ;
-			break;
-		case DataUsage::DynamicCopy:
-			return GL_DYNAMIC_COPY;
-			break;
-		default:
-			break;
+			case DataUsage::StreamDraw:
+				return GL_STREAM_DRAW;
+				break;
+			case DataUsage::StreamRead:
+				return GL_STREAM_READ;
+				break;
+			case DataUsage::StreamCopy:
+				return GL_STREAM_COPY;
+				break;
+			case DataUsage::StaticDraw:
+				return GL_STATIC_DRAW;
+				break;
+			case DataUsage::StaticRead:
+				return GL_STATIC_READ;
+				break;
+			case DataUsage::StaticCopy:
+				return GL_STATIC_COPY;
+				break;
+			case DataUsage::DynamicDraw:
+				return GL_DYNAMIC_DRAW;
+				break;
+			case DataUsage::DynamicRead:
+				return GL_DYNAMIC_READ;
+				break;
+			case DataUsage::DynamicCopy:
+				return GL_DYNAMIC_COPY;
+				break;
 		}
+
+		JASS_CORE_ASSERT(false, "Unknown Data Usage");
+		return 0;
 	}
 
 }
