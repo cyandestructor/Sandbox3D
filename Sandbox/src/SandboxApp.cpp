@@ -5,26 +5,32 @@ class ExampleLayer : public Jass::Layer {
 public:
 	
 	ExampleLayer() :
-		Layer("Example")
+		Layer("Example"), m_camera({ -1.6f,1.6f,-0.9f,0.9f })
 	{
 		RendererAPITest();
 	}
 
 	void OnUpdate() override
 	{
-		Jass::Renderer::BeginScene();
-		m_shader->Bind();
-		Jass::Renderer::Submit(m_vertexArray);
+		Jass::Renderer::BeginScene(m_camera);
+		Jass::Renderer::Submit(m_shader, m_vertexArray);
 		Jass::Renderer::EndScene();
 	}
 
 	void OnEvent(Jass::Event& e) override
 	{
-		//JASS_LOG_TRACE("{0}", e);
+		Jass::EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
+	}
+
+	bool OnKeyPressed(Jass::KeyPressedEvent& e)
+	{	
+		MoveCamera(e.GetKeyCode());
+		return true;
 	}
 
 private:
-
+	Jass::OrthographicCamera m_camera;
 	std::shared_ptr<Jass::VertexArray> m_vertexArray;
 	std::shared_ptr<Jass::Shader> m_shader;
 
@@ -46,11 +52,12 @@ private:
 			layout(location = 0) in vec4 position;
 			layout(location = 1) in vec4 v_color;
 	
-			out vec4 color;			
+			out vec4 color;
+			uniform mat4 v_viewProjection;
 
 			void main()
 			{
-				gl_Position = position;
+				gl_Position = v_viewProjection * position;
 				color = v_color;
 			}
 			
@@ -89,6 +96,26 @@ private:
 		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw }));
 
 		m_vertexArray->SetIndexBuffer(indexBuffer);
+	}
+
+	void MoveCamera(int keyCode)
+	{
+		auto cameraPosition = m_camera.GetPosition();
+		switch (keyCode)
+		{
+			case JASS_KEY_LEFT:
+				m_camera.SetPosition(cameraPosition + glm::vec3(-0.1f, 0.0f, 0.0f));
+				break;
+			case JASS_KEY_RIGHT:
+				m_camera.SetPosition(cameraPosition + glm::vec3(0.1f, 0.0f, 0.0f));
+				break;
+			case JASS_KEY_UP:
+				m_camera.SetPosition(cameraPosition + glm::vec3(0.0f, 0.1f, 0.0f));
+				break;
+			case JASS_KEY_DOWN:
+				m_camera.SetPosition(cameraPosition + glm::vec3(0.0f, -0.1f, 0.0f));
+				break;
+		}
 	}
 
 };
