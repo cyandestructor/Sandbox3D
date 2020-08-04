@@ -5,7 +5,7 @@
 
 namespace Jass {
 
-	OrthographicCamera::OrthographicCamera(const OrthographicCameraSettings& settings = OrthographicCameraSettings())
+	OrthographicCamera::OrthographicCamera(const OrthographicCameraSettings& settings)
 	{
 		m_settings = settings;
 

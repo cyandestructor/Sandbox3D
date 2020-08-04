@@ -16,6 +16,9 @@ namespace Jass {
 		OrthographicCameraSettings() :
 			Position({ 0.0f,0.0f,0.0f }), Rotation({ 0.0f,0.0f,0.0f }),
 			Left(-1.0f), Right(1.0f), Top(1.0f), Bottom(-1.0f) {}
+		OrthographicCameraSettings(float left, float right, float bottom, float top) :
+			Position({ 0.0f,0.0f,0.0f }), Rotation({ 0.0f,0.0f,0.0f }),
+			Left(left), Right(right), Top(top), Bottom(bottom) {}
 	};
 
 	class JASS_API OrthographicCamera : public Camera {
@@ -29,7 +32,7 @@ namespace Jass {
 		inline const OrthographicCameraSettings& GetSettings() const { return m_settings; }
 
 		inline virtual const glm::vec3& GetPosition() const override { return m_settings.Position; }
-		inline virtual const glm::vec3& GetRotation() const override { return { 0,0,m_settings.Rotation }; }
+		inline virtual const glm::vec3& GetRotation() const override { return m_settings.Rotation; }
 
 	private:
 		OrthographicCameraSettings m_settings;

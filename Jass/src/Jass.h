@@ -5,6 +5,9 @@
 #include "Jass/Log.h"
 #include "Jass/Layer.h"
 
+#include "Jass/Events/Events.h"
+#include "Jass/Events/EventDispatcher.h"
+
 #include "Jass/Input.h"
 #include "Jass/KeyCodes.h"
 #include "Jass/MouseButtonCodes.h"
