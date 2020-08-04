@@ -1422,6 +1422,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Camera.h" />
+    <ClInclude Include="src\Jass\Renderer\PerspectiveCamera.h" />
+    <ClInclude Include="src\Jass\Renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -1487,5 +1490,7 @@
     <ClCompile Include="src\jasspch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Jass\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>
