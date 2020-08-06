@@ -14,7 +14,7 @@ namespace Jass {
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
 		int status = glfwGetKey(window, keycode);
-		return (status == GLFW_PRESS) || (status == GLFW_RELEASE);
+		return (status == GLFW_PRESS) || (status == GLFW_REPEAT);
 	}
 
 	bool WinInput::IntIsMouseButtonPressed(int button)
