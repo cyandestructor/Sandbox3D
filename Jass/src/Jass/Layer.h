@@ -2,6 +2,7 @@
 #define JASS_LAYER_H
 
 #include "Core.h"
+#include "Core/Timestep.h"
 #include "Events/Events.h"
 
 namespace Jass {
@@ -15,7 +16,7 @@ namespace Jass {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& e) {}
 

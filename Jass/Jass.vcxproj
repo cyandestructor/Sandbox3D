@@ -143,6 +143,7 @@
     <ClInclude Include="src\Jass.h" />
     <ClInclude Include="src\Jass\Application.h" />
     <ClInclude Include="src\Jass\Core.h" />
+    <ClInclude Include="src\Jass\Core\Timestep.h" />
     <ClInclude Include="src\Jass\EntryPoint.h" />
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Jass\Events\Event.h" />

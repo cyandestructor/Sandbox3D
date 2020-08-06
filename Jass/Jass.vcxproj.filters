@@ -1425,6 +1425,7 @@
     <ClInclude Include="src\Jass\Renderer\Camera.h" />
     <ClInclude Include="src\Jass\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\Jass\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Jass\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">

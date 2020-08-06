@@ -10,8 +10,13 @@ public:
 		RendererAPITest();
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Jass::Timestep ts) override
 	{
+		Jass::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
+		Jass::RenderCommand::Clear();
+
+		MoveCameraInput(ts);
+
 		Jass::Renderer::BeginScene(m_camera);
 		Jass::Renderer::Submit(m_shader, m_vertexArray);
 		Jass::Renderer::EndScene();
@@ -19,8 +24,34 @@ public:
 
 	void OnEvent(Jass::Event& e) override
 	{
-		Jass::EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
+		//Jass::EventDispatcher dispatcher(e);
+		//dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
+	}
+
+	void MoveCameraInput(Jass::Timestep ts)
+	{
+		auto cameraPosition = m_camera.GetPosition();
+		auto cameraRotation = m_camera.GetRotation();
+		float cameraMoveSpeed = 3.0f;
+		float cameraRotationSpeed = 100.0f;
+
+		if (Jass::Input::IsKeyPressed(JASS_KEY_UP))
+			cameraPosition.y += cameraMoveSpeed * ts;
+		else if (Jass::Input::IsKeyPressed(JASS_KEY_DOWN))
+			cameraPosition.y -= cameraMoveSpeed * ts;
+
+		if (Jass::Input::IsKeyPressed(JASS_KEY_RIGHT))
+			cameraPosition.x += cameraMoveSpeed * ts;
+		else if (Jass::Input::IsKeyPressed(JASS_KEY_LEFT))
+			cameraPosition.x -= cameraMoveSpeed * ts;
+
+		if (Jass::Input::IsKeyPressed(JASS_KEY_A))
+			cameraRotation.z += cameraRotationSpeed * ts;
+		else if (Jass::Input::IsKeyPressed(JASS_KEY_D))
+			cameraRotation.z -= cameraRotationSpeed * ts;
+
+		m_camera.SetPosition(cameraPosition);
+		m_camera.SetRotation(cameraRotation);
 	}
 
 	bool OnKeyPressed(Jass::KeyPressedEvent& e)

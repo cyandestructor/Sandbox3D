@@ -4,7 +4,7 @@
 #include "Jass/Events/EventDispatcher.h"
 
 // TEMPORARY
-#include "Jass/Renderer/Renderer.h"
+#include <GLFW/glfw3.h>
 
 namespace Jass {
 
@@ -58,11 +58,13 @@ namespace Jass {
 	{
 		while (m_isRunning) {
 
-			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
-			RenderCommand::Clear();
+			static float lastime = 0;
+			float time = (float)glfwGetTime();
+			Timestep ts = time - lastime;
+			lastime = time;
 
 			for (Layer* layer : m_layerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(ts);
 
 			m_imGuiLayer->Begin();
 			for (Layer* layer : m_layerStack)

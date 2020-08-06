@@ -5,6 +5,8 @@
 #include "Jass/Log.h"
 #include "Jass/Layer.h"
 
+#include "Jass/Core/Timestep.h"
+
 #include "Jass/Events/Events.h"
 #include "Jass/Events/EventDispatcher.h"
 
@@ -12,6 +14,7 @@
 #include "Jass/KeyCodes.h"
 #include "Jass/MouseButtonCodes.h"
 
+#include "Jass/Renderer/RenderCommand.h"
 #include "Jass/Renderer/Renderer.h"
 
 //TEMPORARY
