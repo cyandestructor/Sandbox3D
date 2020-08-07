@@ -1,4 +1,5 @@
 #include "Jass.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public Jass::Layer {
 
@@ -17,8 +18,11 @@ public:
 
 		MoveCameraInput(ts);
 
+		glm::mat4 transformation;
+		MoveTriangle(transformation, ts);
+
 		Jass::Renderer::BeginScene(m_camera);
-		Jass::Renderer::Submit(m_shader, m_vertexArray);
+		Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
 		Jass::Renderer::EndScene();
 	}
 
@@ -84,11 +88,12 @@ private:
 			layout(location = 1) in vec4 v_color;
 	
 			out vec4 color;
-			uniform mat4 v_viewProjection;
+			uniform mat4 u_viewProjection;
+			uniform mat4 u_transformation;
 
 			void main()
 			{
-				gl_Position = v_viewProjection * position;
+				gl_Position = u_viewProjection * u_transformation * position;
 				color = v_color;
 			}
 			
@@ -147,6 +152,24 @@ private:
 				m_camera.SetPosition(cameraPosition + glm::vec3(0.0f, -0.1f, 0.0f));
 				break;
 		}
+	}
+
+	void MoveTriangle(glm::mat4& transformation, Jass::Timestep ts)
+	{
+		static glm::vec3 trianglePosition(0.0f);
+		float triangleSpeed = 3.0f;
+
+		if (Jass::Input::IsKeyPressed(JASS_KEY_L))
+			trianglePosition.x += triangleSpeed * ts;
+		else if (Jass::Input::IsKeyPressed(JASS_KEY_J))
+			trianglePosition.x -= triangleSpeed * ts;
+
+		if (Jass::Input::IsKeyPressed(JASS_KEY_I))
+			trianglePosition.y += triangleSpeed * ts;
+		else if (Jass::Input::IsKeyPressed(JASS_KEY_K))
+			trianglePosition.y -= triangleSpeed * ts;
+
+		transformation = glm::translate(glm::mat4(1.0f), trianglePosition);
 	}
 
 };

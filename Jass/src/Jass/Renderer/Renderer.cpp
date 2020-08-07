@@ -16,10 +16,12 @@ namespace Jass {
 	}
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, 
-		const std::shared_ptr<VertexArray>& vertexArray)
+		const std::shared_ptr<VertexArray>& vertexArray,
+		const glm::mat4& transformation)
 	{
 		shader->Bind();
-		shader->UploadUniformMat4("v_viewProjection", sceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_viewProjection", sceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_transformation", transformation);
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
