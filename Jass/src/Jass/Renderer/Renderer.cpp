@@ -1,6 +1,8 @@
 #include "jasspch.h"
 #include "Renderer.h"
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 namespace Jass {
 	
 	// TEMPORARY
@@ -20,8 +22,9 @@ namespace Jass {
 		const glm::mat4& transformation)
 	{
 		shader->Bind();
-		shader->UploadUniformMat4("u_viewProjection", sceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_transformation", transformation);
+		// Temporary
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_viewProjection", sceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_transformation", transformation);
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 

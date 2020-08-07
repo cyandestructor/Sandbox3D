@@ -1,5 +1,10 @@
 #include "Jass.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <imgui.h>
+
+// TEMPORARY
+#include "Platform/OpenGL/OpenGLShader.h"
 
 class ExampleLayer : public Jass::Layer {
 
@@ -9,6 +14,7 @@ public:
 		Layer("Example"), m_camera({ -1.6f,1.6f,-0.9f,0.9f })
 	{
 		RendererAPITest();
+		RenderColorSquareTest();
 	}
 
 	void OnUpdate(Jass::Timestep ts) override
@@ -21,9 +27,21 @@ public:
 		glm::mat4 transformation;
 		MoveTriangle(transformation, ts);
 
+		// Temporary
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->Bind();
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->UploadUniformFloat4("u_color", m_squareColor);
+
 		Jass::Renderer::BeginScene(m_camera);
+		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray);
 		Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
 		Jass::Renderer::EndScene();
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit4("Color", glm::value_ptr(m_squareColor));
+		ImGui::End();
 	}
 
 	void OnEvent(Jass::Event& e) override
@@ -69,6 +87,10 @@ private:
 	std::shared_ptr<Jass::VertexArray> m_vertexArray;
 	std::shared_ptr<Jass::Shader> m_shader;
 
+	std::shared_ptr<Jass::VertexArray> m_squareVertexArray;
+	std::shared_ptr<Jass::Shader> m_flatColorShader;
+	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+
 	void RendererAPITest()
 	{
 		float positions[]{
@@ -113,7 +135,7 @@ private:
 			
 		)";
 
-		m_shader = std::make_shared<Jass::Shader>(vertexShader, fragmentShader);
+		m_shader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
 
 		m_vertexArray.reset(Jass::VertexArray::Create());
 
@@ -132,6 +154,71 @@ private:
 		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw }));
 
 		m_vertexArray->SetIndexBuffer(indexBuffer);
+	}
+
+	void RenderColorSquareTest()
+	{
+		std::string vertexShader = R"(
+			#version 330 core
+
+			layout(location = 0) in vec4 position;
+	
+			out vec4 color;
+			uniform mat4 u_viewProjection;
+			uniform mat4 u_transformation;
+			uniform vec4 u_color;
+
+			void main()
+			{
+				gl_Position = u_viewProjection * u_transformation * position;
+				color = u_color;
+			}
+			
+		)";
+
+		std::string fragmentShader = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 o_color;
+				
+			in vec4 color;
+
+			void main()
+			{
+				o_color = color;
+			}
+			
+		)";
+
+		m_flatColorShader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
+
+		float positions[] = {
+			-0.75f, -0.75f, 0.0f,	// 0
+			0.75f, -0.75f, 0.0f,	// 1
+			0.75f, 0.75f, 0.0f,		// 2
+			-0.75f, 0.75f, 0.0f		// 3
+		};
+
+		unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		m_squareVertexArray.reset(Jass::VertexArray::Create());
+
+		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw }));
+		vertexBuffer->SetLayout({
+			Jass::BufferElement(Jass::ShaderDataType::Float3,"position")
+			});
+
+		m_squareVertexArray->AddVertexBuffer(vertexBuffer);
+
+		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw }));
+
+		m_squareVertexArray->SetIndexBuffer(indexBuffer);
+
 	}
 
 	void MoveCamera(int keyCode)

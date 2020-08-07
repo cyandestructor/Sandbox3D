@@ -7,6 +7,9 @@
     <Filter Include="src\Jass">
       <UniqueIdentifier>{ED6E20CF-D93B-7BDA-0255-6982EE80B068}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\Core">
+      <UniqueIdentifier>{65EFE406-D1AF-603D-9AEA-A9BA066AA519}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Jass\Events">
       <UniqueIdentifier>{316E0059-9DF9-6D1D-A60A-F1111215CA1D}</UniqueIdentifier>
     </Filter>
@@ -56,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="src\Jass\Core.h">
       <Filter>src\Jass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Timestep.h">
+      <Filter>src\Jass\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\EntryPoint.h">
       <Filter>src\Jass</Filter>
@@ -144,6 +150,9 @@
     <ClInclude Include="src\Jass\Renderer\BufferLayout.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Camera.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
@@ -151,6 +160,12 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\OrthographicCamera.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\PerspectiveCamera.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\RenderCommand.h">
@@ -181,6 +196,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1422,10 +1440,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\Camera.h" />
-    <ClInclude Include="src\Jass\Renderer\PerspectiveCamera.h" />
-    <ClInclude Include="src\Jass\Renderer\OrthographicCamera.h" />
-    <ClInclude Include="src\Jass\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -1444,6 +1458,12 @@
       <Filter>src\Jass</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\PerspectiveCamera.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\RenderCommand.cpp">
@@ -1476,6 +1496,9 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1491,7 +1514,5 @@
     <ClCompile Include="src\jasspch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\PerspectiveCamera.cpp" />
-    <ClCompile Include="src\Jass\Renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>
