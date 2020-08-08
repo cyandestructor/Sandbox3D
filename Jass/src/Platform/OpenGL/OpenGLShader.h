@@ -3,6 +3,8 @@
 
 #include "Jass/Renderer/Shader.h"
 
+#include <unordered_map>
+
 namespace Jass {
 
 	class JASS_API OpenGLShader : public Shader {
@@ -27,6 +29,17 @@ namespace Jass {
 
 	private:
 		unsigned int m_rendererID = 0;
+		std::unordered_map<std::string, int> m_uniformLocationCache;
+
+		enum class ShaderType {
+			VertexShader, FragmentShader
+		};
+
+		static unsigned int ToGLenum(ShaderType type);
+		unsigned int CompileShader(const std::string& src, ShaderType type);
+		unsigned int CreateAndLinkProgram(unsigned int vertexShader, unsigned int fragmentShader);
+
+		int GetUniformLocation(const std::string& name);
 
 	};
 
