@@ -18,7 +18,7 @@ namespace Jass {
 			s_rendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
 		{
 			s_rendererAPI->DrawIndexed(vertexArray);
 		}

@@ -1,6 +1,8 @@
 #ifndef JASS_CORE_H
 #define JASS_CORE_H
 
+#include <memory>
+
 #ifdef JASS_PLATFORM_WINDOWS
 	#ifdef JASS_DYNAMIC_LINK
 		#ifdef JASS_BUILD_DLL
@@ -28,5 +30,15 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+namespace Jass {
+
+	template <typename T>
+	using Ref = std::shared_ptr<T>;
+
+	template <typename T>
+	using Scope = std::unique_ptr<T>;
+
+}
 
 #endif

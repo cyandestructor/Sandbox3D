@@ -84,11 +84,11 @@ public:
 
 private:
 	Jass::OrthographicCamera m_camera;
-	std::shared_ptr<Jass::VertexArray> m_vertexArray;
-	std::shared_ptr<Jass::Shader> m_shader;
-
-	std::shared_ptr<Jass::VertexArray> m_squareVertexArray;
-	std::shared_ptr<Jass::Shader> m_flatColorShader;
+	Jass::Ref<Jass::VertexArray> m_vertexArray;
+	Jass::Ref<Jass::Shader> m_shader;
+	
+	Jass::Ref<Jass::VertexArray> m_squareVertexArray;
+	Jass::Ref<Jass::Shader> m_flatColorShader;
 	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
 
 	void RendererAPITest()
