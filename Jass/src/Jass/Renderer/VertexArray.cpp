@@ -6,7 +6,7 @@
 
 namespace Jass {
 
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLVertexArray();
+				return std::make_shared<OpenGLVertexArray>();
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

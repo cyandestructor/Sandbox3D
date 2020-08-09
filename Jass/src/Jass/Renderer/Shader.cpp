@@ -6,7 +6,7 @@
 
 namespace Jass {
 
-	Shader* Shader::Create(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+	Ref<Shader> Shader::Create(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLShader(vertexShaderSrc, fragmentShaderSrc);
+				return std::make_shared<OpenGLShader>(vertexShaderSrc, fragmentShaderSrc);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

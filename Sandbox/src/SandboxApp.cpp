@@ -143,12 +143,12 @@ private:
 			
 		)";
 
-		m_shader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
+		m_shader = Jass::Shader::Create(vertexShader, fragmentShader);
 
-		m_vertexArray.reset(Jass::VertexArray::Create());
+		m_vertexArray = Jass::VertexArray::Create();
 
 		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw }));
+		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 
 		Jass::BufferLayout layout = {
 			{Jass::ShaderDataType::Float3, "position" },
@@ -159,7 +159,7 @@ private:
 		m_vertexArray->AddVertexBuffer(vertexBuffer);
 
 		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw }));
+		indexBuffer = Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw });
 
 		m_vertexArray->SetIndexBuffer(indexBuffer);
 	}
@@ -198,7 +198,7 @@ private:
 			
 		)";
 
-		m_flatColorShader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
+		m_flatColorShader = Jass::Shader::Create(vertexShader, fragmentShader);
 
 		float positions[] = {
 			-0.75f, -0.75f, 0.0f,	// 0
@@ -212,10 +212,10 @@ private:
 			2, 3, 0
 		};
 
-		m_squareVertexArray.reset(Jass::VertexArray::Create());
+		m_squareVertexArray = Jass::VertexArray::Create();
 
 		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw }));
+		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 		vertexBuffer->SetLayout({
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"position")
 			});
@@ -223,7 +223,7 @@ private:
 		m_squareVertexArray->AddVertexBuffer(vertexBuffer);
 
 		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw }));
+		indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
 
 		m_squareVertexArray->SetIndexBuffer(indexBuffer);
 	}
@@ -265,7 +265,7 @@ private:
 			
 		)";
 
-		m_texShader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
+		m_texShader = Jass::Shader::Create(vertexShader, fragmentShader);
 
 		m_texture2D = Jass::Texture2D::Create("assets/textures/Checkerboard.png");
 
@@ -281,10 +281,10 @@ private:
 			2, 3, 0
 		};
 
-		m_texSquareVertexArray.reset(Jass::VertexArray::Create());
+		m_texSquareVertexArray = Jass::VertexArray::Create();
 
 		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw }));
+		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 		vertexBuffer->SetLayout({
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"position"),
 			Jass::BufferElement(Jass::ShaderDataType::Float2,"texCoords")
@@ -293,7 +293,7 @@ private:
 		m_texSquareVertexArray->AddVertexBuffer(vertexBuffer);
 
 		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw }));
+		indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
 
 		m_texSquareVertexArray->SetIndexBuffer(indexBuffer);
 

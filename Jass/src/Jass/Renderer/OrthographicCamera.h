@@ -24,7 +24,7 @@ namespace Jass {
 	class JASS_API OrthographicCamera : public Camera {
 
 	public:
-		OrthographicCamera(const OrthographicCameraSettings& settings);
+		OrthographicCamera(const OrthographicCameraSettings& settings = OrthographicCameraSettings());
 
 		virtual void SetPosition(const glm::vec3& position) override;
 		virtual void SetRotation(const glm::vec3& rotation) override;

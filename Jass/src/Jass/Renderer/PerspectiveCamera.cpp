@@ -4,7 +4,7 @@
 
 namespace Jass {
 
-	PerspectiveCamera::PerspectiveCamera(const PerspectiveCameraSettings& settings = PerspectiveCameraSettings())
+	PerspectiveCamera::PerspectiveCamera(const PerspectiveCameraSettings& settings)
 	{
 		m_settings = settings;
 

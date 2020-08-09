@@ -6,7 +6,7 @@
 
 namespace Jass {
 
-	IndexBuffer* IndexBuffer::Create(const IndexBufferConfig& config)
+	Ref<IndexBuffer> IndexBuffer::Create(const IndexBufferConfig& config)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLIndexBuffer(config);
+				return std::make_shared<OpenGLIndexBuffer>(config);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

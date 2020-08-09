@@ -22,7 +22,7 @@ namespace Jass {
 	class JASS_API PerspectiveCamera : public Camera {
 
 	public:
-		PerspectiveCamera(const PerspectiveCameraSettings& settings);
+		PerspectiveCamera(const PerspectiveCameraSettings& settings = PerspectiveCameraSettings());
 
 		virtual void SetPosition(const glm::vec3& position) override;
 		virtual void SetRotation(const glm::vec3& rotation) override;

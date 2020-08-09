@@ -6,7 +6,7 @@
 
 namespace Jass {
 
-	VertexBuffer* VertexBuffer::Create(const VertexBufferConfig& config)
+	Ref<VertexBuffer> VertexBuffer::Create(const VertexBufferConfig& config)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLVertexBuffer(config);
+				return std::make_shared<OpenGLVertexBuffer>(config);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");
