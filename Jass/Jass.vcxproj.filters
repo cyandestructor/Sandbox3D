@@ -19,11 +19,17 @@
     <Filter Include="src\Jass\Renderer">
       <UniqueIdentifier>{33CDCF91-9FE3-CD27-E85A-594954B09EAF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\Renderer\Textures">
+      <UniqueIdentifier>{66288EB6-5238-3A87-BBF1-9EA5A7202920}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\OpenGL">
       <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL\Textures">
+      <UniqueIdentifier>{A801CA00-94BC-B9AC-3D74-32F7290E043D}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -48,6 +54,9 @@
     </Filter>
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +189,12 @@
     <ClInclude Include="src\Jass\Renderer\Shader.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Textures\Texture2D.h">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\VertexArray.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
@@ -206,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.h">
+      <Filter>src\Platform\OpenGL\Textures</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WinInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1440,6 +1458,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -1505,6 +1526,9 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.cpp">
+      <Filter>src\Platform\OpenGL\Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WinInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1514,5 +1538,9 @@
     <ClCompile Include="src\jasspch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ IncludeDir["GLFW"] = "Jass/vendor/GLFW/include"
 IncludeDir["Glad"] = "Jass/vendor/Glad/include"
 IncludeDir["ImGui"] = "Jass/vendor/imgui"
 IncludeDir["glm"] = "Jass/vendor/glm"
+IncludeDir["stb_image"] = "Jass/vendor/stb_image"
 
 include "Jass/vendor/GLFW"
 include "Jass/vendor/Glad"
@@ -33,7 +34,9 @@ project "Jass"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp"
 	}
 
 	includedirs {
@@ -42,7 +45,8 @@ project "Jass"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links { "GLFW", "opengl32.lib", "Glad", "ImGui" }

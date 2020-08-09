@@ -13,8 +13,9 @@ public:
 	ExampleLayer() :
 		Layer("Example"), m_camera({ -1.6f,1.6f,-0.9f,0.9f })
 	{
-		RendererAPITest();
+		//RendererAPITest();
 		RenderColorSquareTest();
+		RenderTexSquareTest();
 	}
 
 	void OnUpdate(Jass::Timestep ts) override
@@ -24,16 +25,18 @@ public:
 
 		MoveCameraInput(ts);
 
-		glm::mat4 transformation;
-		MoveTriangle(transformation, ts);
+		//glm::mat4 transformation;
+		//MoveTriangle(transformation, ts);
 
 		// Temporary
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->Bind();
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->UploadUniformFloat4("u_color", m_squareColor);
 
 		Jass::Renderer::BeginScene(m_camera);
-		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray);
-		Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
+		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, glm::scale(glm::mat4(0.1f),glm::vec3(1.1f)));
+		m_texture2D->Bind();
+		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
+		//Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
 		Jass::Renderer::EndScene();
 	}
 
@@ -84,12 +87,17 @@ public:
 
 private:
 	Jass::OrthographicCamera m_camera;
+
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
 	Jass::Ref<Jass::Shader> m_shader;
 	
 	Jass::Ref<Jass::VertexArray> m_squareVertexArray;
 	Jass::Ref<Jass::Shader> m_flatColorShader;
 	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+
+	Jass::Ref<Jass::Texture2D> m_texture2D;
+	Jass::Ref<Jass::VertexArray> m_texSquareVertexArray;
+	Jass::Ref<Jass::Shader> m_texShader;
 
 	void RendererAPITest()
 	{
@@ -218,7 +226,79 @@ private:
 		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw }));
 
 		m_squareVertexArray->SetIndexBuffer(indexBuffer);
+	}
 
+	void RenderTexSquareTest()
+	{
+		std::string vertexShader = R"(
+			#version 330 core
+
+			layout(location = 0) in vec4 position;
+			layout(location = 1) in vec2 texCoords;
+
+			out vec2 o_texCoords;
+	
+			uniform mat4 u_viewProjection;
+			uniform mat4 u_transformation;
+
+			void main()
+			{
+				gl_Position = u_viewProjection * u_transformation * position;
+				o_texCoords = texCoords;
+			}
+			
+		)";
+
+		std::string fragmentShader = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 o_color;
+				
+			in vec2 o_texCoords;
+
+			uniform sampler2D u_texture;
+
+			void main()
+			{
+				o_color = texture(u_texture, o_texCoords);
+			}
+			
+		)";
+
+		m_texShader.reset(Jass::Shader::Create(vertexShader, fragmentShader));
+
+		m_texture2D = Jass::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		float positions[] = {
+			-0.75f, -0.75f, 0.0f, 0.0f, 0.0f,	// 0
+			0.75f, -0.75f, 0.0f, 1.0f, 0.0f,	// 1
+			0.75f, 0.75f, 0.0f, 1.0f, 1.0f,		// 2
+			-0.75f, 0.75f, 0.0f, 0.0f, 1.0f		// 3
+		};
+
+		unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		m_texSquareVertexArray.reset(Jass::VertexArray::Create());
+
+		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw }));
+		vertexBuffer->SetLayout({
+			Jass::BufferElement(Jass::ShaderDataType::Float3,"position"),
+			Jass::BufferElement(Jass::ShaderDataType::Float2,"texCoords")
+			});
+
+		m_texSquareVertexArray->AddVertexBuffer(vertexBuffer);
+
+		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw }));
+
+		m_texSquareVertexArray->SetIndexBuffer(indexBuffer);
+
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_texShader)->Bind();
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_texShader)->UploadUniformInt("u_texture", 0);
 	}
 
 	void MoveCamera(int keyCode)
