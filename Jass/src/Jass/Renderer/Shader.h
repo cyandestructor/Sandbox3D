@@ -2,7 +2,6 @@
 #define JASS_SHADER_H
 
 #include <string>
-#include <glm/glm.hpp>
 
 namespace Jass {
 

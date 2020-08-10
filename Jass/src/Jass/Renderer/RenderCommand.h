@@ -13,7 +13,7 @@ namespace Jass {
 			s_rendererAPI->Init();
 		}
 
-		inline static void SetClearColor(const glm::vec4& color)
+		inline static void SetClearColor(const JVec4& color)
 		{
 			s_rendererAPI->SetClearColor(color);
 		}

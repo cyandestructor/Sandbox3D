@@ -1,7 +1,7 @@
 #ifndef RENDERER_API_H_JASS
 #define RENDERER_API_H_JASS
 
-#include <glm/glm.hpp>
+#include "Jass/JMath/JMath.h"
 #include "VertexArray.h"
 
 namespace Jass {
@@ -16,7 +16,7 @@ namespace Jass {
 
 		virtual void Init() = 0;
 
-		virtual void SetClearColor(const glm::vec4& color) = 0;
+		virtual void SetClearColor(const JVec4& color) = 0;
 		virtual void Clear() = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;

@@ -1,6 +1,4 @@
 #include "Jass.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
 
 // TEMPORARY
@@ -25,7 +23,7 @@ public:
 
 		MoveCameraInput(ts);
 
-		//glm::mat4 transformation;
+		//Jass::JMat4 transformation;
 		//MoveTriangle(transformation, ts);
 
 		// Temporary
@@ -33,7 +31,7 @@ public:
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->UploadUniformFloat4("u_color", m_squareColor);
 
 		Jass::Renderer::BeginScene(m_camera);
-		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, glm::scale(glm::mat4(0.1f),glm::vec3(1.1f)));
+		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, Jass::Scale(Jass::JMat4(0.1f),Jass::JVec3(1.1f)));
 		m_texture2D->Bind();
 		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
 		m_textureAlpha2D->Bind();
@@ -45,7 +43,7 @@ public:
 	void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::ColorEdit4("Color", glm::value_ptr(m_squareColor));
+		ImGui::ColorEdit4("Color", Jass::GetPtr(m_squareColor));
 		ImGui::End();
 	}
 
@@ -95,7 +93,7 @@ private:
 	
 	Jass::Ref<Jass::VertexArray> m_squareVertexArray;
 	Jass::Ref<Jass::Shader> m_flatColorShader;
-	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
+	Jass::JVec4 m_squareColor = Jass::JVec4(0.2f, 0.3f, 0.8f, 1.0f);
 
 	Jass::Ref<Jass::Texture2D> m_textureAlpha2D;
 	Jass::Ref<Jass::Texture2D> m_texture2D;
@@ -311,23 +309,23 @@ private:
 		switch (keyCode)
 		{
 			case JASS_KEY_LEFT:
-				m_camera.SetPosition(cameraPosition + glm::vec3(-0.1f, 0.0f, 0.0f));
+				m_camera.SetPosition(cameraPosition + Jass::JVec3(-0.1f, 0.0f, 0.0f));
 				break;
 			case JASS_KEY_RIGHT:
-				m_camera.SetPosition(cameraPosition + glm::vec3(0.1f, 0.0f, 0.0f));
+				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.1f, 0.0f, 0.0f));
 				break;
 			case JASS_KEY_UP:
-				m_camera.SetPosition(cameraPosition + glm::vec3(0.0f, 0.1f, 0.0f));
+				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.0f, 0.1f, 0.0f));
 				break;
 			case JASS_KEY_DOWN:
-				m_camera.SetPosition(cameraPosition + glm::vec3(0.0f, -0.1f, 0.0f));
+				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.0f, -0.1f, 0.0f));
 				break;
 		}
 	}
 
-	void MoveTriangle(glm::mat4& transformation, Jass::Timestep ts)
+	void MoveTriangle(Jass::JMat4& transformation, Jass::Timestep ts)
 	{
-		static glm::vec3 trianglePosition(0.0f);
+		static Jass::JVec3 trianglePosition(0.0f);
 		float triangleSpeed = 3.0f;
 
 		if (Jass::Input::IsKeyPressed(JASS_KEY_L))
@@ -340,7 +338,7 @@ private:
 		else if (Jass::Input::IsKeyPressed(JASS_KEY_K))
 			trianglePosition.y -= triangleSpeed * ts;
 
-		transformation = glm::translate(glm::mat4(1.0f), trianglePosition);
+		transformation = Jass::Translate(Jass::JMat4(1.0f), trianglePosition);
 	}
 
 };

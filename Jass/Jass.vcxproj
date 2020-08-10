@@ -166,6 +166,7 @@
     <ClInclude Include="src\Jass\IWindow.h" />
     <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Jass\Input.h" />
+    <ClInclude Include="src\Jass\JMath\JMath.h" />
     <ClInclude Include="src\Jass\KeyCodes.h" />
     <ClInclude Include="src\Jass\Layer.h" />
     <ClInclude Include="src\Jass\LayerStack.h" />
@@ -612,6 +613,7 @@
     <ClCompile Include="src\Jass\Application.cpp" />
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp" />
     <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Jass\JMath\JMath.cpp" />
     <ClCompile Include="src\Jass\Layer.cpp" />
     <ClCompile Include="src\Jass\LayerStack.cpp" />
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp" />

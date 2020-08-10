@@ -6,8 +6,8 @@
 namespace Jass {
 
 	struct JASS_API OrthographicCameraSettings {
-		glm::vec3 Position;
-		glm::vec3 Rotation;
+		JVec3 Position;
+		JVec3 Rotation;
 		float Left;
 		float Right;
 		float Top;
@@ -26,13 +26,13 @@ namespace Jass {
 	public:
 		OrthographicCamera(const OrthographicCameraSettings& settings = OrthographicCameraSettings());
 
-		virtual void SetPosition(const glm::vec3& position) override;
-		virtual void SetRotation(const glm::vec3& rotation) override;
+		virtual void SetPosition(const JVec3& position) override;
+		virtual void SetRotation(const JVec3& rotation) override;
 		
 		inline const OrthographicCameraSettings& GetSettings() const { return m_settings; }
 
-		inline virtual const glm::vec3& GetPosition() const override { return m_settings.Position; }
-		inline virtual const glm::vec3& GetRotation() const override { return m_settings.Rotation; }
+		inline virtual const JVec3& GetPosition() const override { return m_settings.Position; }
+		inline virtual const JVec3& GetRotation() const override { return m_settings.Rotation; }
 
 	private:
 		OrthographicCameraSettings m_settings;

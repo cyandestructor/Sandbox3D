@@ -2,7 +2,6 @@
 #include "OpenGLShader.h"
 
 #include <glad/glad.h>
-#include <glm/gtc/type_ptr.hpp>
 
 namespace Jass {
 
@@ -39,19 +38,19 @@ namespace Jass {
 		glUniform1i(location, value);
 	}
 
-	void OpenGLShader::UploadUniformInt2(const std::string& name, const glm::vec2& values)
+	void OpenGLShader::UploadUniformInt2(const std::string& name, const JVec2& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform2i(location, (int)values.x, (int)values.y);
 	}
 
-	void OpenGLShader::UploadUniformInt3(const std::string& name, const glm::vec3& values)
+	void OpenGLShader::UploadUniformInt3(const std::string& name, const JVec3& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform3i(location, (int)values.x, (int)values.y, (int)values.z);
 	}
 
-	void OpenGLShader::UploadUniformInt4(const std::string& name, const glm::vec4& values)
+	void OpenGLShader::UploadUniformInt4(const std::string& name, const JVec4& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform4i(location, (int)values.x, (int)values.y, (int)values.z, (int)values.w);
@@ -63,34 +62,34 @@ namespace Jass {
 		glUniform1f(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& values)
+	void OpenGLShader::UploadUniformFloat2(const std::string& name, const JVec2& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform2f(location, values.x, values.y);
 	}
 
-	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& values)
+	void OpenGLShader::UploadUniformFloat3(const std::string& name, const JVec3& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform3f(location, values.x, values.y, values.z);
 	}
 
-	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& values)
+	void OpenGLShader::UploadUniformFloat4(const std::string& name, const JVec4& values)
 	{
 		int location = GetUniformLocation(name);
 		glUniform4f(location, values.x, values.y, values.z, values.w);
 	}
 
-	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
+	void OpenGLShader::UploadUniformMat3(const std::string& name, const JMat3& matrix)
 	{
 		int location = GetUniformLocation(name);
-		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniformMatrix3fv(location, 1, GL_FALSE, GetPtr(matrix));
 	}
 
-	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const JMat4& matrix)
 	{
 		int location = GetUniformLocation(name);
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniformMatrix4fv(location, 1, GL_FALSE, GetPtr(matrix));
 	}
 
 	unsigned int OpenGLShader::ToGLenum(ShaderType type)

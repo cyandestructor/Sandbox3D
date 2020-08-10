@@ -19,14 +19,14 @@ namespace Jass {
 
 		static void Submit(const Ref<Shader>& shader,
 			const Ref<VertexArray>& vertexArray,
-			const glm::mat4& transformation = glm::mat4(1.0f));
+			const JMat4& transformation = JMat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
 	private:
 		// TEMPORARY
 		struct SceneData {
-			glm::mat4 ViewProjectionMatrix;
+			JMat4 ViewProjectionMatrix;
 		};
 
 		static std::unique_ptr<SceneData> sceneData;

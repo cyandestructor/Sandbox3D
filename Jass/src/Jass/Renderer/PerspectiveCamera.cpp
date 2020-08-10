@@ -1,6 +1,5 @@
 #include "jasspch.h"
 #include "PerspectiveCamera.h"
-#include <glm/gtc/matrix_transform.hpp>
 
 namespace Jass {
 
@@ -8,7 +7,7 @@ namespace Jass {
 	{
 		m_settings = settings;
 
-		m_projection = glm::perspectiveFov(
+		m_projection = PerspectiveFOV(
 			m_settings.FOV,
 			m_settings.ViewportWidth,
 			m_settings.ViewportHeight,
@@ -19,13 +18,13 @@ namespace Jass {
 		CalculateMatrices();
 	}
 
-	void PerspectiveCamera::SetPosition(const glm::vec3& position)
+	void PerspectiveCamera::SetPosition(const JVec3& position)
 	{
 		m_settings.Position = position;
 		CalculateMatrices();
 	}
 
-	void PerspectiveCamera::SetRotation(const glm::vec3& rotation)
+	void PerspectiveCamera::SetRotation(const JVec3& rotation)
 	{
 		m_settings.Rotation = rotation;
 		CalculateMatrices();
@@ -33,10 +32,10 @@ namespace Jass {
 
 	void PerspectiveCamera::CalculateMatrices()
 	{
-		m_view = glm::translate(glm::mat4(1.0f), -m_settings.Position);
-		m_view = glm::rotate(m_view, glm::radians(m_settings.Rotation.x), glm::vec3(-1.0f, 0.0f, 0.0f));
-		m_view = glm::rotate(m_view, glm::radians(m_settings.Rotation.y), glm::vec3(0.0f, -1.0f, 0.0f));
-		m_view = glm::rotate(m_view, glm::radians(m_settings.Rotation.z), glm::vec3(0.0f, 0.0f, -1.0f));
+		m_view = Translate(JMat4(1.0f), -m_settings.Position);
+		m_view = Rotate(m_view, Radians(m_settings.Rotation.x), JVec3(-1.0f, 0.0f, 0.0f));
+		m_view = Rotate(m_view, Radians(m_settings.Rotation.y), JVec3(0.0f, -1.0f, 0.0f));
+		m_view = Rotate(m_view, Radians(m_settings.Rotation.z), JVec3(0.0f, 0.0f, -1.0f));
 
 		m_viewProjection = m_projection * m_view;
 	}

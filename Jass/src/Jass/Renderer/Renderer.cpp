@@ -24,7 +24,7 @@ namespace Jass {
 
 	void Renderer::Submit(const Ref<Shader>& shader, 
 		const Ref<VertexArray>& vertexArray,
-		const glm::mat4& transformation)
+		const JMat4& transformation)
 	{
 		shader->Bind();
 		// Temporary
