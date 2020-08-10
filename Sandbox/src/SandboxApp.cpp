@@ -36,6 +36,8 @@ public:
 		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, glm::scale(glm::mat4(0.1f),glm::vec3(1.1f)));
 		m_texture2D->Bind();
 		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
+		m_textureAlpha2D->Bind();
+		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
 		//Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
 		Jass::Renderer::EndScene();
 	}
@@ -95,6 +97,7 @@ private:
 	Jass::Ref<Jass::Shader> m_flatColorShader;
 	glm::vec4 m_squareColor = glm::vec4(0.2f, 0.3f, 0.8f, 1.0f);
 
+	Jass::Ref<Jass::Texture2D> m_textureAlpha2D;
 	Jass::Ref<Jass::Texture2D> m_texture2D;
 	Jass::Ref<Jass::VertexArray> m_texSquareVertexArray;
 	Jass::Ref<Jass::Shader> m_texShader;
@@ -268,6 +271,7 @@ private:
 		m_texShader = Jass::Shader::Create(vertexShader, fragmentShader);
 
 		m_texture2D = Jass::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_textureAlpha2D = Jass::Texture2D::Create("assets/textures/Appricot.png");
 
 		float positions[] = {
 			-0.75f, -0.75f, 0.0f, 0.0f, 0.0f,	// 0

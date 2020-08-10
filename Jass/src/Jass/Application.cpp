@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include "Jass/Events/EventDispatcher.h"
+#include "Jass/Renderer/Renderer.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>
@@ -14,8 +15,11 @@ namespace Jass {
 	{
 		JASS_CORE_ASSERT(!s_instance, "Application already exists");
 		s_instance = this;
+
 		m_window = std::unique_ptr<IWindow>(IWindow::Create());
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		m_imGuiLayer = new ImGuiLayer();
 		PushOverlay(m_imGuiLayer);

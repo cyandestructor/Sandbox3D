@@ -22,6 +22,13 @@ namespace Jass {
 		unsigned int m_height = 0;
 		unsigned int m_rendererID = 0;
 
+		struct Formats {
+			unsigned int InternalFormat = 0;
+			unsigned int Format = 0;
+		};
+
+		static Formats SelectFormats(unsigned int channels);
+
 	};
 
 }
