@@ -11,6 +11,7 @@ namespace Jass {
 	class JASS_API OpenGLShader : public Shader {
 
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
 		virtual ~OpenGLShader();
 
@@ -32,13 +33,13 @@ namespace Jass {
 		unsigned int m_rendererID = 0;
 		std::unordered_map<std::string, int> m_uniformLocationCache;
 
-		enum class ShaderType {
-			VertexShader, FragmentShader
-		};
+		static unsigned int ToGLenum(const std::string& type);
 
-		static unsigned int ToGLenum(ShaderType type);
-		unsigned int CompileShader(const std::string& src, ShaderType type);
-		unsigned int CreateAndLinkProgram(unsigned int vertexShader, unsigned int fragmentShader);
+		std::string ReadFile(const std::string& filepath);
+		std::unordered_map<unsigned int, std::string> Preprocess(const std::string& source);
+		unsigned int CompileShader(const std::string& src, unsigned int type);
+		unsigned int CreateAndLinkProgram(const std::vector<unsigned int>& shaders);
+		void CompileProgram(const std::unordered_map<unsigned int, std::string>& sources);
 
 		int GetUniformLocation(const std::string& name);
 

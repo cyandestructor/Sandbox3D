@@ -2,19 +2,24 @@
 #include "OpenGLShader.h"
 
 #include <glad/glad.h>
+#include <fstream>
 
 namespace Jass {
 
+	OpenGLShader::OpenGLShader(const std::string& filepath)
+	{
+		std::string fullSource = ReadFile(filepath);
+		auto sources = Preprocess(fullSource);
+		CompileProgram(sources);
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
 	{
-		// Compile a vertex shader and get its handle
-		unsigned int vertexShader = CompileShader(vertexShaderSrc, ShaderType::VertexShader);
-		// Compile a fragment shader and get its handle
-		unsigned int fragmentShader = CompileShader(fragmentShaderSrc, ShaderType::FragmentShader);
+		std::unordered_map<unsigned int, std::string> sources;
+		sources[GL_VERTEX_SHADER] = vertexShaderSrc;
+		sources[GL_FRAGMENT_SHADER] = fragmentShaderSrc;
 
-		// Vertex and fragment shaders are successfully compiled.
-		// Now time to link them together into a program.
-		m_rendererID = CreateAndLinkProgram(vertexShader, fragmentShader);
+		CompileProgram(sources);
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -92,24 +97,74 @@ namespace Jass {
 		glUniformMatrix4fv(location, 1, GL_FALSE, GetPtr(matrix));
 	}
 
-	unsigned int OpenGLShader::ToGLenum(ShaderType type)
+	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
-		switch (type)
-		{
-			case OpenGLShader::ShaderType::VertexShader:
-				return GL_VERTEX_SHADER;
-			case OpenGLShader::ShaderType::FragmentShader:
-				return GL_FRAGMENT_SHADER;
+		std::string source;
+
+		std::ifstream file(filepath, std::ios::in | std::ios::binary);
+
+		if (file) {
+			file.seekg(0, std::ios::end);
+			// Resize the string to the size of the file
+			source.resize(file.tellg());
+			file.seekg(0, std::ios::beg);
+			file.read(&source[0], source.size());
+
+			file.close();
 		}
+		else {
+			JASS_CORE_ERR("Could not open the file: {0}", filepath);
+		}
+
+		return source;
+	}
+
+	unsigned int OpenGLShader::ToGLenum(const std::string& type)
+	{
+		if (type == "vertex")
+			return GL_VERTEX_SHADER;
+		else if (type == "fragment" || type == "pixel")
+			return GL_FRAGMENT_SHADER;
 
 		JASS_CORE_ASSERT(false, "Unknown shader type");
 		return 0;
 	}
 
-	unsigned int OpenGLShader::CompileShader(const std::string& src, ShaderType type)
+	std::unordered_map<unsigned int, std::string> OpenGLShader::Preprocess(const std::string& source)
+	{
+		std::unordered_map<unsigned int /*type*/, std::string /*source*/> sources;
+
+		// Define the toke and its length
+		const char token[] = "#type";
+		size_t tokenSize = strlen(token);
+
+		size_t tokenPos = source.find(token);
+		while (tokenPos != std::string::npos)
+		{
+			size_t eol = source.find_first_of("\r\n", tokenPos);
+			JASS_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+
+			// Get the type of the shader
+			size_t begin = tokenPos + tokenSize + 1;
+			std::string type = source.substr(begin, eol - begin);
+			JASS_CORE_ASSERT(ToGLenum(type), "Syntax error");
+
+			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			// Find if there is another shader type
+			tokenPos = source.find(token, nextLinePos);
+			size_t srcEnd = nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos;
+
+			// Get and save the source of the shader
+			sources[ToGLenum(type)] = source.substr(nextLinePos, tokenPos - srcEnd);
+		}
+
+		return sources;
+	}
+
+	unsigned int OpenGLShader::CompileShader(const std::string& src, unsigned int type)
 	{
 		// Create an empty shader handle.
-		unsigned int shader = glCreateShader(ToGLenum(type));
+		unsigned int shader = glCreateShader(type);
 
 		// Send the shader source code to GL.
 		// Note that std::string's .c_str is NULL character terminated.
@@ -143,14 +198,14 @@ namespace Jass {
 		return shader;
 	}
 
-	unsigned int OpenGLShader::CreateAndLinkProgram(unsigned int vertexShader, unsigned int fragmentShader)
+	unsigned int OpenGLShader::CreateAndLinkProgram(const std::vector<unsigned int>& shaders)
 	{
 		// Get a program object.
 		unsigned int program = glCreateProgram();
 
 		// Attach our shaders to our program.
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
+		for (auto shader : shaders)
+			glAttachShader(program, shader);
 
 		// Link our program.
 		glLinkProgram(program);
@@ -170,8 +225,8 @@ namespace Jass {
 			// We don't need the program anymore.
 			glDeleteProgram(program);
 			// Don't leak shaders either.
-			glDeleteShader(vertexShader);
-			glDeleteShader(fragmentShader);
+			for (auto shader : shaders)
+				glDeleteShader(shader);
 
 			JASS_CORE_ERR("{0}", infoLog.data());
 			JASS_CORE_ASSERT(false, "Program linking error");
@@ -180,11 +235,28 @@ namespace Jass {
 		}
 
 		// Always detach shaders after a successful link.
-		glDetachShader(program, vertexShader);
-		glDetachShader(program, fragmentShader);
+		for (auto shader : shaders)
+			glDetachShader(program, shader);
 
 		// Return the program object when the link is successful.
 		return program;
+	}
+
+	void OpenGLShader::CompileProgram(const std::unordered_map<unsigned int, std::string>& sources)
+	{
+		std::vector<unsigned int> shaders;
+
+		for (const auto& shader : sources)
+		{
+			unsigned int type = shader.first;
+			const std::string& source = shader.second;
+
+			shaders.push_back(CompileShader(source, type));
+		}
+
+		JASS_CORE_ASSERT(shaders.size(), "There are no compiled shaders");
+
+		m_rendererID = CreateAndLinkProgram(shaders);
 	}
 
 	int OpenGLShader::GetUniformLocation(const std::string& name)
