@@ -2,8 +2,8 @@
 #define RENDERER_H_JASS
 
 #include "RenderCommand.h"
+#include "Shaders/ShaderLibrary.h"
 // TEMPORARY
-#include "Shader.h"
 #include "OrthographicCamera.h"
 #include "PerspectiveCamera.h"
 

@@ -186,9 +186,6 @@
     <ClInclude Include="src\Jass\Renderer\RendererAPI.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\Shader.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClInclude>
@@ -1462,6 +1459,10 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\JMath\JMath.h" />
+    <ClInclude Include="src\Jass\Renderer\Shaders\Shader.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -1495,9 +1496,6 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\RendererAPI.cpp">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\Shader.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp">
@@ -1544,5 +1542,9 @@
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
     <ClCompile Include="src\Jass\JMath\JMath.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />
   </ItemGroup>
 </Project>

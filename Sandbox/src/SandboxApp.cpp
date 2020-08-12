@@ -1,7 +1,7 @@
 #include "Jass.h"
 #include <imgui.h>
 
-// TEMPORARY
+// EXTREMELY TEMPORARY
 #include "Platform/OpenGL/OpenGLShader.h"
 
 class ExampleLayer : public Jass::Layer {
@@ -33,9 +33,9 @@ public:
 		Jass::Renderer::BeginScene(m_camera);
 		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, Jass::Scale(Jass::JMat4(0.1f),Jass::JVec3(1.1f)));
 		m_texture2D->Bind();
-		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
+		Jass::Renderer::Submit(m_shaderLibrary.GetShader("TextureShader"), m_texSquareVertexArray);
 		m_textureAlpha2D->Bind();
-		Jass::Renderer::Submit(m_texShader, m_texSquareVertexArray);
+		Jass::Renderer::Submit(m_shaderLibrary.GetShader("TextureShader"), m_texSquareVertexArray);
 		//Jass::Renderer::Submit(m_shader, m_vertexArray, transformation);
 		Jass::Renderer::EndScene();
 	}
@@ -88,6 +88,8 @@ public:
 private:
 	Jass::OrthographicCamera m_camera;
 
+	Jass::ShaderLibrary m_shaderLibrary;
+
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
 	Jass::Ref<Jass::Shader> m_shader;
 	
@@ -98,7 +100,6 @@ private:
 	Jass::Ref<Jass::Texture2D> m_textureAlpha2D;
 	Jass::Ref<Jass::Texture2D> m_texture2D;
 	Jass::Ref<Jass::VertexArray> m_texSquareVertexArray;
-	Jass::Ref<Jass::Shader> m_texShader;
 
 	void RendererAPITest()
 	{
@@ -144,12 +145,11 @@ private:
 			
 		)";
 
-		m_shader = Jass::Shader::Create(vertexShader, fragmentShader);
+		m_shader = Jass::Shader::Create("TriangleShader", vertexShader, fragmentShader);
 
 		m_vertexArray = Jass::VertexArray::Create();
 
-		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
+		auto vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 
 		Jass::BufferLayout layout = {
 			{Jass::ShaderDataType::Float3, "position" },
@@ -159,8 +159,7 @@ private:
 
 		m_vertexArray->AddVertexBuffer(vertexBuffer);
 
-		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer = Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw });
+		auto indexBuffer = Jass::IndexBuffer::Create({ indices,3,Jass::DataUsage::StaticDraw });
 
 		m_vertexArray->SetIndexBuffer(indexBuffer);
 	}
@@ -199,7 +198,7 @@ private:
 			
 		)";
 
-		m_flatColorShader = Jass::Shader::Create(vertexShader, fragmentShader);
+		m_flatColorShader = Jass::Shader::Create("FlatColorShader", vertexShader, fragmentShader);
 
 		float positions[] = {
 			-0.75f, -0.75f, 0.0f,	// 0
@@ -215,23 +214,21 @@ private:
 
 		m_squareVertexArray = Jass::VertexArray::Create();
 
-		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
+		auto vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 		vertexBuffer->SetLayout({
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"position")
 			});
 
 		m_squareVertexArray->AddVertexBuffer(vertexBuffer);
 
-		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
+		auto indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
 
 		m_squareVertexArray->SetIndexBuffer(indexBuffer);
 	}
 
 	void RenderTexSquareTest()
 	{
-		m_texShader = Jass::Shader::Create("assets/shaders/TextureShader.glsl");
+		auto texShader = m_shaderLibrary.Load("assets/shaders/TextureShader.glsl");
 
 		m_texture2D = Jass::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_textureAlpha2D = Jass::Texture2D::Create("assets/textures/Appricot.png");
@@ -250,8 +247,7 @@ private:
 
 		m_texSquareVertexArray = Jass::VertexArray::Create();
 
-		std::shared_ptr<Jass::VertexBuffer> vertexBuffer;
-		vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
+		auto vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 		vertexBuffer->SetLayout({
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"position"),
 			Jass::BufferElement(Jass::ShaderDataType::Float2,"texCoords")
@@ -259,13 +255,12 @@ private:
 
 		m_texSquareVertexArray->AddVertexBuffer(vertexBuffer);
 
-		std::shared_ptr<Jass::IndexBuffer> indexBuffer;
-		indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
+		auto indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
 
 		m_texSquareVertexArray->SetIndexBuffer(indexBuffer);
 
-		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_texShader)->Bind();
-		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_texShader)->UploadUniformInt("u_texture", 0);
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(texShader)->Bind();
+		std::dynamic_pointer_cast<Jass::OpenGLShader>(texShader)->UploadUniformInt("u_texture", 0);
 	}
 
 	void MoveCamera(int keyCode)

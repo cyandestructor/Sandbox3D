@@ -1,7 +1,7 @@
 #ifndef OPENGL_SHADER_H_JASS
 #define OPENGL_SHADER_H_JASS
 
-#include "Jass/Renderer/Shader.h"
+#include "Jass/Renderer/Shaders/Shader.h"
 #include "Jass/JMath/JMath.h"
 
 #include <unordered_map>
@@ -12,11 +12,14 @@ namespace Jass {
 
 	public:
 		OpenGLShader(const std::string& filepath);
-		OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
+		OpenGLShader(const std::string&  name, const std::string& filepath);
+		OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() override;
 		virtual void Unbind() override;
+
+		virtual const std::string& GetName() const override { return m_name; }
 
 		void UploadUniformInt(const std::string& name, int value);
 		void UploadUniformInt2(const std::string& name, const JVec2& values);
@@ -31,6 +34,7 @@ namespace Jass {
 
 	private:
 		unsigned int m_rendererID = 0;
+		std::string m_name;
 		std::unordered_map<std::string, int> m_uniformLocationCache;
 
 		static unsigned int ToGLenum(const std::string& type);

@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <fstream>
+#include <filesystem>
 
 namespace Jass {
 
@@ -11,9 +12,23 @@ namespace Jass {
 		std::string fullSource = ReadFile(filepath);
 		auto sources = Preprocess(fullSource);
 		CompileProgram(sources);
+
+		//Get the name from the filepath
+		std::filesystem::path shaderPath(filepath);
+		JASS_CORE_ASSERT(shaderPath.has_stem(), "The filepath is not valid");
+		m_name = shaderPath.stem().string();
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath) :
+		m_name(name)
+	{
+		std::string fullSource = ReadFile(filepath);
+		auto sources = Preprocess(fullSource);
+		CompileProgram(sources);
+	}
+
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc) :
+		m_name(name)
 	{
 		std::unordered_map<unsigned int, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexShaderSrc;
