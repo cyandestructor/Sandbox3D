@@ -17,10 +17,11 @@
 #include "Jass/Renderer/RenderCommand.h"
 #include "Jass/Renderer/Renderer.h"
 
-#include "Jass/Renderer/Textures/Texture2D.h"
+#include "Jass/Camera/OrthographicCamera.h"
+#include "Jass/Camera/OrthographicCameraController.h"
+#include "Jass/Camera/PerspectiveCamera.h"
 
-//TEMPORARY
-#include "Jass/ImGui/ImGuiLayer.h"
+#include "Jass/Renderer/Textures/Texture2D.h"
 
 //------------------------EntryPoint------------------------
 #include "Jass/EntryPoint.h"

@@ -159,9 +159,6 @@
     <ClInclude Include="src\Jass\Renderer\BufferLayout.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\Camera.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
@@ -169,12 +166,6 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\OrthographicCamera.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\PerspectiveCamera.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\RenderCommand.h">
@@ -1463,6 +1454,16 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h" />
+    <ClInclude Include="src\Jass\Camera\Camera.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Camera\OrthographicCamera.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Camera\OrthographicCameraController.h" />
+    <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Application.cpp">
@@ -1481,12 +1482,6 @@
       <Filter>src\Jass</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\OrthographicCamera.cpp">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\PerspectiveCamera.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\RenderCommand.cpp">
@@ -1546,5 +1541,12 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Camera\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\Jass\Camera\PerspectiveCamera.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -29,6 +29,8 @@ namespace Jass {
 		virtual void SetPosition(const JVec3& position) override;
 		virtual void SetRotation(const JVec3& rotation) override;
 		
+		void SetProjection(float left, float right, float bottom, float top);
+
 		inline const OrthographicCameraSettings& GetSettings() const { return m_settings; }
 
 		inline virtual const JVec3& GetPosition() const override { return m_settings.Position; }

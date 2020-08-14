@@ -9,7 +9,7 @@ class ExampleLayer : public Jass::Layer {
 public:
 	
 	ExampleLayer() :
-		Layer("Example"), m_camera({ -1.6f,1.6f,-0.9f,0.9f })
+		Layer("Example"), m_cameraController(1280.0f / 720.0f, true)
 	{
 		//RendererAPITest();
 		RenderColorSquareTest();
@@ -21,16 +21,16 @@ public:
 		Jass::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
 		Jass::RenderCommand::Clear();
 
-		MoveCameraInput(ts);
-
 		//Jass::JMat4 transformation;
 		//MoveTriangle(transformation, ts);
+
+		m_cameraController.OnUpdate(ts);
 
 		// Temporary
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->Bind();
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->UploadUniformFloat4("u_color", m_squareColor);
 
-		Jass::Renderer::BeginScene(m_camera);
+		Jass::Renderer::BeginScene(m_cameraController.GetCamera());
 		Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, Jass::Scale(Jass::JMat4(0.1f),Jass::JVec3(1.1f)));
 		m_texture2D->Bind();
 		Jass::Renderer::Submit(m_shaderLibrary.GetShader("TextureShader"), m_texSquareVertexArray);
@@ -49,44 +49,11 @@ public:
 
 	void OnEvent(Jass::Event& e) override
 	{
-		//Jass::EventDispatcher dispatcher(e);
-		//dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
-	}
-
-	void MoveCameraInput(Jass::Timestep ts)
-	{
-		auto cameraPosition = m_camera.GetPosition();
-		auto cameraRotation = m_camera.GetRotation();
-		float cameraMoveSpeed = 3.0f;
-		float cameraRotationSpeed = 100.0f;
-
-		if (Jass::Input::IsKeyPressed(JASS_KEY_UP))
-			cameraPosition.y += cameraMoveSpeed * ts;
-		else if (Jass::Input::IsKeyPressed(JASS_KEY_DOWN))
-			cameraPosition.y -= cameraMoveSpeed * ts;
-
-		if (Jass::Input::IsKeyPressed(JASS_KEY_RIGHT))
-			cameraPosition.x += cameraMoveSpeed * ts;
-		else if (Jass::Input::IsKeyPressed(JASS_KEY_LEFT))
-			cameraPosition.x -= cameraMoveSpeed * ts;
-
-		if (Jass::Input::IsKeyPressed(JASS_KEY_A))
-			cameraRotation.z += cameraRotationSpeed * ts;
-		else if (Jass::Input::IsKeyPressed(JASS_KEY_D))
-			cameraRotation.z -= cameraRotationSpeed * ts;
-
-		m_camera.SetPosition(cameraPosition);
-		m_camera.SetRotation(cameraRotation);
-	}
-
-	bool OnKeyPressed(Jass::KeyPressedEvent& e)
-	{	
-		MoveCamera(e.GetKeyCode());
-		return true;
+		m_cameraController.OnEvent(e);
 	}
 
 private:
-	Jass::OrthographicCamera m_camera;
+	Jass::OrthographicCameraController m_cameraController;
 
 	Jass::ShaderLibrary m_shaderLibrary;
 
@@ -261,26 +228,6 @@ private:
 
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(texShader)->Bind();
 		std::dynamic_pointer_cast<Jass::OpenGLShader>(texShader)->UploadUniformInt("u_texture", 0);
-	}
-
-	void MoveCamera(int keyCode)
-	{
-		auto cameraPosition = m_camera.GetPosition();
-		switch (keyCode)
-		{
-			case JASS_KEY_LEFT:
-				m_camera.SetPosition(cameraPosition + Jass::JVec3(-0.1f, 0.0f, 0.0f));
-				break;
-			case JASS_KEY_RIGHT:
-				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.1f, 0.0f, 0.0f));
-				break;
-			case JASS_KEY_UP:
-				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.0f, 0.1f, 0.0f));
-				break;
-			case JASS_KEY_DOWN:
-				m_camera.SetPosition(cameraPosition + Jass::JVec3(0.0f, -0.1f, 0.0f));
-				break;
-		}
 	}
 
 	void MoveTriangle(Jass::JMat4& transformation, Jass::Timestep ts)

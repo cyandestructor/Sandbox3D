@@ -3,9 +3,7 @@
 
 #include "RenderCommand.h"
 #include "Shaders/ShaderLibrary.h"
-// TEMPORARY
-#include "OrthographicCamera.h"
-#include "PerspectiveCamera.h"
+#include "Jass/Camera/Camera.h"
 
 namespace Jass {
 
