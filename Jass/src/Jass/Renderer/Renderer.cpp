@@ -13,6 +13,11 @@ namespace Jass {
 		RenderCommand::Init();
 	}
 
+	void Renderer::OnWindowResize(unsigned int width, unsigned int height)
+	{
+		RenderCommand::SetViewport(0, 0, width, height);
+	}
+
 	void Renderer::BeginScene(const Camera& camera)
 	{
 		sceneData->ViewProjectionMatrix = camera.GetViewProjection();

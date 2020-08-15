@@ -10,6 +10,8 @@ namespace Jass {
 	public:
 		virtual void Init() override;
 
+		virtual void SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) override;
+
 		virtual void SetClearColor(const JVec4& color) override;
 		virtual void Clear() override;
 

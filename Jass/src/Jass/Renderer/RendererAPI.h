@@ -16,6 +16,8 @@ namespace Jass {
 
 		virtual void Init() = 0;
 
+		virtual void SetViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) = 0;
+
 		virtual void SetClearColor(const JVec4& color) = 0;
 		virtual void Clear() = 0;
 

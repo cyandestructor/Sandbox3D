@@ -4,11 +4,12 @@
 #include "Core.h"
 #include "IWindow.h"
 #include "Jass/Events/ApplicationEvents.h"
-#include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 
 namespace Jass {
 	
+	class ImGuiLayer;
+
 	class JASS_API Application
 	{
 	public:
@@ -27,6 +28,7 @@ namespace Jass {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		static Application* s_instance;
 
@@ -34,6 +36,7 @@ namespace Jass {
 
 		ImGuiLayer* m_imGuiLayer;
 		bool m_isRunning = true;
+		bool m_isMinimized = false;
 		LayerStack m_layerStack;
 
 	};

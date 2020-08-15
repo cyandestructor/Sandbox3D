@@ -11,6 +11,8 @@ namespace Jass {
 
 	public:
 		static void Init();
+
+		static void OnWindowResize(unsigned int width, unsigned int height);
 		
 		static void BeginScene(const Camera& camera);
 		static void EndScene();

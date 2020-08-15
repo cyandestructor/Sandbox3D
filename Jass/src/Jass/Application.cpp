@@ -3,6 +3,7 @@
 
 #include "Jass/Events/EventDispatcher.h"
 #include "Jass/Renderer/Renderer.h"
+#include "ImGui/ImGuiLayer.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>
@@ -35,6 +36,8 @@ namespace Jass {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
+
 		JASS_CORE_TRACE("{0}", e);
 
 		for (auto it = m_layerStack.rbegin(); it != m_layerStack.rend();) {
@@ -67,8 +70,10 @@ namespace Jass {
 			Timestep ts = time - lastime;
 			lastime = time;
 
-			for (Layer* layer : m_layerStack)
-				layer->OnUpdate(ts);
+			if (!m_isMinimized) {
+				for (Layer* layer : m_layerStack)
+					layer->OnUpdate(ts);
+			}
 
 			m_imGuiLayer->Begin();
 			for (Layer* layer : m_layerStack)
@@ -83,6 +88,21 @@ namespace Jass {
 	{
 		m_isRunning = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		unsigned int width = e.GetWidth(), height = e.GetHeight();
+
+		if (width == 0 || height == 0) {
+			m_isMinimized = true;
+			return false;
+		}
+
+		m_isMinimized = false;
+		Renderer::OnWindowResize(width, height);
+
+		return false;
 	}
 
 }
