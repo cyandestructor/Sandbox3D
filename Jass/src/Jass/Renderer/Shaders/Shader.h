@@ -1,7 +1,7 @@
 #ifndef JASS_SHADER_H
 #define JASS_SHADER_H
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 #include <string>
 
 namespace Jass {

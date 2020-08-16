@@ -2,7 +2,7 @@
 #define BUFFER_LAYOUT_H_JASS
 
 #include "jasspch.h"
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 
 namespace Jass {
 

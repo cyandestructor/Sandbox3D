@@ -3,7 +3,7 @@
 
 #include "Jass/Events/EventDispatcher.h"
 #include "Jass/Renderer/Renderer.h"
-#include "ImGui/ImGuiLayer.h"
+#include "Jass/ImGui/ImGuiLayer.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>

@@ -1,7 +1,7 @@
 #ifndef JASS_EVENTENUMS_H
 #define JASS_EVENTENUMS_H
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 
 namespace Jass {
 

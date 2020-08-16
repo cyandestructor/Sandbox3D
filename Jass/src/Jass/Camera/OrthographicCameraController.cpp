@@ -1,8 +1,8 @@
 #include "jasspch.h"
 #include "OrthographicCameraController.h"
 
-#include "Jass/Input.h"
-#include "Jass/KeyCodes.h"
+#include "Jass/Core/Input.h"
+#include "Jass/Core/KeyCodes.h"
 #include "Jass/Events/EventDispatcher.h"
 
 namespace Jass {

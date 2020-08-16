@@ -1,7 +1,7 @@
 #ifndef JASS_IRENDERCONTEXT_H
 #define JASS_IRENDERCONTEXT_H
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 
 namespace Jass {
 

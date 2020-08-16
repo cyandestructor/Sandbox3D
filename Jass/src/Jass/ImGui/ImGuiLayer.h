@@ -1,7 +1,7 @@
 #ifndef JASS_IMGUILAYER_H
 #define JASS_IMGUILAYER_H
 
-#include "Jass/Layer.h"
+#include "Jass/Core/Layer.h"
 
 namespace Jass {
 

@@ -2,8 +2,8 @@
 #define JASS_LAYER_H
 
 #include "Core.h"
-#include "Core/Timestep.h"
-#include "Events/Events.h"
+#include "Timestep.h"
+#include "Jass/Events/Events.h"
 
 namespace Jass {
 

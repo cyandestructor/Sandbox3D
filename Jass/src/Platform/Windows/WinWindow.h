@@ -2,7 +2,7 @@
 #define JASS_WINWINDOW_H
 
 #include "jasspch.h"
-#include "Jass/IWindow.h"
+#include "Jass/Core/IWindow.h"
 #include "Jass/Renderer/IRenderContext.h"
 
 #include <GLFW/glfw3.h>

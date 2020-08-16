@@ -1,7 +1,7 @@
 #ifndef JASS_WININPUT_H
 #define JASS_WININPUT_H
 
-#include "Jass/Input.h"
+#include "Jass/Core/Input.h"
 
 namespace Jass {
 

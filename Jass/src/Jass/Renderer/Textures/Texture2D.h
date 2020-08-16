@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 #include "ITexture.h"
 
 namespace Jass {

@@ -2,7 +2,7 @@
 #define CAMERA_H_JASS
 
 #include "Jass/JMath/JMath.h"
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 
 namespace Jass {
 

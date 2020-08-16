@@ -1,7 +1,7 @@
 #ifndef JASS_INDEXBUFFER_H
 #define JASS_INDEXBUFFER_H
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 #include "DataUsageEnum.h"
 
 namespace Jass {

@@ -1,7 +1,7 @@
 #ifndef JASS_MOUSE_EVENTS
 #define JASS_MOUSE_EVENTS
 
-#include "Jass/MouseButtonCodes.h"
+#include "Jass/Core/MouseButtonCodes.h"
 
 #include "MouseMovedEvent.h"
 #include "MouseScrolledEvent.h"

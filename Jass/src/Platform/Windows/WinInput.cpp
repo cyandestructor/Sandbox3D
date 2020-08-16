@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Jass/Application.h"
+#include "Jass/Core/Application.h"
 
 namespace Jass {
 

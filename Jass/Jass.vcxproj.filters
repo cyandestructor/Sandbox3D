@@ -7,6 +7,9 @@
     <Filter Include="src\Jass">
       <UniqueIdentifier>{ED6E20CF-D93B-7BDA-0255-6982EE80B068}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\Camera">
+      <UniqueIdentifier>{C556DE52-31E2-4B17-3AF3-CE0BA6FDA717}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Jass\Core">
       <UniqueIdentifier>{65EFE406-D1AF-603D-9AEA-A9BA066AA519}</UniqueIdentifier>
     </Filter>
@@ -16,8 +19,14 @@
     <Filter Include="src\Jass\ImGui">
       <UniqueIdentifier>{D7A1EDE3-C36F-E1E9-AC03-52109870BD4E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\JMath">
+      <UniqueIdentifier>{B09CEEE3-9C6A-E2E9-85FE-5210716BBE4E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Jass\Renderer">
       <UniqueIdentifier>{33CDCF91-9FE3-CD27-E85A-594954B09EAF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Jass\Renderer\Shaders">
+      <UniqueIdentifier>{0C75FB1A-7837-2FA5-C1E7-BD312DE90783}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Jass\Renderer\Textures">
       <UniqueIdentifier>{66288EB6-5238-3A87-BBF1-9EA5A7202920}</UniqueIdentifier>
@@ -63,17 +72,56 @@
     <ClInclude Include="src\Jass.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Application.h">
-      <Filter>src\Jass</Filter>
+    <ClInclude Include="src\Jass\Camera\Camera.h">
+      <Filter>src\Jass\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Core.h">
-      <Filter>src\Jass</Filter>
+    <ClInclude Include="src\Jass\Camera\OrthographicCamera.h">
+      <Filter>src\Jass\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Camera\OrthographicCameraController.h">
+      <Filter>src\Jass\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h">
+      <Filter>src\Jass\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Application.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Core.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\EntryPoint.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\IWindow.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Input.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\KeyCodes.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Layer.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\LayerStack.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Log.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\LogEnums.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\MouseButtonCodes.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\SpdLogger.h">
+      <Filter>src\Jass\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Core\Timestep.h">
       <Filter>src\Jass\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\EntryPoint.h">
-      <Filter>src\Jass</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h">
       <Filter>src\Jass\Events</Filter>
@@ -129,32 +177,11 @@
     <ClInclude Include="src\Jass\Events\WindowResizeEvent.h">
       <Filter>src\Jass\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\IWindow.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
     <ClInclude Include="src\Jass\ImGui\ImGuiLayer.h">
       <Filter>src\Jass\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Input.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\KeyCodes.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Layer.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\LayerStack.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Log.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\LogEnums.h">
-      <Filter>src\Jass</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\MouseButtonCodes.h">
-      <Filter>src\Jass</Filter>
+    <ClInclude Include="src\Jass\JMath\JMath.h">
+      <Filter>src\Jass\JMath</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\BufferLayout.h">
       <Filter>src\Jass\Renderer</Filter>
@@ -177,6 +204,12 @@
     <ClInclude Include="src\Jass\Renderer\RendererAPI.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Shaders\Shader.h">
+      <Filter>src\Jass\Renderer\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h">
+      <Filter>src\Jass\Renderer\Shaders</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClInclude>
@@ -188,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h">
       <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\SpdLogger.h">
-      <Filter>src\Jass</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1449,25 +1479,28 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\JMath\JMath.h" />
-    <ClInclude Include="src\Jass\Renderer\Shaders\Shader.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h" />
-    <ClInclude Include="src\Jass\Camera\Camera.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Camera\OrthographicCamera.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Jass\Camera\OrthographicCameraController.h" />
-    <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Jass\Application.cpp">
-      <Filter>src\Jass</Filter>
+    <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
+      <Filter>src\Jass\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Camera\OrthographicCameraController.cpp">
+      <Filter>src\Jass\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Camera\PerspectiveCamera.cpp">
+      <Filter>src\Jass\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Core\Application.cpp">
+      <Filter>src\Jass\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Core\Layer.cpp">
+      <Filter>src\Jass\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Core\LayerStack.cpp">
+      <Filter>src\Jass\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Core\SpdLogger.cpp">
+      <Filter>src\Jass\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp">
       <Filter>src\Jass\ImGui</Filter>
@@ -1475,11 +1508,8 @@
     <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp">
       <Filter>src\Jass\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Jass\Layer.cpp">
-      <Filter>src\Jass</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\LayerStack.cpp">
-      <Filter>src\Jass</Filter>
+    <ClCompile Include="src\Jass\JMath\JMath.cpp">
+      <Filter>src\Jass\JMath</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp">
       <Filter>src\Jass\Renderer</Filter>
@@ -1493,14 +1523,20 @@
     <ClCompile Include="src\Jass\Renderer\RendererAPI.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp">
+      <Filter>src\Jass\Renderer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp">
+      <Filter>src\Jass\Renderer\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp">
       <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\SpdLogger.cpp">
-      <Filter>src\Jass</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1534,19 +1570,6 @@
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
-    <ClCompile Include="src\Jass\JMath\JMath.cpp" />
-    <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />
-    <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
-      <Filter>src\Jass\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Jass\Camera\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\Jass\Camera\PerspectiveCamera.cpp">
-      <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

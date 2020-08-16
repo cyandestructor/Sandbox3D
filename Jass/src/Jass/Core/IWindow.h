@@ -3,7 +3,7 @@
 
 #include "jasspch.h"
 #include "Core.h"
-#include "Events/Event.h"
+#include "Jass/Events/Event.h"
 
 namespace Jass {
 

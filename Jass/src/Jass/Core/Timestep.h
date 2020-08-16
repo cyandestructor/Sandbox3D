@@ -1,7 +1,7 @@
 #ifndef TIMESTEP_H_JASS
 #define TIMESTEP_H_JASS
 
-#include "Jass/Core.h"
+#include "Jass/Core/Core.h"
 
 namespace Jass {
 
