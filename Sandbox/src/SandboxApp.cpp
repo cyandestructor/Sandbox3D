@@ -1,5 +1,8 @@
-#include "Jass.h"
+#include <Jass.h>
+#include <Jass/Core/EntryPoint.h>
 #include <imgui.h>
+
+#include "Sandbox2D.h"
 
 // EXTREMELY TEMPORARY
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -254,7 +257,8 @@ class Sandbox : public Jass::Application {
 
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {

@@ -23,8 +23,4 @@
 
 #include "Jass/Renderer/Textures/Texture2D.h"
 
-//------------------------EntryPoint------------------------
-#include "Jass/Core/EntryPoint.h"
-//----------------------------------------------------------
-
 #endif
