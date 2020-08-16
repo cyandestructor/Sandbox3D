@@ -260,6 +260,7 @@ namespace Jass {
 	void OpenGLShader::CompileProgram(const std::unordered_map<unsigned int, std::string>& sources)
 	{
 		std::vector<unsigned int> shaders;
+		shaders.reserve(sources.size());
 
 		for (const auto& shader : sources)
 		{
