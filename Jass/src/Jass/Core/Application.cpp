@@ -3,6 +3,7 @@
 
 #include "Jass/Events/EventDispatcher.h"
 #include "Jass/Renderer/Renderer.h"
+#include "Jass/Renderer/Renderer2D.h"
 #include "Jass/ImGui/ImGuiLayer.h"
 
 // TEMPORARY
@@ -21,6 +22,7 @@ namespace Jass {
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
+		Renderer2D::Init();
 
 		m_imGuiLayer = new ImGuiLayer();
 		PushOverlay(m_imGuiLayer);
@@ -29,7 +31,7 @@ namespace Jass {
 
 	Application::~Application()
 	{
-
+		Renderer2D::Shutdown();
 	}
 
 	void Application::OnEvent(Event& e)

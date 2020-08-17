@@ -16,6 +16,7 @@
 
 #include "Jass/Renderer/RenderCommand.h"
 #include "Jass/Renderer/Renderer.h"
+#include "Jass/Renderer/Renderer2D.h"
 
 #include "Jass/Camera/OrthographicCamera.h"
 #include "Jass/Camera/OrthographicCameraController.h"

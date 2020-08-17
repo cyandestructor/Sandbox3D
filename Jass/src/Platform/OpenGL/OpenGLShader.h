@@ -2,7 +2,7 @@
 #define OPENGL_SHADER_H_JASS
 
 #include "Jass/Renderer/Shaders/Shader.h"
-#include "Jass/JMath/JMath.h"
+//#include "Jass/JMath/JMath.h"
 
 #include <unordered_map>
 
@@ -18,6 +18,10 @@ namespace Jass {
 
 		virtual void Bind() override;
 		virtual void Unbind() override;
+
+		virtual void SetFloat3(const std::string& name, const JVec3& vector) override;
+		virtual void SetFloat4(const std::string& name, const JVec4& vector) override;
+		virtual void SetMat4(const std::string& name, const JMat4& vector) override;
 
 		virtual const std::string& GetName() const override { return m_name; }
 

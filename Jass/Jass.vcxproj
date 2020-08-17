@@ -184,6 +184,7 @@
     <ClInclude Include="src\Jass\Renderer\IndexBuffer.h" />
     <ClInclude Include="src\Jass\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Jass\Renderer\Renderer.h" />
+    <ClInclude Include="src\Jass\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Jass\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Jass\Renderer\Shaders\Shader.h" />
     <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h" />
@@ -625,6 +626,7 @@
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Jass\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Jass\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Jass\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />

@@ -1,9 +1,6 @@
 #include "Sandbox2D.h"
 #include <imgui.h>
 
-// EXTREMELY TEMPORARY
-#include <Platform/OpenGL/OpenGLShader.h>
-
 Sandbox2D::Sandbox2D() :
 	Layer("Sandbox2D"), m_cameraController(1280.0f / 720.0f)
 {
@@ -11,7 +8,7 @@ Sandbox2D::Sandbox2D() :
 
 void Sandbox2D::OnAttach()
 {
-	FlatColorSquareTest();
+	//FlatColorSquareTest();
 }
 
 void Sandbox2D::OnDetach()
@@ -25,13 +22,11 @@ void Sandbox2D::OnUpdate(Jass::Timestep ts)
 	Jass::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
 	Jass::RenderCommand::Clear();
 
-	// Temporary
-	std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->Bind();
-	std::dynamic_pointer_cast<Jass::OpenGLShader>(m_flatColorShader)->UploadUniformFloat4("u_color", m_squareColor);
-
-	Jass::Renderer::BeginScene(m_cameraController.GetCamera());
-	Jass::Renderer::Submit(m_flatColorShader, m_squareVertexArray, Jass::Scale(Jass::JMat4(0.1f), Jass::JVec3(1.1f)));
-	Jass::Renderer::EndScene();
+	Jass::Renderer2D::BeginScene(m_cameraController.GetCamera());
+	Jass::Renderer2D::DrawQuad({ 0.5f, 0.75f }, { 1.0f, 1.0f }, { 0.2f, 0.8f, 0.3f, 1.0f });
+	Jass::Renderer2D::DrawQuad({ 0.25f, -0.5f }, { 0.25f, 0.5f }, { 0.3f, 0.2f, 0.8f, 1.0f });
+	Jass::Renderer2D::DrawQuad({ 1.0f, -0.75f }, 45.0f, { 1.1f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Jass::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()
