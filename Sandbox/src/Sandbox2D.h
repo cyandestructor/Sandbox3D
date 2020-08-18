@@ -18,6 +18,7 @@ public:
 private:
 	Jass::OrthographicCameraController m_cameraController;
 
+	Jass::Ref<Jass::Texture2D> m_texture;
 	Jass::Ref<Jass::VertexArray> m_squareVertexArray;
 	Jass::Ref<Jass::Shader> m_flatColorShader;
 	Jass::JVec4 m_squareColor = Jass::JVec4(0.2f, 0.3f, 0.8f, 1.0f);

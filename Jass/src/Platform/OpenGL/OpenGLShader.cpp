@@ -52,6 +52,11 @@ namespace Jass {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+
 	void OpenGLShader::SetFloat3(const std::string& name, const JVec3& vector)
 	{
 		UploadUniformFloat3(name, vector);

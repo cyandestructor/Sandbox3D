@@ -2,6 +2,7 @@
 #define RENDERER2D_H_JASS
 
 #include "Jass/Camera/OrthographicCamera.h"
+#include "Jass/Renderer/Textures/Texture2D.h"
 
 namespace Jass {
 
@@ -18,6 +19,10 @@ namespace Jass {
 		static void DrawQuad(const JVec3& position, const JVec2& scale, const JVec4& color);
 		static void DrawQuad(const JVec2& position, float rotation, const JVec2& scale, const JVec4& color);
 		static void DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color);
+		static void DrawQuad(const JVec2& position, const JVec2& scale, const Ref<Texture2D>& texture);
+		static void DrawQuad(const JVec3& position, const JVec2& scale, const Ref<Texture2D>& texture);
+		static void DrawQuad(const JVec2& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture);
+		static void DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture);
 
 	};
 
