@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLTexture2D>(width, height);
+				return MakeRef<OpenGLTexture2D>(width, height);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");
@@ -29,7 +29,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLTexture2D>(filepath);
+				return MakeRef<OpenGLTexture2D>(filepath);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLIndexBuffer>(config);
+				return MakeRef<OpenGLIndexBuffer>(config);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

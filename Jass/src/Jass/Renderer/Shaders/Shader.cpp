@@ -14,7 +14,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLShader>(filepath);
+				return MakeRef<OpenGLShader>(filepath);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");
@@ -29,7 +29,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLShader>(name, filepath);
+				return MakeRef<OpenGLShader>(name, filepath);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");
@@ -44,7 +44,7 @@ namespace Jass {
 				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLShader>(name, vertexShaderSrc, fragmentShaderSrc);
+				return MakeRef<OpenGLShader>(name, vertexShaderSrc, fragmentShaderSrc);
 		}
 
 		JASS_CORE_ASSERT(false, "Unknow Renderer API");

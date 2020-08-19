@@ -101,6 +101,9 @@ namespace Jass {
 			case GL_RGBA:
 				return 4;
 		}
+
+		JASS_CORE_ASSERT(false, "Unknow data format");
+		return 0;
 	}
 
 }
