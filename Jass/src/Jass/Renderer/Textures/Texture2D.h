@@ -13,6 +13,7 @@ namespace Jass {
 	public:
 		virtual ~Texture2D() = default;
 
+		static Ref<Texture2D> Create(unsigned int width, unsigned int height);
 		static Ref<Texture2D> Create(const std::string& filepath);
 
 	};

@@ -12,6 +12,8 @@ namespace Jass {
 		virtual unsigned int GetHeight() const = 0;
 
 		virtual void Bind(unsigned int slot = 0) const = 0;
+		
+		virtual void SetData(const void* data, unsigned int size) = 0;
 
 	};
 

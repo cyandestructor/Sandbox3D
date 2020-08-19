@@ -6,6 +6,21 @@
 
 namespace Jass {
 
+	Ref<Texture2D> Texture2D::Create(unsigned int width, unsigned int height)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:
+				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
+				return nullptr;
+			case RendererAPI::API::OpenGL:
+				return std::make_shared<OpenGLTexture2D>(width, height);
+		}
+
+		JASS_CORE_ASSERT(false, "Unknow Renderer API");
+		return nullptr;
+	}
+
 	Ref<Texture2D> Texture2D::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())

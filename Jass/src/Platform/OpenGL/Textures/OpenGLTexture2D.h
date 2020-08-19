@@ -8,6 +8,7 @@ namespace Jass {
 	class OpenGLTexture2D : public Texture2D {
 
 	public:
+		OpenGLTexture2D(unsigned int width, unsigned int height);
 		OpenGLTexture2D(const std::string& filepath);
 		virtual ~OpenGLTexture2D();
 
@@ -15,6 +16,8 @@ namespace Jass {
 		virtual unsigned int GetHeight() const override { return m_height; }
 
 		virtual void Bind(unsigned int slot = 0) const override;
+
+		virtual void SetData(const void* data, unsigned int size) override;
 
 	private:
 		std::string m_filepath;
@@ -27,7 +30,10 @@ namespace Jass {
 			unsigned int Format = 0;
 		};
 
+		Formats m_textureFormats;
+
 		static Formats SelectFormats(unsigned int channels);
+		static unsigned int GetBPP(const Formats& formats);
 
 	};
 

@@ -7,6 +7,19 @@
 
 namespace Jass {
 
+	OpenGLTexture2D::OpenGLTexture2D(unsigned int width, unsigned int height) :
+		m_width(width), m_height(height)
+	{
+		m_textureFormats.InternalFormat = GL_RGBA8;
+		m_textureFormats.Format = GL_RGBA;
+		
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_rendererID);
+		glTextureStorage2D(m_rendererID, 1, m_textureFormats.InternalFormat, m_width, m_height);
+
+		glTextureParameteri(m_rendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(m_rendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	}
+
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
 		m_filepath(filepath)
 	{
@@ -15,20 +28,19 @@ namespace Jass {
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
 
-
 		if (data) {
 			m_width = (unsigned int)width;
 			m_height = (unsigned int)height;
 
-			auto formats = OpenGLTexture2D::SelectFormats(channels);
+			m_textureFormats = OpenGLTexture2D::SelectFormats(channels);
 
 			glCreateTextures(GL_TEXTURE_2D, 1, &m_rendererID);
-			glTextureStorage2D(m_rendererID, 1, formats.InternalFormat, m_width, m_height);
+			glTextureStorage2D(m_rendererID, 1, m_textureFormats.InternalFormat, m_width, m_height);
 
 			glTextureParameteri(m_rendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTextureParameteri(m_rendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-			glTextureSubImage2D(m_rendererID, 0, 0, 0, m_width, m_height, formats.Format, GL_UNSIGNED_BYTE, data);
+			glTextureSubImage2D(m_rendererID, 0, 0, 0, m_width, m_height, m_textureFormats.Format, GL_UNSIGNED_BYTE, data);
 
 			stbi_image_free(data);
 		}
@@ -45,6 +57,15 @@ namespace Jass {
 	void OpenGLTexture2D::Bind(unsigned int slot /*= 0*/) const
 	{
 		glBindTextureUnit(slot, m_rendererID);
+	}
+
+	void OpenGLTexture2D::SetData(const void* data, unsigned int size)
+	{
+		JASS_CORE_ASSERT(size == m_width * m_height * GetBPP(m_textureFormats),
+			"Data size do not match with the texture properties");
+
+		glTextureSubImage2D(m_rendererID, 0, 0, 0, m_width, m_height,
+			m_textureFormats.Format, GL_UNSIGNED_BYTE, data);
 	}
 
 	OpenGLTexture2D::Formats OpenGLTexture2D::SelectFormats(unsigned int channels)
@@ -69,6 +90,17 @@ namespace Jass {
 		JASS_CORE_ASSERT(formats.InternalFormat && formats.Format, "Format could not be specified");
 
 		return formats;
+	}
+
+	unsigned int OpenGLTexture2D::GetBPP(const Formats& formats)
+	{
+		switch (formats.Format)
+		{
+			case GL_RGB:
+				return 3;
+			case GL_RGBA:
+				return 4;
+		}
 	}
 
 }

@@ -3,12 +3,14 @@
 
 #include "RenderCommand.h"
 #include "Shaders/ShaderLibrary.h"
+#include "Shaders/Shader.h"
 
 namespace Jass {
 
 	struct Renderer2DStorage {
 		// TODO: Change Ref with Scope
-		ShaderLibrary ShaderLib;
+		Ref<Shader> ColorTextureShader;
+		Ref<Texture2D> WhiteTexture;
 		Ref<VertexArray> VertexArray;
 	};
 
@@ -18,10 +20,15 @@ namespace Jass {
 	{
 		s_storage = new Renderer2DStorage;
 
-		s_storage->ShaderLib.Load("assets/shaders/FlatColor.glsl");
-		auto texShader = s_storage->ShaderLib.Load("assets/shaders/TextureShader.glsl");
-		texShader->Bind();
-		texShader->SetInt("u_texture", 0);
+		s_storage->ColorTextureShader = Shader::Create("assets/shaders/ColorTexture.glsl");
+		s_storage->ColorTextureShader->Bind();
+		s_storage->ColorTextureShader->SetInt("u_texture", 0);
+
+		// Create a default white texture
+		s_storage->WhiteTexture = Texture2D::Create(1, 1);
+		uint32_t texData = 0xffffffff;
+		s_storage->WhiteTexture->SetData(&texData, sizeof(uint32_t));
+		// ------------------------------
 
 		float positions[] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,	// 0
@@ -39,8 +46,8 @@ namespace Jass {
 
 		auto vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
 		vertexBuffer->SetLayout({
-			Jass::BufferElement(Jass::ShaderDataType::Float3,"position"),
-			Jass::BufferElement(Jass::ShaderDataType::Float2,"texCoords")
+			Jass::BufferElement(Jass::ShaderDataType::Float3,"in_position"),
+			Jass::BufferElement(Jass::ShaderDataType::Float2,"in_texCoords")
 			});
 
 		s_storage->VertexArray->AddVertexBuffer(vertexBuffer);
@@ -57,13 +64,8 @@ namespace Jass {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		auto& flatColorShader = s_storage->ShaderLib.GetShader("FlatColor");
-		flatColorShader->Bind();
-		flatColorShader->SetMat4("u_viewProjection", camera.GetViewProjection());
-
-		auto& textureShader = s_storage->ShaderLib.GetShader("TextureShader");
-		textureShader->Bind();
-		textureShader->SetMat4("u_viewProjection", camera.GetViewProjection());
+		s_storage->ColorTextureShader->Bind();
+		s_storage->ColorTextureShader->SetMat4("u_viewProjection", camera.GetViewProjection());
 	}
 
 	void Renderer2D::EndScene()
@@ -87,15 +89,14 @@ namespace Jass {
 
 	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color)
 	{
-		auto& shader = s_storage->ShaderLib.GetShader("FlatColor");
-		shader->Bind();
-		shader->SetFloat4("u_color", color);
+		s_storage->ColorTextureShader->SetFloat4("u_color", color);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
 		transformation = Rotate(transformation, Radians(rotation), { 0.0f,0.0f,1.0f });
 		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		shader->SetMat4("u_transformation", transformation);
+		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
 
+		s_storage->WhiteTexture->Bind();
 		RenderCommand::DrawIndexed(s_storage->VertexArray);
 	}
 
@@ -116,13 +117,12 @@ namespace Jass {
 
 	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture)
 	{
-		auto& shader = s_storage->ShaderLib.GetShader("TextureShader");
-		shader->Bind();
-
+		s_storage->ColorTextureShader->SetFloat4("u_color", JVec4(1.0f));
+		
 		JMat4 transformation = Translate(JMat4(1.0f), position);
 		transformation = Rotate(transformation, Radians(rotation), { 0.0f,0.0f,1.0f });
 		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		shader->SetMat4("u_transformation", transformation);
+		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
 
 		texture->Bind();
 		RenderCommand::DrawIndexed(s_storage->VertexArray);
