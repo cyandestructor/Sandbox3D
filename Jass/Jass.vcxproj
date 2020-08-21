@@ -156,6 +156,8 @@
     <ClInclude Include="src\Jass\Core\Log.h" />
     <ClInclude Include="src\Jass\Core\LogEnums.h" />
     <ClInclude Include="src\Jass\Core\MouseButtonCodes.h" />
+    <ClInclude Include="src\Jass\Core\IRendererDebugOutput.h" />
+    <ClInclude Include="src\Jass\Core\RendererDebugLog.h" />
     <ClInclude Include="src\Jass\Core\SpdLogger.h" />
     <ClInclude Include="src\Jass\Core\Timestep.h" />
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h" />
@@ -195,6 +197,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
@@ -619,6 +622,7 @@
     <ClCompile Include="src\Jass\Core\Application.cpp" />
     <ClCompile Include="src\Jass\Core\Layer.cpp" />
     <ClCompile Include="src\Jass\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Jass\Core\RendererDebugLog.cpp" />
     <ClCompile Include="src\Jass\Core\SpdLogger.cpp" />
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp" />
     <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
@@ -636,6 +640,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />

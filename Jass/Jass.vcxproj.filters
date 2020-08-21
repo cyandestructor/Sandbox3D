@@ -1480,6 +1480,9 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Jass\Core\IRendererDebugOutput.h" />
+    <ClInclude Include="src\Jass\Core\RendererDebugLog.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1573,5 +1576,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Jass\Core\RendererDebugLog.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.cpp" />
   </ItemGroup>
 </Project>
