@@ -1,7 +1,7 @@
 #ifndef OPENGL_RENDERER_DEBUG_OUTPUT_H
 #define OPENGL_RENDERER_DEBUG_OUTPUT_H
 
-#include "Jass/Core/IRendererDebugOutput.h"
+#include "Jass/Debug/IRendererDebugOutput.h"
 
 namespace Jass {
 

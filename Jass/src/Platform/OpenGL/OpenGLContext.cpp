@@ -2,7 +2,7 @@
 #include "OpenGLContext.h"
 
 #ifdef JASS_DEBUG
-#include "Jass/Core/RendererDebugLog.h"
+#include "Jass/Debug/RendererDebugLog.h"
 #endif // JASS_DEBUG
 
 #include <GLFW/glfw3.h>

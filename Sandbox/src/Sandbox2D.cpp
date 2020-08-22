@@ -18,6 +18,8 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(Jass::Timestep ts)
 {
+	JASS_PROFILE_FUNCTION();
+
 	m_cameraController.OnUpdate(ts);
 
 	Jass::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
@@ -33,6 +35,8 @@ void Sandbox2D::OnUpdate(Jass::Timestep ts)
 
 void Sandbox2D::OnImGuiRender()
 {
+	JASS_PROFILE_FUNCTION();
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Color", Jass::GetPtr(m_squareColor));
 	ImGui::End();

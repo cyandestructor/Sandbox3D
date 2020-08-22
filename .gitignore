@@ -5,3 +5,4 @@ bin-int/
 
 # Extensions
 *.user
+*.json

@@ -14,6 +14,7 @@
 #include <list>
 
 #include "Jass/Core/Log.h"
+#include "Jass/Debug/Instrumentor.h"
 
 #ifdef JASS_PLATFORM_WINDOWS
 	#include <Windows.h>
