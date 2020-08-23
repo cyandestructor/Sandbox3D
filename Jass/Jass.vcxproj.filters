@@ -1484,6 +1484,7 @@
     <ClInclude Include="src\Jass\Debug\RendererDebugLog.h" />
     <ClInclude Include="src\Jass\Debug\IRendererDebugOutput.h" />
     <ClInclude Include="src\Jass\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Jass\Core\Core_Config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">

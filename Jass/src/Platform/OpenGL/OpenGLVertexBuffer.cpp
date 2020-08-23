@@ -7,6 +7,8 @@ namespace Jass {
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(const VertexBufferConfig& config)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glGenBuffers(1, &m_rendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
 		glBufferData(GL_ARRAY_BUFFER, config.Size, config.Data, GLDataUsage(config.DataUsage));

@@ -5,6 +5,8 @@ namespace Jass {
 
 	OrthographicCamera::OrthographicCamera(const OrthographicCameraSettings& settings)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_settings = settings;
 
 		m_projection = Orthographic(
@@ -20,18 +22,24 @@ namespace Jass {
 
 	void OrthographicCamera::SetPosition(const JVec3& position)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_settings.Position = position;
 		CalculateMatrices();
 	}
 
 	void OrthographicCamera::SetRotation(const JVec3& rotation)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_settings.Rotation = rotation;
 		CalculateMatrices();
 	}
 
 	void OrthographicCamera::SetProjection(float left, float right, float bottom, float top)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_settings.Left = left;
 		m_settings.Right = right;
 		m_settings.Bottom = bottom;
@@ -50,6 +58,8 @@ namespace Jass {
 
 	void OrthographicCamera::CalculateMatrices()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_view = Translate(JMat4(1.0f), -m_settings.Position);
 		m_view = Rotate(m_view, Radians(m_settings.Rotation.x), JVec3(-1.0f, 0.0f, 0.0f));
 		m_view = Rotate(m_view, Radians(m_settings.Rotation.y), JVec3(0.0f, -1.0f, 0.0f));

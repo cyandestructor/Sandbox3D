@@ -9,6 +9,8 @@ namespace Jass {
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		std::string fullSource = ReadFile(filepath);
 		auto sources = Preprocess(fullSource);
 		CompileProgram(sources);
@@ -22,6 +24,8 @@ namespace Jass {
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& filepath) :
 		m_name(name)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		std::string fullSource = ReadFile(filepath);
 		auto sources = Preprocess(fullSource);
 		CompileProgram(sources);
@@ -30,6 +34,8 @@ namespace Jass {
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc) :
 		m_name(name)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		std::unordered_map<unsigned int, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexShaderSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentShaderSrc;
@@ -44,6 +50,8 @@ namespace Jass {
 
 	void OpenGLShader::Bind()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glUseProgram(m_rendererID);
 	}
 
@@ -54,21 +62,29 @@ namespace Jass {
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const JVec3& vector)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, vector);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const JVec4& vector)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, vector);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, const JMat4& matrix)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		UploadUniformMat4(name, matrix);
 	}
 
@@ -279,6 +295,8 @@ namespace Jass {
 
 	void OpenGLShader::CompileProgram(const std::unordered_map<unsigned int, std::string>& sources)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		std::vector<unsigned int> shaders;
 		shaders.reserve(sources.size());
 

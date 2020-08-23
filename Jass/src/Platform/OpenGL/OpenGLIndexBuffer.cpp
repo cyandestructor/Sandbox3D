@@ -8,6 +8,8 @@ namespace Jass {
 	OpenGLIndexBuffer::OpenGLIndexBuffer(const IndexBufferConfig& config) :
 		m_count(config.Count)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glGenBuffers(1, &m_rendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, config.Count * sizeof(unsigned int), 
@@ -16,12 +18,16 @@ namespace Jass {
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glDeleteBuffers(1, &m_rendererID);
 	}
 
 	void OpenGLIndexBuffer::Bind() const
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
+		JASS_PROFILE_FUNCTION();
+
+		(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
 	}
 
 	void OpenGLIndexBuffer::Unbind() const

@@ -52,6 +52,8 @@ namespace Jass {
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		JASS_CORE_ASSERT(vertexBuffer != nullptr, "Vertex buffer should not be nullptr");
 		JASS_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout");
 
@@ -75,6 +77,8 @@ namespace Jass {
 
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		JASS_CORE_ASSERT(indexBuffer != nullptr, "Index buffer should not be nullptr");
 		glBindVertexArray(m_rendererID);
 		indexBuffer->Bind();

@@ -16,6 +16,8 @@ namespace Jass {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		auto cameraPosition = m_camera.GetPosition();
 		auto cameraRotation = m_camera.GetRotation();
 

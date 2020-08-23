@@ -18,6 +18,8 @@ namespace Jass {
 
 	void OpenGLContext::Init()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_windowHandler);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		JASS_CORE_ASSERT(status, "Could not initialize Glad");
@@ -35,6 +37,8 @@ namespace Jass {
 
 	void OpenGLContext::SwapBuffers()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_windowHandler);
 	}
 

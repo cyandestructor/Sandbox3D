@@ -18,6 +18,8 @@ namespace Jass {
 
 	void Renderer2D::Init()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		s_storage = new Renderer2DStorage;
 
 		s_storage->ColorTextureShader = Shader::Create("assets/shaders/ColorTexture.glsl");
@@ -64,6 +66,8 @@ namespace Jass {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		s_storage->ColorTextureShader->Bind();
 		s_storage->ColorTextureShader->SetMat4("u_viewProjection", camera.GetViewProjection());
 	}
@@ -89,6 +93,8 @@ namespace Jass {
 
 	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		s_storage->ColorTextureShader->SetFloat4("u_color", color);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
@@ -117,6 +123,8 @@ namespace Jass {
 
 	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		s_storage->ColorTextureShader->SetFloat4("u_color", JVec4(1.0f));
 		
 		JMat4 transformation = Translate(JMat4(1.0f), position);

@@ -1,0 +1,6 @@
+#ifndef CORE_CONFIG_H_JASS
+#define CORE_CONFIG_H_JASS
+
+#define JASS_PROFILE 0
+
+#endif // !CORE_CONFIG_H_JASS

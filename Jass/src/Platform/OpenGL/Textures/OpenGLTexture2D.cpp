@@ -10,6 +10,8 @@ namespace Jass {
 	OpenGLTexture2D::OpenGLTexture2D(unsigned int width, unsigned int height) :
 		m_width(width), m_height(height)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		m_textureFormats.InternalFormat = GL_RGBA8;
 		m_textureFormats.Format = GL_RGBA;
 		
@@ -23,10 +25,16 @@ namespace Jass {
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& filepath) :
 		m_filepath(filepath)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		int width, height, channels;
+		stbi_uc* data = nullptr;
 		// Load the image in the way OpenGL expects
-		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+		{
+			JASS_PROFILE_SCOPE("stbi Load");
+			stbi_set_flip_vertically_on_load(1);
+			data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+		}
 
 		if (data) {
 			m_width = (unsigned int)width;
@@ -56,6 +64,8 @@ namespace Jass {
 
 	void OpenGLTexture2D::Bind(unsigned int slot /*= 0*/) const
 	{
+		JASS_PROFILE_FUNCTION();
+
 		glBindTextureUnit(slot, m_rendererID);
 	}
 

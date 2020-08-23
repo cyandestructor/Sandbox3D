@@ -147,6 +147,7 @@
     <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h" />
     <ClInclude Include="src\Jass\Core\Application.h" />
     <ClInclude Include="src\Jass\Core\Core.h" />
+    <ClInclude Include="src\Jass\Core\Core_Config.h" />
     <ClInclude Include="src\Jass\Core\EntryPoint.h" />
     <ClInclude Include="src\Jass\Core\IWindow.h" />
     <ClInclude Include="src\Jass\Core\Input.h" />

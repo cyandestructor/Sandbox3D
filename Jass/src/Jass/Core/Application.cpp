@@ -15,10 +15,15 @@ namespace Jass {
 
 	Application::Application()
 	{
+		JASS_PROFILE_FUNCTION();
+	
 		JASS_CORE_ASSERT(!s_instance, "Application already exists");
 		s_instance = this;
 
-		m_window = std::unique_ptr<IWindow>(IWindow::Create());
+		{
+			JASS_PROFILE_SCOPE("Window creation");
+			m_window = std::unique_ptr<IWindow>(IWindow::Create());
+		}
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
@@ -26,21 +31,24 @@ namespace Jass {
 
 		m_imGuiLayer = new ImGuiLayer();
 		PushOverlay(m_imGuiLayer);
-
 	}
 
 	Application::~Application()
 	{
+		JASS_PROFILE_FUNCTION();
+		
 		Renderer2D::Shutdown();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
-		JASS_CORE_TRACE("{0}", e);
+		//JASS_CORE_TRACE("{0}", e);
 
 		for (auto it = m_layerStack.rbegin(); it != m_layerStack.rend();) {
 			// Pass the event though the layers
@@ -53,19 +61,27 @@ namespace Jass {
 
 	void Application::PushLayer(Layer* layer)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		layer->OnAttach();
 		m_layerStack.PushLayer(layer);
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		JASS_PROFILE_FUNCTION();
+
 		layer->OnAttach();
 		m_layerStack.PushOverlay(layer);
 	}
 
 	void Application::Run()
 	{
+		JASS_PROFILE_FUNCTION();
+
 		while (m_isRunning) {
+
+			JASS_PROFILE_SCOPE("Run loop");
 
 			static float lastime = 0;
 			float time = (float)glfwGetTime();
@@ -73,13 +89,20 @@ namespace Jass {
 			lastime = time;
 
 			if (!m_isMinimized) {
+				
+				JASS_PROFILE_SCOPE("Layer stack OnUpdate");
+
 				for (Layer* layer : m_layerStack)
 					layer->OnUpdate(ts);
 			}
 
 			m_imGuiLayer->Begin();
-			for (Layer* layer : m_layerStack)
-				layer->OnImGuiRender();
+			{
+				JASS_PROFILE_SCOPE("Layer stack OnImGuiRender");
+
+				for (Layer* layer : m_layerStack)
+					layer->OnImGuiRender();
+			}
 			m_imGuiLayer->End();
 
 			m_window->OnUpdate();
