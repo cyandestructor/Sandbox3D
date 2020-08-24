@@ -78,27 +78,16 @@ namespace Jass {
 
 	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& scale, const JVec4& color)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, 0.0f, scale, color);
+		DrawQuad({ position.x, position.y, 0.0f }, scale, color);
 	}
 
 	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& scale, const JVec4& color)
-	{
-		DrawQuad(position, 0.0f, scale, color);
-	}
-
-	void Renderer2D::DrawQuad(const JVec2& position, float rotation, const JVec2& scale, const JVec4& color)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, rotation, scale, color);
-	}
-
-	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color)
 	{
 		JASS_PROFILE_FUNCTION();
 
 		s_storage->ColorTextureShader->SetFloat4("u_color", color);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Rotate(transformation, Radians(rotation), { 0.0f,0.0f,1.0f });
 		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
 		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
 
@@ -106,34 +95,97 @@ namespace Jass {
 		RenderCommand::DrawIndexed(s_storage->VertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& scale, const Ref<Texture2D>& texture)
+	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& scale, const JVec4& color)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, 0.0f, scale, texture);
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, scale, color);
 	}
 
-	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& scale, const Ref<Texture2D>& texture)
-	{
-		DrawQuad(position, 0.0f, scale, texture);
-	}
-
-	void Renderer2D::DrawQuad(const JVec2& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, rotation, scale, texture);
-	}
-
-	void Renderer2D::DrawQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture)
+	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color)
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage->ColorTextureShader->SetFloat4("u_color", JVec4(1.0f));
-		
+		s_storage->ColorTextureShader->SetFloat4("u_color", color);
+
 		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Rotate(transformation, Radians(rotation), { 0.0f,0.0f,1.0f });
+		transformation = Rotate(transformation, rotation, { 0.0f,0.0f,1.0f });
+		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
+		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
+
+		s_storage->WhiteTexture->Bind();
+		RenderCommand::DrawIndexed(s_storage->VertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, scale, texture, tileFactor, tintColor);
+	}
+
+	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		s_storage->ColorTextureShader->SetFloat4("u_color", tintColor);
+		s_storage->ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
+
+		JMat4 transformation = Translate(JMat4(1.0f), position);
 		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
 		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
 
 		texture->Bind();
 		RenderCommand::DrawIndexed(s_storage->VertexArray);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, scale, texture, tileFactor, tintColor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		s_storage->ColorTextureShader->SetFloat4("u_color", tintColor);
+		s_storage->ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
+		
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Rotate(transformation, rotation, { 0.0f,0.0f,1.0f });
+		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
+		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
+
+		texture->Bind();
+		RenderCommand::DrawIndexed(s_storage->VertexArray);
+	}
+
+	void Renderer2D::DrawQuad(const QuadTransformation& transformation, const JVec4& color)
+	{
+		if (transformation.Rotation == 0.0f)
+			DrawQuad(transformation.Position, transformation.Scale, color);
+		else
+			DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale, color);
+	}
+
+	void Renderer2D::DrawQuad(const QuadTransformation& transformation, const TextureProps& textureProperties)
+	{
+		if (transformation.Rotation == 0.0f) {
+			if (textureProperties.Texture != nullptr) {
+				DrawQuad(transformation.Position, transformation.Scale,
+					textureProperties.Texture, textureProperties.TileFactor, textureProperties.TintColor);
+			}
+			else {
+				DrawQuad(transformation.Position, transformation.Scale,
+					s_storage->WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
+			}
+		}
+		else {
+			if (textureProperties.Texture != nullptr) {
+				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale,
+					textureProperties.Texture, textureProperties.TileFactor, textureProperties.TintColor);
+			}
+			else {
+				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale,
+					s_storage->WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
+			}
+		}
 	}
 
 }

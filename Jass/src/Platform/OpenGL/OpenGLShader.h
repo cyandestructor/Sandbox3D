@@ -20,6 +20,7 @@ namespace Jass {
 		virtual void Unbind() override;
 
 		virtual void SetInt(const std::string& name, int value) override;
+		virtual void SetFloat(const std::string& name, float value) override;
 		virtual void SetFloat3(const std::string& name, const JVec3& vector) override;
 		virtual void SetFloat4(const std::string& name, const JVec4& vector) override;
 		virtual void SetMat4(const std::string& name, const JMat4& vector) override;

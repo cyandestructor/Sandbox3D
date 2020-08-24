@@ -28,8 +28,8 @@ void Sandbox2D::OnUpdate(Jass::Timestep ts)
 	Jass::Renderer2D::BeginScene(m_cameraController.GetCamera());
 	Jass::Renderer2D::DrawQuad({ 0.5f, 0.75f }, { 1.0f, 1.0f }, { 0.2f, 0.8f, 0.3f, 1.0f });
 	Jass::Renderer2D::DrawQuad({ 0.25f, -0.5f }, { 0.25f, 0.5f }, { 0.3f, 0.2f, 0.8f, 1.0f });
-	Jass::Renderer2D::DrawQuad({ 1.0f, -0.75f }, 45.0f, { 1.1f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-	Jass::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_texture);
+	Jass::Renderer2D::DrawRotatedQuad({ 1.0f, -0.75f }, Jass::Radians(45.0f), { 1.1f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+	Jass::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_texture, 10);
 	Jass::Renderer2D::EndScene();
 }
 
