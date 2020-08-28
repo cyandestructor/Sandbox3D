@@ -3,18 +3,21 @@
 #type vertex
 #version 330 core
 
-layout(location = 0) in vec4 in_position;
-layout(location = 1) in vec2 in_texCoords;
+layout(location = 0) in vec4 a_position;
+layout(location = 1) in vec4 a_color;
+layout(location = 2) in vec2 a_texCoords;
 
+out vec4 v_color;
 out vec2 v_texCoords;
 
 uniform mat4 u_viewProjection;
-uniform mat4 u_transformation;
+//uniform mat4 u_transformation;
 
 void main()
 {
-	gl_Position = u_viewProjection * u_transformation * in_position;
-	v_texCoords = in_texCoords;
+	gl_Position = u_viewProjection * a_position;
+	v_color = a_color;
+	v_texCoords = a_texCoords;
 }
 
 #type pixel
@@ -22,13 +25,15 @@ void main()
 			
 layout(location = 0) out vec4 out_color;
 	
+in vec4 v_color;
 in vec2 v_texCoords;
 
 uniform sampler2D u_texture;
-uniform vec4 u_color;
+//uniform vec4 u_color;
 uniform float u_tileFactor;
 
 void main()
 {
-	out_color = texture(u_texture, v_texCoords * u_tileFactor) * u_color;
+	//out_color = texture(u_texture, v_texCoords * u_tileFactor) * u_color;
+	out_color = v_color;
 }

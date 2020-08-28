@@ -15,7 +15,7 @@ namespace Jass {
 		virtual void SetClearColor(const JVec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0) override;
 
 	};
 

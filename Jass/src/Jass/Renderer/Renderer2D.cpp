@@ -7,185 +7,255 @@
 
 namespace Jass {
 
-	struct Renderer2DStorage {
+	struct QuadVertex {
+		JVec3 Position;
+		JVec4 Color;
+		JVec2 TexCoord;
+		// TODO: TexID
+	};
+
+	struct Renderer2DData {
 		// TODO: Change Ref with Scope
 		Ref<Shader> ColorTextureShader;
 		Ref<Texture2D> WhiteTexture;
 		Ref<VertexArray> VertexArray;
+		Ref<VertexBuffer> VertexBuffer;
+
+		static constexpr unsigned int MaxQuads = 10000;
+		static constexpr unsigned int MaxVertices = MaxQuads * 4;
+		static constexpr unsigned int MaxIndices = MaxQuads * 6;
+
+		unsigned int QuadIndexCount = 0;
+		std::vector<QuadVertex> QuadVertices;
+
 	};
 
-	static Renderer2DStorage* s_storage;
+	static Renderer2DData s_data;
 
 	void Renderer2D::Init()
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage = new Renderer2DStorage;
-
-		s_storage->ColorTextureShader = Shader::Create("assets/shaders/ColorTexture.glsl");
-		s_storage->ColorTextureShader->Bind();
-		s_storage->ColorTextureShader->SetInt("u_texture", 0);
+		s_data.ColorTextureShader = Shader::Create("assets/shaders/ColorTexture.glsl");
+		s_data.ColorTextureShader->Bind();
+		s_data.ColorTextureShader->SetInt("u_texture", 0);
 
 		// Create a default white texture
-		s_storage->WhiteTexture = Texture2D::Create(1, 1);
+		s_data.WhiteTexture = Texture2D::Create(1, 1);
 		uint32_t texData = 0xffffffff;
-		s_storage->WhiteTexture->SetData(&texData, sizeof(uint32_t));
+		s_data.WhiteTexture->SetData(&texData, sizeof(uint32_t));
 		// ------------------------------
 
-		float positions[] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,	// 0
-			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,	// 1
-			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,	// 2
-			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f	// 3
-		};
-
-		unsigned int indices[] = {
+		/*unsigned int indices[] = {
 			0, 1, 2,
 			2, 3, 0
-		};
+		};*/
 
-		s_storage->VertexArray = Jass::VertexArray::Create();
+		s_data.VertexArray = Jass::VertexArray::Create();
 
-		auto vertexBuffer = Jass::VertexBuffer::Create({ positions,sizeof(positions),Jass::DataUsage::StaticDraw });
-		vertexBuffer->SetLayout({
-			Jass::BufferElement(Jass::ShaderDataType::Float3,"in_position"),
-			Jass::BufferElement(Jass::ShaderDataType::Float2,"in_texCoords")
+		// Pre-allocate memory for vertices
+		s_data.QuadVertices.reserve(s_data.MaxVertices);
+
+		s_data.VertexBuffer = Jass::VertexBuffer::Create(s_data.MaxVertices * sizeof(QuadVertex));
+		s_data.VertexBuffer->SetLayout({
+			Jass::BufferElement(Jass::ShaderDataType::Float3,"a_position"),
+			Jass::BufferElement(Jass::ShaderDataType::Float4,"a_color"),
+			Jass::BufferElement(Jass::ShaderDataType::Float2,"a_texCoords")
 			});
 
-		s_storage->VertexArray->AddVertexBuffer(vertexBuffer);
+		s_data.VertexArray->AddVertexBuffer(s_data.VertexBuffer);
 
-		auto indexBuffer = Jass::IndexBuffer::Create({ indices,6,Jass::DataUsage::StaticDraw });
+		auto indices = std::make_unique<unsigned int[]>(s_data.MaxIndices);
 
-		s_storage->VertexArray->SetIndexBuffer(indexBuffer);
+		// Generate the indices
+		unsigned int offset = 0;
+		for (unsigned int i = 0; i < s_data.MaxIndices; i += 6)
+		{
+			indices[(size_t)i + 0] = offset + 0;
+			indices[(size_t)i + 1] = offset + 1;
+			indices[(size_t)i + 2] = offset + 2;
+		
+			indices[(size_t)i + 3] = offset + 2;
+			indices[(size_t)i + 4] = offset + 3;
+			indices[(size_t)i + 5] = offset + 0;
+
+			offset += 4;
+		}
+
+		auto indexBuffer = Jass::IndexBuffer::Create({ indices.get(),s_data.MaxIndices,Jass::DataUsage::StaticDraw });
+
+		s_data.VertexArray->SetIndexBuffer(indexBuffer);
+		indices.reset();
 	}
 
 	void Renderer2D::Shutdown()
 	{
-		delete s_storage;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage->ColorTextureShader->Bind();
-		s_storage->ColorTextureShader->SetMat4("u_viewProjection", camera.GetViewProjection());
+		s_data.ColorTextureShader->Bind();
+		s_data.ColorTextureShader->SetMat4("u_viewProjection", camera.GetViewProjection());
+
+		s_data.QuadVertices.clear();
+		s_data.QuadIndexCount = 0;
 	}
 
 	void Renderer2D::EndScene()
 	{
+		unsigned int dataSize = (unsigned int)s_data.QuadVertices.size() * sizeof(QuadVertex);
+		s_data.VertexBuffer->SetData(&s_data.QuadVertices[0], dataSize);
+
+		Flush();
 	}
 
-	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& scale, const JVec4& color)
+	void Renderer2D::Flush()
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, scale, color);
+		RenderCommand::DrawIndexed(s_data.VertexArray, s_data.QuadIndexCount);
 	}
 
-	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& scale, const JVec4& color)
+	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& size, const JVec4& color)
 	{
-		JASS_PROFILE_FUNCTION();
-
-		s_storage->ColorTextureShader->SetFloat4("u_color", color);
-
-		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
-
-		s_storage->WhiteTexture->Bind();
-		RenderCommand::DrawIndexed(s_storage->VertexArray);
+		DrawQuad({ position.x, position.y, 0.0f }, size, color);
 	}
 
-	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& scale, const JVec4& color)
-	{
-		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, scale, color);
-	}
-
-	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& scale, const JVec4& color)
+	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& size, const JVec4& color)
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage->ColorTextureShader->SetFloat4("u_color", color);
+		AddQuad(position, size, color);
+
+		//s_data.ColorTextureShader->SetFloat4("u_color", color);
+
+		//JMat4 transformation = Translate(JMat4(1.0f), position);
+		//transformation = Scale(transformation, { size.x, size.y, 1.0f });
+		//s_data.ColorTextureShader->SetMat4("u_transformation", transformation);
+
+		//s_data.WhiteTexture->Bind();
+		//RenderCommand::DrawIndexed(s_data.VertexArray);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const JVec4& color)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, size, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const JVec4& color)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		s_data.ColorTextureShader->SetFloat4("u_color", color);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
 		transformation = Rotate(transformation, rotation, { 0.0f,0.0f,1.0f });
-		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+		s_data.ColorTextureShader->SetMat4("u_transformation", transformation);
 
-		s_storage->WhiteTexture->Bind();
-		RenderCommand::DrawIndexed(s_storage->VertexArray);
+		s_data.WhiteTexture->Bind();
+		RenderCommand::DrawIndexed(s_data.VertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, scale, texture, tileFactor, tintColor);
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tileFactor, tintColor);
 	}
 
-	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage->ColorTextureShader->SetFloat4("u_color", tintColor);
-		s_storage->ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
+		s_data.ColorTextureShader->SetFloat4("u_color", tintColor);
+		s_data.ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+		s_data.ColorTextureShader->SetMat4("u_transformation", transformation);
 
 		texture->Bind();
-		RenderCommand::DrawIndexed(s_storage->VertexArray);
+		RenderCommand::DrawIndexed(s_data.VertexArray);
 	}
 
-	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
 	{
-		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, scale, texture, tileFactor, tintColor);
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, size, texture, tileFactor, tintColor);
 	}
 
-	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& scale, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_storage->ColorTextureShader->SetFloat4("u_color", tintColor);
-		s_storage->ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
+		s_data.ColorTextureShader->SetFloat4("u_color", tintColor);
+		s_data.ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
 		
 		JMat4 transformation = Translate(JMat4(1.0f), position);
 		transformation = Rotate(transformation, rotation, { 0.0f,0.0f,1.0f });
-		transformation = Scale(transformation, { scale.x, scale.y, 1.0f });
-		s_storage->ColorTextureShader->SetMat4("u_transformation", transformation);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+		s_data.ColorTextureShader->SetMat4("u_transformation", transformation);
 
 		texture->Bind();
-		RenderCommand::DrawIndexed(s_storage->VertexArray);
+		RenderCommand::DrawIndexed(s_data.VertexArray);
 	}
 
 	void Renderer2D::DrawQuad(const QuadTransformation& transformation, const JVec4& color)
 	{
 		if (transformation.Rotation == 0.0f)
-			DrawQuad(transformation.Position, transformation.Scale, color);
+			DrawQuad(transformation.Position, transformation.Size, color);
 		else
-			DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale, color);
+			DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Size, color);
 	}
 
 	void Renderer2D::DrawQuad(const QuadTransformation& transformation, const TextureProps& textureProperties)
 	{
 		if (transformation.Rotation == 0.0f) {
 			if (textureProperties.Texture != nullptr) {
-				DrawQuad(transformation.Position, transformation.Scale,
+				DrawQuad(transformation.Position, transformation.Size,
 					textureProperties.Texture, textureProperties.TileFactor, textureProperties.TintColor);
 			}
 			else {
-				DrawQuad(transformation.Position, transformation.Scale,
-					s_storage->WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
+				DrawQuad(transformation.Position, transformation.Size,
+					s_data.WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
 			}
 		}
 		else {
 			if (textureProperties.Texture != nullptr) {
-				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale,
+				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Size,
 					textureProperties.Texture, textureProperties.TileFactor, textureProperties.TintColor);
 			}
 			else {
-				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Scale,
-					s_storage->WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
+				DrawRotatedQuad(transformation.Position, transformation.Rotation, transformation.Size,
+					s_data.WhiteTexture, textureProperties.TileFactor, textureProperties.TintColor);
 			}
 		}
+	}
+
+	void Renderer2D::AddQuad(const JVec3& position, const JVec2& size, const JVec4& color)
+	{
+		QuadVertex quadVertex;
+
+		quadVertex.Position = position;
+		quadVertex.Color = color;
+		quadVertex.TexCoord = { 0.0f, 0.0f };
+		s_data.QuadVertices.push_back(quadVertex);
+
+		quadVertex.Position = { position.x + size.x, position.y, position.z };
+		quadVertex.Color = color;
+		quadVertex.TexCoord = { 1.0f, 0.0f };
+		s_data.QuadVertices.push_back(quadVertex);
+
+		quadVertex.Position = { position.x + size.x, position.y + size.y, position.z };
+		quadVertex.Color = color;
+		quadVertex.TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertices.push_back(quadVertex);
+
+		quadVertex.Position = { position.x, position.y + size.y, position.z };
+		quadVertex.Color = color;
+		quadVertex.TexCoord = { 0.0f, 1.0f };
+		s_data.QuadVertices.push_back(quadVertex);
+
+		s_data.QuadIndexCount += 6;
+
 	}
 
 }

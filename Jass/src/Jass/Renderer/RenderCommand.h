@@ -28,9 +28,9 @@ namespace Jass {
 			s_rendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0)
 		{
-			s_rendererAPI->DrawIndexed(vertexArray);
+			s_rendererAPI->DrawIndexed(vertexArray, indexCount);
 		}
 
 	private:

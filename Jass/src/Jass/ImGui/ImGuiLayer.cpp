@@ -64,8 +64,8 @@ namespace Jass {
     void ImGuiLayer::OnImGuiRender()
     {
         // Example
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        //static bool show = true;
+        //ImGui::ShowDemoWindow(&show);
     }
 
     void ImGuiLayer::Begin()

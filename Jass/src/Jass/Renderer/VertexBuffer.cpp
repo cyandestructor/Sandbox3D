@@ -21,4 +21,19 @@ namespace Jass {
 		return nullptr;
 	}
 
+	Ref<VertexBuffer> VertexBuffer::Create(unsigned int size)
+	{
+		switch (Renderer::GetAPI())
+		{
+			case RendererAPI::API::None:
+				JASS_CORE_ASSERT(false, "Renderer API None is currently not supported");
+				return nullptr;
+			case RendererAPI::API::OpenGL:
+				return MakeRef<OpenGLVertexBuffer>(size);
+		}
+
+		JASS_CORE_ASSERT(false, "Unknow Renderer API");
+		return nullptr;
+	}
+
 }

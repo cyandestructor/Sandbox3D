@@ -14,6 +14,15 @@ namespace Jass {
 		glBufferData(GL_ARRAY_BUFFER, config.Size, config.Data, GLDataUsage(config.DataUsage));
 	}
 
+	OpenGLVertexBuffer::OpenGLVertexBuffer(unsigned int size)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		glGenBuffers(1, &m_rendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		glDeleteBuffers(1, &m_rendererID);
@@ -27,6 +36,14 @@ namespace Jass {
 	void OpenGLVertexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetData(const void* data, unsigned int size)
+	{
+		JASS_PROFILE_FUNCTION();
+		
+		glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
 	unsigned int OpenGLVertexBuffer::GLDataUsage(DataUsage usage)
