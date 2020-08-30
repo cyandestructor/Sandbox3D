@@ -78,6 +78,12 @@ namespace Jass {
 			m_textureFormats.Format, GL_UNSIGNED_BYTE, data);
 	}
 
+	bool OpenGLTexture2D::IsEqual(const ITexture& other) const
+	{
+		auto& otherTexture = static_cast<const OpenGLTexture2D&>(other);
+		return this->m_rendererID == otherTexture.m_rendererID;
+	}
+
 	OpenGLTexture2D::Formats OpenGLTexture2D::SelectFormats(unsigned int channels)
 	{
 		Formats formats;

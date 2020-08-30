@@ -67,6 +67,11 @@ namespace Jass {
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* value, unsigned int count)
+	{
+		UploadUniformIntArray(name, value, count);
+	}
+
 	void OpenGLShader::SetFloat(const std::string& name, float value)
 	{
 		UploadUniformFloat(name, value);
@@ -97,6 +102,12 @@ namespace Jass {
 	{
 		int location = GetUniformLocation(name);
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* value, unsigned int count)
+	{
+		int location = GetUniformLocation(name);
+		glUniform1iv(location, count, value);
 	}
 
 	void OpenGLShader::UploadUniformInt2(const std::string& name, const JVec2& values)

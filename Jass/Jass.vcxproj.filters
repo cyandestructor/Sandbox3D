@@ -1580,5 +1580,6 @@
     <ClCompile Include="src\Jass\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.cpp" />
     <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
   </ItemGroup>
 </Project>

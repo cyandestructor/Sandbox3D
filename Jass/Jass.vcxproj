@@ -636,6 +636,7 @@
     <ClCompile Include="src\Jass\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp" />

@@ -11,7 +11,8 @@ namespace Jass {
 		JVec3 Position;
 		JVec4 Color;
 		JVec2 TexCoord;
-		// TODO: TexID
+		float TexIndex;
+		float TileFactor;
 	};
 
 	struct Renderer2DData {
@@ -28,6 +29,9 @@ namespace Jass {
 		unsigned int QuadIndexCount = 0;
 		std::vector<QuadVertex> QuadVertices;
 
+		static const unsigned int MaxTextureSlots = 32;
+		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		unsigned int TextureSlotIndex = 1;	// 0 is reserved for White Texture
 	};
 
 	static Renderer2DData s_data;
@@ -36,20 +40,20 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
+		int samplers[s_data.MaxTextureSlots];
+		for (unsigned int i = 0; i < s_data.MaxTextureSlots; i++)
+			samplers[i] = i;
+
 		s_data.ColorTextureShader = Shader::Create("assets/shaders/ColorTexture.glsl");
 		s_data.ColorTextureShader->Bind();
-		s_data.ColorTextureShader->SetInt("u_texture", 0);
+		s_data.ColorTextureShader->SetIntArray("u_textures", samplers, s_data.MaxTextureSlots);
 
 		// Create a default white texture
 		s_data.WhiteTexture = Texture2D::Create(1, 1);
 		uint32_t texData = 0xffffffff;
 		s_data.WhiteTexture->SetData(&texData, sizeof(uint32_t));
+		s_data.TextureSlots[0] = s_data.WhiteTexture;
 		// ------------------------------
-
-		/*unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
-		};*/
 
 		s_data.VertexArray = Jass::VertexArray::Create();
 
@@ -60,7 +64,9 @@ namespace Jass {
 		s_data.VertexBuffer->SetLayout({
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"a_position"),
 			Jass::BufferElement(Jass::ShaderDataType::Float4,"a_color"),
-			Jass::BufferElement(Jass::ShaderDataType::Float2,"a_texCoords")
+			Jass::BufferElement(Jass::ShaderDataType::Float2,"a_texCoords"),
+			Jass::BufferElement(Jass::ShaderDataType::Float,"a_texIndex"),
+			Jass::BufferElement(Jass::ShaderDataType::Float,"a_tileFactor")
 			});
 
 		s_data.VertexArray->AddVertexBuffer(s_data.VertexBuffer);
@@ -69,15 +75,15 @@ namespace Jass {
 
 		// Generate the indices
 		unsigned int offset = 0;
-		for (unsigned int i = 0; i < s_data.MaxIndices; i += 6)
+		for (size_t i = 0; i < (size_t)s_data.MaxIndices; i += 6)
 		{
-			indices[(size_t)i + 0] = offset + 0;
-			indices[(size_t)i + 1] = offset + 1;
-			indices[(size_t)i + 2] = offset + 2;
+			indices[i + 0] = offset + 0;
+			indices[i + 1] = offset + 1;
+			indices[i + 2] = offset + 2;
 		
-			indices[(size_t)i + 3] = offset + 2;
-			indices[(size_t)i + 4] = offset + 3;
-			indices[(size_t)i + 5] = offset + 0;
+			indices[i + 3] = offset + 2;
+			indices[i + 4] = offset + 3;
+			indices[i + 5] = offset + 0;
 
 			offset += 4;
 		}
@@ -101,6 +107,8 @@ namespace Jass {
 
 		s_data.QuadVertices.clear();
 		s_data.QuadIndexCount = 0;
+
+		s_data.TextureSlotIndex = 1;
 	}
 
 	void Renderer2D::EndScene()
@@ -113,6 +121,9 @@ namespace Jass {
 
 	void Renderer2D::Flush()
 	{
+		for (unsigned int i = 0; i < s_data.TextureSlotIndex; i++)
+			s_data.TextureSlots[i]->Bind(i);
+
 		RenderCommand::DrawIndexed(s_data.VertexArray, s_data.QuadIndexCount);
 	}
 
@@ -125,7 +136,7 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
-		AddQuad(position, size, color);
+		AddQuad(position, size, color, 0, 1.0f);
 
 		//s_data.ColorTextureShader->SetFloat4("u_color", color);
 
@@ -166,7 +177,25 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
-		s_data.ColorTextureShader->SetFloat4("u_color", tintColor);
+		unsigned int textureIndex = 0;
+
+		// Check if the texture has already been saved
+		for (unsigned int i = 1; i < s_data.TextureSlotIndex; i++) {
+			if (*s_data.TextureSlots[i] == *texture) {
+				textureIndex = i;
+				break;
+			}
+		}
+
+		if (!textureIndex) {
+			textureIndex = s_data.TextureSlotIndex;
+			s_data.TextureSlots[s_data.TextureSlotIndex] = texture;
+			s_data.TextureSlotIndex++;
+		}
+
+		AddQuad(position, size, tintColor, textureIndex, tileFactor);
+
+		/*s_data.ColorTextureShader->SetFloat4("u_color", tintColor);
 		s_data.ColorTextureShader->SetFloat("u_tileFactor", tileFactor);
 
 		JMat4 transformation = Translate(JMat4(1.0f), position);
@@ -174,7 +203,7 @@ namespace Jass {
 		s_data.ColorTextureShader->SetMat4("u_transformation", transformation);
 
 		texture->Bind();
-		RenderCommand::DrawIndexed(s_data.VertexArray);
+		RenderCommand::DrawIndexed(s_data.VertexArray);*/
 	}
 
 	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
@@ -230,28 +259,36 @@ namespace Jass {
 		}
 	}
 
-	void Renderer2D::AddQuad(const JVec3& position, const JVec2& size, const JVec4& color)
+	void Renderer2D::AddQuad(const JVec3& position, const JVec2& size, const JVec4& color, unsigned int texIndex, float tileFactor)
 	{
 		QuadVertex quadVertex;
 
 		quadVertex.Position = position;
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 0.0f, 0.0f };
+		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x + size.x, position.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 1.0f, 0.0f };
+		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x + size.x, position.y + size.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 1.0f, 1.0f };
+		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x, position.y + size.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 0.0f, 1.0f };
+		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		s_data.QuadIndexCount += 6;

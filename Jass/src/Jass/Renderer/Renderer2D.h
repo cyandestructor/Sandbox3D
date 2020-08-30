@@ -43,7 +43,7 @@ namespace Jass {
 		static void DrawQuad(const QuadTransformation& transformation, const TextureProps& textureProperties);
 
 	private:
-		static void AddQuad(const JVec3& position, const JVec2& size, const JVec4& color);
+		static void AddQuad(const JVec3& position, const JVec2& size, const JVec4& color, unsigned int texIndex, float tileFactor);
 
 	};
 

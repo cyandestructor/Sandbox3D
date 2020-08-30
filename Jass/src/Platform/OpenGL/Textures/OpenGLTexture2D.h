@@ -19,6 +19,9 @@ namespace Jass {
 
 		virtual void SetData(const void* data, unsigned int size) override;
 
+	protected:
+		virtual bool IsEqual(const ITexture& other) const override;
+
 	private:
 		std::string m_filepath;
 		unsigned int m_width = 0;
