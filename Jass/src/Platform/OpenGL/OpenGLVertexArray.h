@@ -32,6 +32,9 @@ namespace Jass {
 		std::vector<Ref<VertexBuffer>> m_vertexBuffers;
 		Ref<IndexBuffer> m_indexBuffer;
 
+		void SetAttrib(unsigned int index, const BufferElement& element, unsigned int stride);
+		void SetAttribInt(unsigned int index, const BufferElement& element, unsigned int stride);
+
 	};
 
 }

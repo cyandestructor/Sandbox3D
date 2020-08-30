@@ -63,12 +63,19 @@ namespace Jass {
 		unsigned int index = 0;
 		for (const auto& element : vertexBuffer->GetLayout()) {
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetElementCount(),
-				ToGLenum(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				vertexBuffer->GetLayout().GetStride(),
-				(const void*)(uint64_t)element.Offset);
+
+			switch (ToGLenum(element.Type))
+			{
+				case GL_FLOAT:
+					SetAttrib(index, element, vertexBuffer->GetLayout().GetStride());
+					break;
+				case GL_INT:
+					SetAttribInt(index, element, vertexBuffer->GetLayout().GetStride());
+					break;
+				default:
+					JASS_CORE_ASSERT(false, "Unsupported data type");
+			}
+
 			index++;
 		}
 
@@ -84,6 +91,25 @@ namespace Jass {
 		indexBuffer->Bind();
 
 		m_indexBuffer = indexBuffer;
+	}
+
+	void OpenGLVertexArray::SetAttrib(unsigned int index, const BufferElement& element, unsigned int stride)
+	{
+		glVertexAttribPointer(index,
+			element.GetElementCount(),
+			ToGLenum(element.Type),
+			element.Normalized ? GL_TRUE : GL_FALSE,
+			stride,
+			(const void*)(uint64_t)element.Offset);
+	}
+
+	void OpenGLVertexArray::SetAttribInt(unsigned int index, const BufferElement& element, unsigned int stride)
+	{
+		glVertexAttribIPointer(index,
+			element.GetElementCount(),
+			ToGLenum(element.Type),
+			stride,
+			(const void*)(uint64_t)element.Offset);
 	}
 
 }

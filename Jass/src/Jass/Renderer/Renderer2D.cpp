@@ -11,7 +11,7 @@ namespace Jass {
 		JVec3 Position;
 		JVec4 Color;
 		JVec2 TexCoord;
-		float TexIndex;
+		int TexIndex;
 		float TileFactor;
 	};
 
@@ -65,7 +65,7 @@ namespace Jass {
 			Jass::BufferElement(Jass::ShaderDataType::Float3,"a_position"),
 			Jass::BufferElement(Jass::ShaderDataType::Float4,"a_color"),
 			Jass::BufferElement(Jass::ShaderDataType::Float2,"a_texCoords"),
-			Jass::BufferElement(Jass::ShaderDataType::Float,"a_texIndex"),
+			Jass::BufferElement(Jass::ShaderDataType::Int,"a_texIndex"),
 			Jass::BufferElement(Jass::ShaderDataType::Float,"a_tileFactor")
 			});
 
@@ -266,28 +266,28 @@ namespace Jass {
 		quadVertex.Position = position;
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 0.0f, 0.0f };
-		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TexIndex = texIndex;
 		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x + size.x, position.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 1.0f, 0.0f };
-		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TexIndex = texIndex;
 		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x + size.x, position.y + size.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 1.0f, 1.0f };
-		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TexIndex = texIndex;
 		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
 		quadVertex.Position = { position.x, position.y + size.y, position.z };
 		quadVertex.Color = color;
 		quadVertex.TexCoord = { 0.0f, 1.0f };
-		quadVertex.TexIndex = (float)texIndex;
+		quadVertex.TexIndex = texIndex;
 		quadVertex.TileFactor = tileFactor;
 		s_data.QuadVertices.push_back(quadVertex);
 
