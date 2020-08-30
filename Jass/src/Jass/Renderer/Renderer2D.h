@@ -44,6 +44,8 @@ namespace Jass {
 
 	private:
 		static void AddQuad(const JVec3& position, const JVec2& size, const JVec4& color, unsigned int texIndex, float tileFactor);
+		static void AddRotatedQuad(const JVec3& position, const JVec2& size, float rotation, const JVec4& color, unsigned int texIndex, float tileFactor);
+		static unsigned int SetTextureIndex(const Ref<Texture2D>& texture);
 
 	};
 
