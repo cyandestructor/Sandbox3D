@@ -179,6 +179,9 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
+		if (s_data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+			FlushAndReset();
+
 		unsigned int textureIndex = SetTextureIndex(texture);
 
 		AddQuad(position, size, tintColor, textureIndex, tileFactor);
@@ -192,6 +195,9 @@ namespace Jass {
 	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
 	{
 		JASS_PROFILE_FUNCTION();
+
+		if (s_data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+			FlushAndReset();
 
 		unsigned int textureIndex = SetTextureIndex(texture);
 
