@@ -19,6 +19,8 @@ void Sandbox2D::OnUpdate(Jass::Timestep ts)
 {
 	JASS_PROFILE_FUNCTION();
 
+	Jass::Renderer2D::ResetStatistics();
+
 	m_cameraController.OnUpdate(ts);
 
 	Jass::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
@@ -33,12 +35,31 @@ void Sandbox2D::OnUpdate(Jass::Timestep ts)
 	Jass::Renderer2D::DrawQuad({ 0.25f, -0.5f }, { 0.25f, 0.5f }, { 0.3f, 0.2f, 0.8f, 1.0f });
 	Jass::Renderer2D::DrawRotatedQuad({ 1.0f, -0.75f }, Jass::Radians(rotation), { 1.1f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
 	Jass::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_texture, 10.0f);
+
+	Jass::JVec4 color = { 1.0f, 0.5f, 1.0f, 1.0f };
+	for (float x = -5.0f; x < 5.0f; x += 0.5f) {
+		for (float y = -5.0f; y < 5.0f; y += 0.5f) {
+			color.r = (x + 5.0f) / 10.0f;
+			color.b = (y + 5.0f) / 10.0f;
+			Jass::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+		}
+	}
+
 	Jass::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()
 {
 	JASS_PROFILE_FUNCTION();
+
+	auto statistics = Jass::Renderer2D::GetStatistics();
+
+	ImGui::Begin("Statistics");
+	ImGui::Text("Total Draw Calls: %d", statistics.DrawCalls);
+	ImGui::Text("Total Quads: %d", statistics.TotalQuads);
+	ImGui::Text("Total Vertices: %d", statistics.GetVertexCount());
+	ImGui::Text("Total Indices: %d", statistics.GetIndexCount());
+	ImGui::End();
 
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Color", Jass::GetPtr(m_squareColor));
