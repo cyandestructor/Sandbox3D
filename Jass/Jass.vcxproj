@@ -193,6 +193,7 @@
     <ClInclude Include="src\Jass\Renderer\Shaders\Shader.h" />
     <ClInclude Include="src\Jass\Renderer\Shaders\ShaderLibrary.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h" />
+    <ClInclude Include="src\Jass\Renderer\Textures\SubTexture2D.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\Texture2D.h" />
     <ClInclude Include="src\Jass\Renderer\VertexArray.h" />
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h" />
@@ -637,6 +638,7 @@
     <ClCompile Include="src\Jass\Renderer\Shaders\Shader.cpp" />
     <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Textures\SubTexture2D.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp" />

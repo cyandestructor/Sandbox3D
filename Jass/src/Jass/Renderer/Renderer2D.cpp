@@ -155,7 +155,10 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
-		AddQuad(position, size, color, 0, 1.0f);
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, color, 0, s_data.QuadTexCoords, 1.0f);
 	}
 
 	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const JVec4& color)
@@ -167,7 +170,11 @@ namespace Jass {
 	{
 		JASS_PROFILE_FUNCTION();
 
-		AddRotatedQuad(position, size, rotation, color, 0, 1.0f);
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Rotate(transformation, rotation, { 0.0f, 0.0f, 1.0f });
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, color, 0, s_data.QuadTexCoords, 1.0f);
 	}
 
 	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
@@ -184,7 +191,10 @@ namespace Jass {
 
 		unsigned int textureIndex = SetTextureIndex(texture);
 
-		AddQuad(position, size, tintColor, textureIndex, tileFactor);
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, tintColor, textureIndex, s_data.QuadTexCoords, tileFactor);
 	}
 
 	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
@@ -201,7 +211,58 @@ namespace Jass {
 
 		unsigned int textureIndex = SetTextureIndex(texture);
 
-		AddRotatedQuad(position, size, rotation, tintColor, textureIndex, tileFactor);
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Rotate(transformation, rotation, { 0.0f, 0.0f, 1.0f });
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, tintColor, textureIndex, s_data.QuadTexCoords, tileFactor);
+	}
+
+	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor, const JVec4& tintColor)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, size, subtexture, tileFactor, tintColor);
+	}
+
+	void Renderer2D::DrawQuad(const JVec3& position, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor, const JVec4& tintColor)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		if (s_data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+			FlushAndReset();
+
+		const auto& texture = subtexture->GetTexture();
+		unsigned int textureIndex = SetTextureIndex(texture);
+
+		const auto& quadTexCoords = subtexture->GetTextureCoords();
+
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, tintColor, textureIndex, quadTexCoords, tileFactor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor, const JVec4& tintColor)
+	{
+		DrawRotatedQuad({ position.x, position.y, 0.0f }, rotation, size, subtexture, tileFactor, tintColor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor, const JVec4& tintColor)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		if (s_data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+			FlushAndReset();
+
+		const auto& texture = subtexture->GetTexture();
+		unsigned int textureIndex = SetTextureIndex(texture);
+
+		const auto& quadTexCoords = subtexture->GetTextureCoords();
+
+		JMat4 transformation = Translate(JMat4(1.0f), position);
+		transformation = Rotate(transformation, rotation, { 0.0f, 0.0f, 1.0f });
+		transformation = Scale(transformation, { size.x, size.y, 1.0f });
+
+		AddQuad(transformation, tintColor, textureIndex, quadTexCoords, tileFactor);
 	}
 
 	void Renderer2D::DrawQuad(const QuadTransformation& transformation, const JVec4& color)
@@ -244,45 +305,17 @@ namespace Jass {
 		memset(&s_data.Statistics, 0, sizeof(Renderer2D::Statistics));
 	}
 
-	void Renderer2D::AddQuad(const JVec3& position, const JVec2& size, const JVec4& color, unsigned int texIndex, float tileFactor)
+	void Renderer2D::AddQuad(const JMat4& transformation, const JVec4& color, unsigned int texIndex, const std::array<JVec2, 4>& texCoords, float tileFactor)
 	{
 		if (s_data.QuadIndexCount >= Renderer2DData::MaxIndices)
 			FlushAndReset();
 		
 		QuadVertex quadVertex;
 
-		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Scale(transformation, { size.x, size.y, 1.0f });
-
 		for (unsigned int i = 0; i < 4; i++) {
 			quadVertex.Position = transformation * s_data.QuadVertexPositions[i];
 			quadVertex.Color = color;
-			quadVertex.TexCoord = s_data.QuadTexCoords[i];
-			quadVertex.TexIndex = texIndex;
-			quadVertex.TileFactor = tileFactor;
-			s_data.QuadVertices.push_back(quadVertex);
-		}
-
-		s_data.QuadIndexCount += 6;
-
-		s_data.Statistics.TotalQuads++;
-	}
-
-	void Renderer2D::AddRotatedQuad(const JVec3& position, const JVec2& size, float rotation, const JVec4& color, unsigned int texIndex, float tileFactor)
-	{
-		if (s_data.QuadIndexCount >= Renderer2DData::MaxIndices)
-			FlushAndReset();
-
-		QuadVertex quadVertex;
-
-		JMat4 transformation = Translate(JMat4(1.0f), position);
-		transformation = Rotate(transformation, rotation, { 0.0f, 0.0f, 1.0f });
-		transformation = Scale(transformation, { size.x, size.y, 1.0f });
-
-		for (unsigned int i = 0; i < 4; i++) {
-			quadVertex.Position = transformation * s_data.QuadVertexPositions[i];
-			quadVertex.Color = color;
-			quadVertex.TexCoord = s_data.QuadTexCoords[i];
+			quadVertex.TexCoord = texCoords[i];
 			quadVertex.TexIndex = texIndex;
 			quadVertex.TileFactor = tileFactor;
 			s_data.QuadVertices.push_back(quadVertex);

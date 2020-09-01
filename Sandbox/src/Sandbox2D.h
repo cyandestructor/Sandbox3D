@@ -19,11 +19,13 @@ private:
 	Jass::OrthographicCameraController m_cameraController;
 
 	Jass::Ref<Jass::Texture2D> m_texture;
-	Jass::Ref<Jass::VertexArray> m_squareVertexArray;
-	Jass::Ref<Jass::Shader> m_flatColorShader;
-	Jass::JVec4 m_squareColor = Jass::JVec4(0.2f, 0.3f, 0.8f, 1.0f);
 
-	void FlatColorSquareTest();
+	Jass::Ref<Jass::Texture2D> m_tileMap;
+	Jass::Ref<Jass::SubTexture2D> m_tileCar;
+	Jass::Ref<Jass::SubTexture2D> m_tileTaxi;
+
+	void DrawQuadsTest(Jass::Timestep ts);
+	void DrawSpritesTest(Jass::Timestep ts);
 
 };
 

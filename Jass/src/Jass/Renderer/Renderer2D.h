@@ -3,6 +3,7 @@
 
 #include "Jass/Camera/OrthographicCamera.h"
 #include "Jass/Renderer/Textures/Texture2D.h"
+#include "Jass/Renderer/Textures/SubTexture2D.h"
 
 namespace Jass {
 
@@ -39,6 +40,11 @@ namespace Jass {
 		static void DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
 		static void DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const Ref<Texture2D>& texture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
 
+		static void DrawQuad(const JVec2& position, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
+		static void DrawQuad(const JVec3& position, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
+		static void DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
+		static void DrawRotatedQuad(const JVec3& position, float rotation, const JVec2& size, const Ref<SubTexture2D>& subtexture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
+
 		static void DrawQuad(const QuadTransformation& transformation, const JVec4& color);
 		static void DrawQuad(const QuadTransformation& transformation, const TextureProps& textureProperties);
 
@@ -54,8 +60,7 @@ namespace Jass {
 		static void ResetStatistics();
 
 	private:
-		static void AddQuad(const JVec3& position, const JVec2& size, const JVec4& color, unsigned int texIndex, float tileFactor);
-		static void AddRotatedQuad(const JVec3& position, const JVec2& size, float rotation, const JVec4& color, unsigned int texIndex, float tileFactor);
+		static void AddQuad(const JMat4& transformation, const JVec4& color, unsigned int texIndex, const std::array<JVec2, 4>& texCoords, float tileFactor);
 		
 		static unsigned int SetTextureIndex(const Ref<Texture2D>& texture);
 		static void InitBatch();
