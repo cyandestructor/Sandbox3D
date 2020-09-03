@@ -1486,6 +1486,9 @@
     <ClInclude Include="src\Jass\Debug\Instrumentor.h" />
     <ClInclude Include="src\Jass\Core\Core_Config.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\SubTexture2D.h" />
+    <ClInclude Include="src\Jass\Utility\JassUtilities.h" />
+    <ClInclude Include="src\Jass\Renderer\Framebuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1583,5 +1586,8 @@
     <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\SubTexture2D.cpp" />
+    <ClCompile Include="src\Jass\Utility\JassUtilities.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>
