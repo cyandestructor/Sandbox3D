@@ -109,9 +109,14 @@ namespace Jass {
 		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& e)
+	void Application::Close()
 	{
 		m_isRunning = false;
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		Close();
 		return true;
 	}
 

@@ -26,6 +26,8 @@ namespace Jass {
 		Ref<SubTexture2D> m_tileCar;
 		Ref<SubTexture2D> m_tileTaxi;
 
+		void ShowDockableGUI();
+
 		void DrawQuadsTest(Timestep ts);
 		void DrawSpritesTest(Timestep ts);
 	};

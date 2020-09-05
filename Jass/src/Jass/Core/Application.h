@@ -25,6 +25,7 @@ namespace Jass {
 		void PushOverlay(Layer* layer);
 
 		void Run();
+		void Close();
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
