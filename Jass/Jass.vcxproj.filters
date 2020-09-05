@@ -13,6 +13,9 @@
     <Filter Include="src\Jass\Core">
       <UniqueIdentifier>{65EFE406-D1AF-603D-9AEA-A9BA066AA519}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\Debug">
+      <UniqueIdentifier>{23378FE3-0F05-83E9-F898-F30FE4055F4E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Jass\Events">
       <UniqueIdentifier>{316E0059-9DF9-6D1D-A60A-F1111215CA1D}</UniqueIdentifier>
     </Filter>
@@ -30,6 +33,9 @@
     </Filter>
     <Filter Include="src\Jass\Renderer\Textures">
       <UniqueIdentifier>{66288EB6-5238-3A87-BBF1-9EA5A7202920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Jass\Utility">
+      <UniqueIdentifier>{30CA4E44-1CC3-6D96-45F5-521B314D4DA2}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -90,6 +96,9 @@
     <ClInclude Include="src\Jass\Core\Core.h">
       <Filter>src\Jass\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Core\Core_Config.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Core\EntryPoint.h">
       <Filter>src\Jass\Core</Filter>
     </ClInclude>
@@ -122,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="src\Jass\Core\Timestep.h">
       <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Debug\IRendererDebugOutput.h">
+      <Filter>src\Jass\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Debug\Instrumentor.h">
+      <Filter>src\Jass\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Debug\RendererDebugLog.h">
+      <Filter>src\Jass\Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h">
       <Filter>src\Jass\Events</Filter>
@@ -189,6 +207,9 @@
     <ClInclude Include="src\Jass\Renderer\DataUsageEnum.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Framebuffer.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\IRenderContext.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
@@ -199,6 +220,9 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Renderer.h">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Renderer2D.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\RendererAPI.h">
@@ -213,6 +237,9 @@
     <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Textures\SubTexture2D.h">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\Textures\Texture2D.h">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClInclude>
@@ -222,13 +249,22 @@
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Utility\JassUtilities.h">
+      <Filter>src\Jass\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLIndexBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
@@ -1479,16 +1515,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.h" />
-    <ClInclude Include="src\Jass\Debug\RendererDebugLog.h" />
-    <ClInclude Include="src\Jass\Debug\IRendererDebugOutput.h" />
-    <ClInclude Include="src\Jass\Debug\Instrumentor.h" />
-    <ClInclude Include="src\Jass\Core\Core_Config.h" />
-    <ClInclude Include="src\Jass\Renderer\Textures\SubTexture2D.h" />
-    <ClInclude Include="src\Jass\Utility\JassUtilities.h" />
-    <ClInclude Include="src\Jass\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1512,6 +1538,9 @@
     <ClCompile Include="src\Jass\Core\SpdLogger.cpp">
       <Filter>src\Jass\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp">
+      <Filter>src\Jass\Debug</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp">
       <Filter>src\Jass\ImGui</Filter>
     </ClCompile>
@@ -1521,6 +1550,9 @@
     <ClCompile Include="src\Jass\JMath\JMath.cpp">
       <Filter>src\Jass\JMath</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Framebuffer.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\Renderer\IndexBuffer.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
@@ -1528,6 +1560,9 @@
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\Renderer.cpp">
+      <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Renderer2D.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\RendererAPI.cpp">
@@ -1539,6 +1574,12 @@
     <ClCompile Include="src\Jass\Renderer\Shaders\ShaderLibrary.cpp">
       <Filter>src\Jass\Renderer\Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Textures\SubTexture2D.cpp">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClCompile>
@@ -1548,13 +1589,22 @@
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Utility\JassUtilities.cpp">
+      <Filter>src\Jass\Utility</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLIndexBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
@@ -1581,13 +1631,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Jass\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererDebugOutput.cpp" />
-    <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp" />
-    <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
-    <ClCompile Include="src\Jass\Renderer\Textures\SubTexture2D.cpp" />
-    <ClCompile Include="src\Jass\Utility\JassUtilities.cpp" />
-    <ClCompile Include="src\Jass\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
   </ItemGroup>
 </Project>

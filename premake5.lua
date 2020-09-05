@@ -1,7 +1,7 @@
 workspace "Jass"
 	architecture "x64"
 	configurations { "Debug", "Release", "Dist" }
-	startproject "Sandbox"
+	startproject "Jass-Editor"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -73,6 +73,42 @@ project "Jass"
 
 project "Sandbox"
 	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "On"
+
+	targetdir ("bin/".. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/".. outputdir .. "/%{prj.name}")
+
+	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
+
+	includedirs { "Jass/vendor/spdlog/include", "Jass/src", "%{IncludeDir.glm}", "%{IncludeDir.ImGui}" }
+
+	links { "Jass" }
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines { "JASS_PLATFORM_WINDOWS" }
+
+	filter "configurations:Debug"
+		defines "JASS_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "JASS_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "JASS_DIST"
+		runtime "Release"
+		optimize "On"
+
+project "Jass-Editor"
+	location "Jass-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
