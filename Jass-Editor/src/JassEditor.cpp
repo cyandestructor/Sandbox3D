@@ -7,7 +7,8 @@ namespace Jass {
 	class JassEditor : public Application {
 
 	public:
-		JassEditor()
+		JassEditor() :
+			Application("Jass Editor")
 		{
 			PushLayer(new EditorLayer());
 		}

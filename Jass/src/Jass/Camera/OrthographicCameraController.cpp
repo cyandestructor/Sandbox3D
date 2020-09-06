@@ -50,6 +50,12 @@ namespace Jass {
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OrthographicCameraController::OnWindowResizeEvent));
 	}
 
+	void OrthographicCameraController::OnResize(unsigned int width, unsigned int height)
+	{
+		m_aspectRatio = (float)width / (float)height;
+		m_camera.SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
+	}
+
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
 		m_zoom -= e.GetYOffset() * 0.25f;
@@ -61,8 +67,7 @@ namespace Jass {
 
 	bool OrthographicCameraController::OnWindowResizeEvent(WindowResizeEvent& e)
 	{
-		m_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-		m_camera.SetProjection(-m_aspectRatio * m_zoom, m_aspectRatio * m_zoom, -m_zoom, m_zoom);
+		OnResize(e.GetWidth(), e.GetHeight());
 		
 		return false;
 	}

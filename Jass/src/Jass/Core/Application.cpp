@@ -13,7 +13,7 @@ namespace Jass {
 
 	Application* Application::s_instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		JASS_PROFILE_FUNCTION();
 	
@@ -22,7 +22,7 @@ namespace Jass {
 
 		{
 			JASS_PROFILE_SCOPE("Window creation");
-			m_window = std::unique_ptr<IWindow>(IWindow::Create());
+			m_window = std::unique_ptr<IWindow>(IWindow::Create(WindowProps(name)));
 		}
 		m_window->SetEventCallBack(BIND_EVENT_FN(Application::OnEvent));
 

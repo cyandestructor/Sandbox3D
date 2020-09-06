@@ -13,6 +13,10 @@ namespace Jass {
 
 		virtual const FramebufferConfig& GetConfig() const override { return m_fbConfig; }
 
+		virtual void Resize(unsigned int width, unsigned int height) override;
+
+		virtual unsigned int GetColorAttachmentRendererID() const override { return m_colorAttachment; }
+
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 

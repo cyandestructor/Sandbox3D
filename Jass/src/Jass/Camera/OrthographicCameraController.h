@@ -18,6 +18,7 @@ namespace Jass {
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
+		void OnResize(unsigned int width, unsigned int height);
 
 		void SetCameraMoveSpeed(float speed) { m_cameraMoveSpeed = speed; }
 		void SetCameraRotationSpeed(float rotationSpeed) { m_cameraRotationSpeed = rotationSpeed; }

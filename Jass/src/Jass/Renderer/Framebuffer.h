@@ -21,6 +21,10 @@ namespace Jass {
 
 		virtual const FramebufferConfig& GetConfig() const = 0;
 
+		virtual void Resize(unsigned int width, unsigned int height) = 0;
+
+		virtual unsigned int GetColorAttachmentRendererID() const = 0;
+
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 

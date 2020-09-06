@@ -15,6 +15,11 @@ namespace Jass {
 		m_tileMap = Texture2D::Create("assets/textures/Tilemap/tilemap_packed.png");
 		m_tileCar = SubTexture2D::Create(m_tileMap, { 15.0f * 16.0f, 0.0f }, { 32.0f, 32.0f });
 		m_tileTaxi = SubTexture2D::Create(m_tileMap, { 15.0f * 16.0f, 2.0f * 16.0f }, { 32.0f, 32.0f });
+
+		FramebufferConfig fbConfig;
+		fbConfig.Width = 1280;
+		fbConfig.Height = 720;
+		m_framebuffer = Framebuffer::Create(fbConfig);
 	}
 
 	void EditorLayer::OnDetach()
@@ -26,6 +31,7 @@ namespace Jass {
 		JASS_PROFILE_FUNCTION();
 
 		Renderer2D::ResetStatistics();
+		m_framebuffer->Bind();
 
 		m_cameraController.OnUpdate(ts);
 
@@ -36,6 +42,8 @@ namespace Jass {
 		DrawQuadsTest(ts);
 		//DrawSpritesTest(ts);
 		Renderer2D::EndScene();
+		
+		m_framebuffer->Unbind();
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -123,6 +131,24 @@ namespace Jass {
 		ImGui::Text("Total Vertices: %d", statistics.GetVertexCount());
 		ImGui::Text("Total Indices: %d", statistics.GetIndexCount());
 		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0.0f, 0.0f });
+		ImGui::Begin("Viewport");
+		auto viewportImgID = m_framebuffer->GetColorAttachmentRendererID();
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		JVec2 newViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+
+		if (m_viewportSize != newViewportSize) {
+			m_framebuffer->Resize((unsigned int)newViewportSize.x, (unsigned int)newViewportSize.y);
+			m_cameraController.OnResize((unsigned int)newViewportSize.x, (unsigned int)newViewportSize.y);
+			m_viewportSize = newViewportSize;
+		}
+
+		ImGui::Image((ImTextureID)(uint64_t)viewportImgID,
+			ImVec2{ m_viewportSize.x, m_viewportSize.y },
+			ImVec2{ 0.0f, 1.0f }, ImVec2{ 1.0f, 0.0f });
+		ImGui::End();
+		ImGui::PopStyleVar();
 	}
 
 	void EditorLayer::DrawQuadsTest(Timestep ts)

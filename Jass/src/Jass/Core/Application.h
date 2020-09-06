@@ -13,7 +13,7 @@ namespace Jass {
 	class JASS_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Jass Application");
 		virtual ~Application();
 
 		static Application& Get() { return *s_instance; }
