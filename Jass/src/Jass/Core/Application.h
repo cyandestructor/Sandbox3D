@@ -5,6 +5,7 @@
 #include "IWindow.h"
 #include "Jass/Events/ApplicationEvents.h"
 #include "LayerStack.h"
+#include "Jass/ImGui/ImGuiLayer.h"
 
 namespace Jass {
 	
@@ -23,6 +24,8 @@ namespace Jass {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+
+		ImGuiLayer& GetImGuiLayer() { return *m_imGuiLayer; }
 
 		void Run();
 		void Close();

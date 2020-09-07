@@ -63,9 +63,16 @@ namespace Jass {
 
     void ImGuiLayer::OnImGuiRender()
     {
-        // Example
-        //static bool show = true;
-        //ImGui::ShowDemoWindow(&show);
+    }
+
+    void ImGuiLayer::OnEvent(Event& e)
+    {
+        if (m_blockEvents) {
+            auto& io = ImGui::GetIO();
+
+            e.Handled |= e.IsInCategory(EventCategory::EventCategoryKeyboard) & io.WantCaptureKeyboard;
+            e.Handled |= e.IsInCategory(EventCategory::EventCategoryMouse) & io.WantCaptureMouse;
+        }
     }
 
     void ImGuiLayer::Begin()

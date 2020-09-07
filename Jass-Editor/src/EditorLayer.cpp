@@ -33,7 +33,8 @@ namespace Jass {
 		Renderer2D::ResetStatistics();
 		m_framebuffer->Bind();
 
-		m_cameraController.OnUpdate(ts);
+		if (m_isViewportFocused)
+			m_cameraController.OnUpdate(ts);
 
 		RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 0.0f });
 		RenderCommand::Clear();
@@ -132,11 +133,21 @@ namespace Jass {
 		ImGui::Text("Total Indices: %d", statistics.GetIndexCount());
 		ImGui::End();
 
+		DrawViewport();
+	}
+
+	void EditorLayer::DrawViewport()
+	{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0.0f, 0.0f });
 		ImGui::Begin("Viewport");
 		auto viewportImgID = m_framebuffer->GetColorAttachmentRendererID();
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		JVec2 newViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+
+		// Block events if the viewport is not focused and hovered
+		m_isViewportFocused = ImGui::IsWindowFocused();
+		bool isViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer().BlockEvents(!(m_isViewportFocused && isViewportHovered));
 
 		if (m_viewportSize != newViewportSize) {
 			m_framebuffer->Resize((unsigned int)newViewportSize.x, (unsigned int)newViewportSize.y);

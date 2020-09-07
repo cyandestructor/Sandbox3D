@@ -14,11 +14,15 @@ namespace Jass {
 		virtual void OnDetach() override;
 		virtual void OnAttach() override;
 		virtual void OnImGuiRender() override;
+		virtual void OnEvent(Event& e) override;
+
+		void BlockEvents(bool block) { m_blockEvents = block; }
 
 		void Begin();
 		void End();
 
-		float m_time = 0;
+	private:
+		bool m_blockEvents = false;
 
 	};
 

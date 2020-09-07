@@ -27,9 +27,13 @@ namespace Jass {
 		Ref<SubTexture2D> m_tileTaxi;
 
 		Ref<Framebuffer> m_framebuffer;
+
+		bool m_isViewportFocused = false;
 		JVec2 m_viewportSize = JVec2(0.0f);
 
 		void ShowDockableGUI();
+
+		void DrawViewport();
 
 		void DrawQuadsTest(Timestep ts);
 		void DrawSpritesTest(Timestep ts);

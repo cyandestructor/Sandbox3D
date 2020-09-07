@@ -4,7 +4,6 @@
 #include "Jass/Events/EventDispatcher.h"
 #include "Jass/Renderer/Renderer.h"
 #include "Jass/Renderer/Renderer2D.h"
-#include "Jass/ImGui/ImGuiLayer.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>
