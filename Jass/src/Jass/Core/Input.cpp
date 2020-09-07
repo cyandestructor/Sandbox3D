@@ -1,15 +1,15 @@
 #include "jasspch.h"
-#include "WinInput.h"
-
-#include <GLFW/glfw3.h>
+#include "Input.h"
 
 #include "Jass/Core/Application.h"
 
+#ifdef JASS_PLATFORM_WINDOWS
+
+#include <GLFW/glfw3.h>
+
 namespace Jass {
 
-	std::unique_ptr<Input> Input::s_instance = std::make_unique<WinInput>();
-
-	bool WinInput::IntIsKeyPressed(int keycode)
+	bool Input::IsKeyPressed(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
@@ -17,7 +17,7 @@ namespace Jass {
 		return (status == GLFW_PRESS) || (status == GLFW_REPEAT);
 	}
 
-	bool WinInput::IntIsMouseButtonPressed(int button)
+	bool Input::IsMouseButtonPressed(int button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
@@ -25,7 +25,7 @@ namespace Jass {
 		return status == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WinInput::IntGetMousePos()
+	std::pair<float, float> Input::GetMousePos()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 
@@ -36,3 +36,7 @@ namespace Jass {
 	}
 
 }
+
+#else
+	#error Input only support Windows
+#endif
