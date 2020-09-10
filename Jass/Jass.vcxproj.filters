@@ -1512,6 +1512,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Scene\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1524,6 +1525,9 @@
       <Filter>src\Jass\Camera</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Core\Application.cpp">
+      <Filter>src\Jass\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Core\Input.cpp">
       <Filter>src\Jass\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Core\Layer.cpp">
@@ -1625,6 +1629,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Jass\Core\Input.cpp" />
+    <ClCompile Include="src\Jass\Scene\Scene.cpp" />
   </ItemGroup>
 </Project>

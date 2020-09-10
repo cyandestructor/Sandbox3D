@@ -11,6 +11,7 @@ IncludeDir["GLFW"] = "Jass/vendor/GLFW/include"
 IncludeDir["Glad"] = "Jass/vendor/Glad/include"
 IncludeDir["ImGui"] = "Jass/vendor/imgui"
 IncludeDir["glm"] = "Jass/vendor/glm"
+IncludeDir["entt"] = "Jass/vendor/entt"
 IncludeDir["stb_image"] = "Jass/vendor/stb_image"
 
 include "Jass/vendor/GLFW"
@@ -46,7 +47,8 @@ project "Jass"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links { "GLFW", "opengl32.lib", "Glad", "ImGui" }
@@ -83,7 +85,13 @@ project "Sandbox"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "Jass/vendor/spdlog/include", "Jass/src", "%{IncludeDir.glm}", "%{IncludeDir.ImGui}" }
+	includedirs {
+		"Jass/vendor/spdlog/include",
+		"Jass/src",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.entt}"
+	}
 
 	links { "Jass" }
 
@@ -119,7 +127,13 @@ project "Jass-Editor"
 
 	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
 
-	includedirs { "Jass/vendor/spdlog/include", "Jass/src", "%{IncludeDir.glm}", "%{IncludeDir.ImGui}" }
+	includedirs {
+		"Jass/vendor/spdlog/include",
+		"Jass/src",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.entt}"
+	}
 
 	links { "Jass" }
 
