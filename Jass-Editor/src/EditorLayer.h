@@ -22,9 +22,7 @@ namespace Jass {
 
 		Ref<Texture2D> m_texture;
 
-		Ref<Texture2D> m_tileMap;
-		Ref<SubTexture2D> m_tileCar;
-		Ref<SubTexture2D> m_tileTaxi;
+		Ref<Scene> m_scene;
 
 		Ref<Framebuffer> m_framebuffer;
 
@@ -35,8 +33,6 @@ namespace Jass {
 
 		void DrawViewport();
 
-		void DrawQuadsTest(Timestep ts);
-		void DrawSpritesTest(Timestep ts);
 	};
 
 }

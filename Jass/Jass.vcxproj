@@ -162,6 +162,7 @@
     <ClInclude Include="src\Jass\Debug\IRendererDebugOutput.h" />
     <ClInclude Include="src\Jass\Debug\Instrumentor.h" />
     <ClInclude Include="src\Jass\Debug\RendererDebugLog.h" />
+    <ClInclude Include="src\Jass\ECS\Components\Components.h" />
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Jass\Events\Event.h" />
     <ClInclude Include="src\Jass\Events\EventDispatcher.h" />

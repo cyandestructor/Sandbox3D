@@ -30,6 +30,9 @@ namespace Jass {
 
 		static void Flush();
 
+		static void DrawQuad(const JMat4& transformation, const JVec4& color);
+		static void DrawQuad(const JMat4& transformation, const Ref<Texture2D>& texture, float tileFactor = 1.0f, const JVec4& tintColor = JVec4(1.0f));
+
 		static void DrawQuad(const JVec2& position, const JVec2& size, const JVec4& color);
 		static void DrawQuad(const JVec3& position, const JVec2& size, const JVec4& color);
 		static void DrawRotatedQuad(const JVec2& position, float rotation, const JVec2& size, const JVec4& color);

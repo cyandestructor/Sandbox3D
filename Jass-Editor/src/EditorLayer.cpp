@@ -12,9 +12,13 @@ namespace Jass {
 	{
 		m_texture = Texture2D::Create("assets/textures/Checkerboard.png");
 
-		m_tileMap = Texture2D::Create("assets/textures/Tilemap/tilemap_packed.png");
-		m_tileCar = SubTexture2D::Create(m_tileMap, { 15.0f * 16.0f, 0.0f }, { 32.0f, 32.0f });
-		m_tileTaxi = SubTexture2D::Create(m_tileMap, { 15.0f * 16.0f, 2.0f * 16.0f }, { 32.0f, 32.0f });
+		m_scene = MakeRef<Scene>();
+
+		// EXTREMELY TEMPORARY
+		auto& registry = m_scene->GetReg();
+		auto entity = m_scene->CreateEntity();
+		registry.emplace<TransformationComponent>(entity);
+		registry.emplace<SpriteComponent>(entity, JVec4{ 0.3f, 0.2f, 0.8f, 1.0f });
 
 		FramebufferConfig fbConfig;
 		fbConfig.Width = 1280;
@@ -40,8 +44,7 @@ namespace Jass {
 		RenderCommand::Clear();
 
 		Renderer2D::BeginScene(m_cameraController.GetCamera());
-		DrawQuadsTest(ts);
-		//DrawSpritesTest(ts);
+		m_scene->OnUpdate(ts);
 		Renderer2D::EndScene();
 		
 		m_framebuffer->Unbind();
@@ -160,33 +163,6 @@ namespace Jass {
 			ImVec2{ 0.0f, 1.0f }, ImVec2{ 1.0f, 0.0f });
 		ImGui::End();
 		ImGui::PopStyleVar();
-	}
-
-	void EditorLayer::DrawQuadsTest(Timestep ts)
-	{
-		static float rotation = 0.0f;
-		rotation += 30.0f * ts;
-		rotation = rotation > 360.0f ? rotation - 360.0f : rotation;
-
-		Renderer2D::DrawQuad({ 0.5f, 0.75f }, { 1.0f, 1.0f }, { 0.2f, 0.8f, 0.3f, 1.0f });
-		Renderer2D::DrawQuad({ 0.25f, -0.5f }, { 0.25f, 0.5f }, { 0.3f, 0.2f, 0.8f, 1.0f });
-		Renderer2D::DrawRotatedQuad({ 1.0f, -0.75f }, Radians(rotation), { 1.1f, 0.5f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_texture, 10.0f);
-
-		JVec4 color = { 1.0f, 0.5f, 1.0f, 1.0f };
-		for (float x = -5.0f; x < 5.0f; x += 0.5f) {
-			for (float y = -5.0f; y < 5.0f; y += 0.5f) {
-				color.r = (x + 5.0f) / 10.0f;
-				color.b = (y + 5.0f) / 10.0f;
-				Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-			}
-		}
-	}
-
-	void EditorLayer::DrawSpritesTest(Timestep ts)
-	{
-		Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_tileCar);
-		Renderer2D::DrawQuad({ 2.0f, 0.0f }, { 1.0f, 1.0f }, m_tileTaxi);
 	}
 
 }

@@ -1513,6 +1513,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Scene\Scene.h" />
+    <ClInclude Include="src\Jass\ECS\Components\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">

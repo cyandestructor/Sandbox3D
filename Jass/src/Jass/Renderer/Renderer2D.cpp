@@ -146,6 +146,25 @@ namespace Jass {
 		s_data.Statistics.DrawCalls++;
 	}
 
+	void Renderer2D::DrawQuad(const JMat4& transformation, const JVec4& color)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		AddQuad(transformation, color, 0, s_data.QuadTexCoords, 1.0f);
+	}
+
+	void Renderer2D::DrawQuad(const JMat4& transformation, const Ref<Texture2D>& texture, float tileFactor, const JVec4& tintColor)
+	{
+		JASS_PROFILE_FUNCTION();
+
+		if (s_data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
+			FlushAndReset();
+
+		unsigned int textureIndex = SetTextureIndex(texture);
+
+		AddQuad(transformation, tintColor, textureIndex, s_data.QuadTexCoords, tileFactor);
+	}
+
 	void Renderer2D::DrawQuad(const JVec2& position, const JVec2& size, const JVec4& color)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, size, color);
