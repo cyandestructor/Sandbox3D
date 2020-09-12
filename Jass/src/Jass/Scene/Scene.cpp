@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "Jass/ECS/Components/Components.h"
+#include "Jass/ECS/Entity.h"
 #include "Jass/Renderer/Renderer2D.h"
 
 namespace Jass {
@@ -20,9 +21,13 @@ namespace Jass {
 		}
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& tag)
 	{
-		return m_registry.create();
+		Entity entity = { m_registry.create(), this };
+		// Every Entity has a transformation and tag by default
+		entity.AddComponent<TransformationComponent>();
+		entity.AddComponent<TagComponent>(tag.empty() ? "Entity" : tag);
+		return entity;
 	}
 
 }

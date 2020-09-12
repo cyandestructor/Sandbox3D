@@ -6,17 +6,18 @@
 
 namespace Jass {
 
+	class Entity;
+
 	class JASS_API Scene {
+
+		friend class Entity;
 
 	public:
 		Scene();
 
 		void OnUpdate(Timestep ts);
 
-		entt::entity CreateEntity();
-
-		// Temporary
-		entt::registry& GetReg() { return m_registry; }
+		Entity CreateEntity(const std::string& tag = std::string());
 
 	private:
 		entt::registry m_registry;

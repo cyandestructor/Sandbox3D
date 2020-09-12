@@ -23,6 +23,7 @@ namespace Jass {
 		Ref<Texture2D> m_texture;
 
 		Ref<Scene> m_scene;
+		Entity m_squareEntity;
 
 		Ref<Framebuffer> m_framebuffer;
 

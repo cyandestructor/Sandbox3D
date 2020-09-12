@@ -163,6 +163,7 @@
     <ClInclude Include="src\Jass\Debug\Instrumentor.h" />
     <ClInclude Include="src\Jass\Debug\RendererDebugLog.h" />
     <ClInclude Include="src\Jass\ECS\Components\Components.h" />
+    <ClInclude Include="src\Jass\ECS\Entity.h" />
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Jass\Events\Event.h" />
     <ClInclude Include="src\Jass\Events\EventDispatcher.h" />
@@ -632,6 +633,7 @@
     <ClCompile Include="src\Jass\Core\LayerStack.cpp" />
     <ClCompile Include="src\Jass\Core\SpdLogger.cpp" />
     <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp" />
+    <ClCompile Include="src\Jass\ECS\Entity.cpp" />
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp" />
     <ClCompile Include="src\Jass\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Jass\JMath\JMath.cpp" />

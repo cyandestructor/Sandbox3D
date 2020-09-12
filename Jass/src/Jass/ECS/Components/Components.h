@@ -28,6 +28,16 @@ namespace Jass {
 		JVec4 Color = JVec4(1.0f);
 	};
 
+	struct TagComponent
+	{
+		TagComponent() = default;
+		TagComponent(const TagComponent& other) = default;
+		TagComponent(const std::string& tag) :
+			Tag(tag) {}
+
+		std::string Tag;
+	};
+
 }
 
 #endif // !COMPONENTS_H_JASS

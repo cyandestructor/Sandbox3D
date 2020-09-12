@@ -14,11 +14,9 @@ namespace Jass {
 
 		m_scene = MakeRef<Scene>();
 
-		// EXTREMELY TEMPORARY
-		auto& registry = m_scene->GetReg();
-		auto entity = m_scene->CreateEntity();
-		registry.emplace<TransformationComponent>(entity);
-		registry.emplace<SpriteComponent>(entity, JVec4{ 0.3f, 0.2f, 0.8f, 1.0f });
+		// TEMPORARY
+		m_squareEntity = m_scene->CreateEntity();
+		m_squareEntity.AddComponent<SpriteComponent>(JVec4{ 0.3f, 0.2f, 0.8f, 1.0f });
 
 		FramebufferConfig fbConfig;
 		fbConfig.Width = 1280;
@@ -134,6 +132,13 @@ namespace Jass {
 		ImGui::Text("Total Quads: %d", statistics.TotalQuads);
 		ImGui::Text("Total Vertices: %d", statistics.GetVertexCount());
 		ImGui::Text("Total Indices: %d", statistics.GetIndexCount());
+
+		ImGui::Separator();
+		ImGui::Text(m_squareEntity.GetComponent<TagComponent>().Tag.c_str());
+		auto& squareColor = m_squareEntity.GetComponent<SpriteComponent>().Color;
+		ImGui::ColorEdit4("Color", GetPtr(squareColor));
+		ImGui::Separator();
+
 		ImGui::End();
 
 		DrawViewport();

@@ -1514,6 +1514,7 @@
     </ClInclude>
     <ClInclude Include="src\Jass\Scene\Scene.h" />
     <ClInclude Include="src\Jass\ECS\Components\Components.h" />
+    <ClInclude Include="src\Jass\ECS\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1631,5 +1632,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Scene\Scene.cpp" />
+    <ClCompile Include="src\Jass\ECS\Entity.cpp" />
   </ItemGroup>
 </Project>
