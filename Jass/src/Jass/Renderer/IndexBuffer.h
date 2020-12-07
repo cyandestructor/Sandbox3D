@@ -7,7 +7,7 @@
 namespace Jass {
 
 	struct JASS_API IndexBufferConfig {
-		unsigned int* Data;
+		const unsigned int* Data;
 		unsigned int Count;
 		DataUsage DataUsage;
 	};

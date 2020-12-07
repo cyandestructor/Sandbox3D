@@ -7,7 +7,7 @@
 namespace Jass {
 
 	struct JASS_API VertexBufferConfig {
-		float* Data;
+		const void* Data;
 		unsigned int Size;
 		DataUsage DataUsage;
 	};

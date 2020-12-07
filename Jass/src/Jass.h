@@ -22,6 +22,7 @@
 #include "Jass/Camera/OrthographicCamera.h"
 #include "Jass/Camera/OrthographicCameraController.h"
 #include "Jass/Camera/PerspectiveCamera.h"
+#include "Jass/Camera/PerspectiveCameraController.h"
 
 #include "Jass/Scene/Scene.h"
 #include "Jass/ECS/Entity.h"

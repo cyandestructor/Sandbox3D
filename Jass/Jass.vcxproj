@@ -145,6 +145,7 @@
     <ClInclude Include="src\Jass\Camera\OrthographicCamera.h" />
     <ClInclude Include="src\Jass\Camera\OrthographicCameraController.h" />
     <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h" />
+    <ClInclude Include="src\Jass\Camera\PerspectiveCameraController.h" />
     <ClInclude Include="src\Jass\Core\Application.h" />
     <ClInclude Include="src\Jass\Core\Core.h" />
     <ClInclude Include="src\Jass\Core\Core_Config.h" />
@@ -627,6 +628,7 @@
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp" />
     <ClCompile Include="src\Jass\Camera\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Jass\Camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\Jass\Camera\PerspectiveCameraController.cpp" />
     <ClCompile Include="src\Jass\Core\Application.cpp" />
     <ClCompile Include="src\Jass\Core\Input.cpp" />
     <ClCompile Include="src\Jass\Core\Layer.cpp" />

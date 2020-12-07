@@ -27,6 +27,11 @@ namespace Jass {
 		return glm::perspectiveFov(fov, width, height, zNear, zFar);
 	}
 
+	JMat4 LookAt(const JVec3& position, const JVec3& target, const JVec3& up)
+	{
+		return glm::lookAt(position, target, up);
+	}
+
 	JMat4 Orthographic(float left, float right, float bottom, float top, float zNear = -1.0f, float zFar = 1.0f)
 	{
 		return glm::ortho(left, right, bottom, top, zNear, zFar);
@@ -65,6 +70,16 @@ namespace Jass {
 	const float* GetPtr(const JVec4& vector)
 	{
 		return glm::value_ptr(vector);
+	}
+
+	JVec3 Cross(const JVec3& v1, const JVec3& v2)
+	{
+		return glm::cross(v1, v2);
+	}
+
+	JVec3 Normalize(const JVec3& vector)
+	{
+		return glm::normalize(vector);
 	}
 
 }
