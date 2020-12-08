@@ -134,15 +134,16 @@
     <ClInclude Include="src\ExampleLayer.h" />
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D\Model\Light.h" />
+    <ClInclude Include="src\Sandbox3D\Model\Material.h" />
     <ClInclude Include="src\Sandbox3D\Model\Mesh.h" />
     <ClInclude Include="src\Sandbox3D\Model\Model.h" />
     <ClInclude Include="src\Sandbox3D\Model\ModelLoader.h" />
-    <ClInclude Include="src\Sandbox3D\Model\OBJ_Loader\OBJ_Loader.h" />
     <ClInclude Include="src\Sandbox3D\Model\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="src\Sandbox3D\Sandbox3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
+    <ClCompile Include="src\Sandbox3D\Model\Material.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Mesh.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Model.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\ModelLoader.cpp" />

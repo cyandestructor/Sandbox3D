@@ -33,6 +33,9 @@
     <ClCompile Include="src\Sandbox3D\Model\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h">
@@ -56,10 +59,10 @@
     <ClInclude Include="src\Sandbox3D\Model\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\OBJ_Loader\OBJ_Loader.h">
+    <ClInclude Include="src\Sandbox3D\Model\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Light.h">
+    <ClInclude Include="src\Sandbox3D\Model\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

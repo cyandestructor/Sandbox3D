@@ -17,7 +17,12 @@ public:
 
 private:
 	Jass::PerspectiveCameraController m_cameraController;
-	Model m_cube;
+	
+	Light m_light;
+
+	Model m_model;
+
+	Jass::ShaderLibrary m_shaderLib;
 
 };
 
