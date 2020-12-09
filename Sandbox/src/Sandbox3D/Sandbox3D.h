@@ -3,6 +3,7 @@
 
 #include <Jass.h>
 #include "Model/Model.h"
+#include "Terrain/Terrain.h"
 
 class Sandbox3D : public Jass::Layer {
 
@@ -21,6 +22,8 @@ private:
 	Light m_light;
 
 	Model m_model;
+
+	Terrain m_terrain;
 
 	Jass::ShaderLibrary m_shaderLib;
 

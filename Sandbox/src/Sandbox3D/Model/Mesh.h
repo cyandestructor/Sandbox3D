@@ -7,18 +7,22 @@ struct MeshVertex {
 	Jass::JVec3 Position;
 	Jass::JVec3 Normal;
 	Jass::JVec2 TexCoord;
+	Jass::JVec3 Tangent;
+	Jass::JVec3 Bitangent;
 };
 
 class Mesh {
 
 public:
 	Mesh() = default;
-	Mesh(const std::vector<MeshVertex>& vertices, const std::vector<unsigned int>& indices);
+	Mesh(std::vector<MeshVertex>& vertices, const std::vector<unsigned int>& indices);
 
 	inline const Jass::Ref<Jass::VertexArray>& GetVertexArray() const { return m_vertexArray; }
 
 private:
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
+
+	void CalculateTangentsBitangents(std::vector<MeshVertex>& vertices);
 
 };
 

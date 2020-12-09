@@ -13,6 +13,11 @@ void Material::SetDiffuseTexture(const std::string& textureFilename)
 	m_diffuseTexture = Jass::Texture2D::Create(textureFilename);
 }
 
+void Material::SetNormalTexture(const std::string& textureFilename)
+{
+	m_normalTexture = Jass::Texture2D::Create(textureFilename);
+}
+
 void Material::Prepare(Jass::Ref<Jass::Shader>& shader, const Light& light) const
 {
 	shader->Bind();
@@ -33,4 +38,9 @@ void Material::Prepare(Jass::Ref<Jass::Shader>& shader, const Light& light) cons
 		shader->SetInt("u_diffuseTex", 0);
 
 	shader->SetFloat4("u_color", m_color);
+
+	if (m_normalTexture) {
+		m_normalTexture->Bind(2);
+		shader->SetInt("u_normalTex", 2);
+	}
 }
