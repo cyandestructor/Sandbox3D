@@ -45,6 +45,9 @@
     <ClCompile Include="src\Sandbox3D\stb_image\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Skybox\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Sandbox3D\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Skybox\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

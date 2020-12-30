@@ -21,6 +21,8 @@ namespace Jass {
 		virtual void SetClearColor(const JVec4& color) = 0;
 		virtual void Clear() = 0;
 
+		virtual void EnableDepthMask(bool enable) = 0;
+
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0) = 0;
 
 		static API GetAPI();

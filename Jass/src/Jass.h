@@ -29,5 +29,6 @@
 #include "Jass/ECS/Components/Components.h"
 
 #include "Jass/Renderer/Textures/Texture2D.h"
+#include "Jass/Renderer/Textures/Texture3D.h"
 
 #endif

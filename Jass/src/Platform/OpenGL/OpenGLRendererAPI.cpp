@@ -8,6 +8,7 @@ namespace Jass {
 	void OpenGLRendererAPI::Init()
 	{
 		glEnable(GL_BLEND);
+		glEnable(GL_CULL_FACE);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glEnable(GL_DEPTH_TEST);
@@ -26,6 +27,11 @@ namespace Jass {
 	void OpenGLRendererAPI::Clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRendererAPI::EnableDepthMask(bool enable)
+	{
+		glDepthMask(enable ? GL_TRUE : GL_FALSE);
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount)

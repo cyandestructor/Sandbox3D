@@ -199,6 +199,7 @@
     <ClInclude Include="src\Jass\Renderer\Textures\ITexture.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\SubTexture2D.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\Texture2D.h" />
+    <ClInclude Include="src\Jass\Renderer\Textures\Texture3D.h" />
     <ClInclude Include="src\Jass\Renderer\VertexArray.h" />
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Jass\Scene\Scene.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.h" />
+    <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.h" />
     <ClInclude Include="src\Platform\Windows\WinWindow.h" />
     <ClInclude Include="src\jasspch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -650,6 +652,7 @@
     <ClCompile Include="src\Jass\Renderer\Textures\ITexture.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\SubTexture2D.cpp" />
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Textures\Texture3D.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Jass\Scene\Scene.cpp" />
@@ -663,6 +666,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.cpp" />
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="src\jasspch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

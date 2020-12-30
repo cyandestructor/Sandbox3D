@@ -13,7 +13,12 @@ public:
 	void SetMaxHeight(float height) { m_maxHeight = height; }
 	void SetPosition(const Jass::JVec3& position) { m_position = position; }
 
+	void SetAmbientReduction(float reductionFactor) { m_ambientReduction = reductionFactor; }
+	void SetDiffuseReduction(float reductionFactor) { m_diffuseReduction = reductionFactor; }
+
 	float GetTerrainHeight(float worldX, float worldZ) const;
+
+	void SetBlendMap(const std::string& blendmap);
 
 	void SetUVRepeat(float repeatFactor) { m_uvRepeat = repeatFactor; }
 	void AddTexture(const std::string& texture, const std::string& uniformName, unsigned int slot);
@@ -23,6 +28,7 @@ public:
 private:
 	Mesh m_terrainMesh;
 
+	float m_ambientReduction = 1.0f, m_diffuseReduction = 1.0f;
 	float m_width, m_height;
 
 	Jass::JVec3 m_position = Jass::JVec3(0.0f);

@@ -46,7 +46,7 @@ namespace Jass {
 			glTextureStorage2D(m_rendererID, 1, m_textureFormats.InternalFormat, m_width, m_height);
 
 			glTextureParameteri(m_rendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTextureParameteri(m_rendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTextureParameteri(m_rendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 			glTextureSubImage2D(m_rendererID, 0, 0, 0, m_width, m_height, m_textureFormats.Format, GL_UNSIGNED_BYTE, data);
 

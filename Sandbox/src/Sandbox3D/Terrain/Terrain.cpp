@@ -33,8 +33,8 @@ float Terrain::GetTerrainHeight(float worldX, float worldZ) const
 
 	// Note this only works on square terrains
 
-	int inW = m_terrainHeight.size() - 1;
-	int inH = m_terrainHeight[0].size() - 1;
+	int inW = (int)m_terrainHeight.size() - 1;
+	int inH = (int)m_terrainHeight[0].size() - 1;
 
 	float gridSqW = m_width / (inW);
 	float gridSqH = m_height / (inH);
@@ -68,6 +68,16 @@ float Terrain::GetTerrainHeight(float worldX, float worldZ) const
 	return result;
 }
 
+void Terrain::SetBlendMap(const std::string& blendmap)
+{
+	TerrainTexture tt;
+	tt.Texture = Jass::Texture2D::Create(blendmap);
+	tt.Slot = 0;
+	tt.UniformName = "u_blendMap";
+
+	m_terrainTextures.push_back(tt);
+}
+
 void Terrain::AddTexture(const std::string& texture, const std::string& uniformName, unsigned int slot)
 {
 	TerrainTexture tt;
@@ -80,9 +90,15 @@ void Terrain::AddTexture(const std::string& texture, const std::string& uniformN
 void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
 {
 	shader->Bind();
+	
+	shader->SetFloat4("u_lightColor", light.GetColor());
+	shader->SetFloat3("u_lightPosition", light.GetPosition());
+
+	shader->SetFloat("u_ambientReduction", m_ambientReduction);
+	shader->SetFloat("u_diffuseReduction", m_diffuseReduction);
 
 	shader->SetFloat("u_repeatFactor", m_uvRepeat);
-
+	
 	for (const auto& texture : m_terrainTextures)
 	{
 		if (texture.Texture)
@@ -92,10 +108,7 @@ void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
 		}
 	}
 
-	Jass::JMat4 transformation = Jass::JMat4(1.0f);
-	transformation = Jass::Translate(transformation, { m_position.x + m_width * 0.5f, m_position.y, m_position.z + m_width * 0.5f});
-
-	Jass::Renderer::Submit(shader, m_terrainMesh.GetVertexArray(), transformation);
+	Jass::Renderer::Submit(shader, m_terrainMesh.GetVertexArray());
 }
 
 Mesh Terrain::Generate(const std::string& heightmap, unsigned int width, unsigned int height)
@@ -136,14 +149,14 @@ Mesh Terrain::Generate(const std::string& heightmap, unsigned int width, unsigne
 		for (unsigned int j = 0; j < vertexCountH; j++)
 		{
 			MeshVertex mv;
-			mv.Position.x = -(float)i / ((float)vertexCountW - 1) * (float)width;
-			float vHeight = GetHeight(data, i, j, channels, imgWidth, imgHeight);
-			m_terrainHeight[i][j] = vHeight;
+			mv.Position.x = -(float)j / ((float)vertexCountW - 1) * (float)width;
+			float vHeight = GetHeight(data, j, i, channels, imgWidth, imgHeight);
+			m_terrainHeight[j][i] = vHeight;
 			mv.Position.y = vHeight;
-			mv.Position.z = -(float)j / ((float)vertexCountH - 1) * (float)height;
-			mv.Normal = CalculateNormal(i, j, imgInfo);
-			mv.TexCoord.x = (float)i / ((float)vertexCountW - 1);
-			mv.TexCoord.y = (float)j / ((float)vertexCountH - 1);
+			mv.Position.z = -(float)i / ((float)vertexCountH - 1) * (float)height;
+			mv.Normal = CalculateNormal(j, i, imgInfo);
+			mv.TexCoord.x = (float)j / ((float)vertexCountW - 1);
+			mv.TexCoord.y = (float)i / ((float)vertexCountH - 1);
 
 			vertices.push_back(mv);
 		}
@@ -164,7 +177,6 @@ Mesh Terrain::Generate(const std::string& heightmap, unsigned int width, unsigne
 			indices.push_back(topRight);
 			indices.push_back(bottomLeft);
 			indices.push_back(bottomRight);
-
 		}
 	}
 

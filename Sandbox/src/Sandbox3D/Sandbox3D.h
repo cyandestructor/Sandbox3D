@@ -4,6 +4,7 @@
 #include <Jass.h>
 #include "Model/Model.h"
 #include "Terrain/Terrain.h"
+#include "Skybox/Skybox.h"
 
 class Sandbox3D : public Jass::Layer {
 
@@ -19,6 +20,8 @@ public:
 private:
 	Jass::PerspectiveCameraController m_cameraController;
 	
+	Skybox m_skybox;
+
 	Light m_light;
 
 	Model m_model;
@@ -26,6 +29,8 @@ private:
 	Terrain m_terrain;
 
 	Jass::ShaderLibrary m_shaderLib;
+
+	void FixCameraToTerrain();
 
 };
 

@@ -1516,6 +1516,8 @@
     <ClInclude Include="src\Jass\ECS\Components\Components.h" />
     <ClInclude Include="src\Jass\ECS\Entity.h" />
     <ClInclude Include="src\Jass\Camera\PerspectiveCameraController.h" />
+    <ClInclude Include="src\Jass\Renderer\Textures\Texture3D.h" />
+    <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1635,5 +1637,7 @@
     <ClCompile Include="src\Jass\Scene\Scene.cpp" />
     <ClCompile Include="src\Jass\ECS\Entity.cpp" />
     <ClCompile Include="src\Jass\Camera\PerspectiveCameraController.cpp" />
+    <ClCompile Include="src\Jass\Renderer\Textures\Texture3D.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.cpp" />
   </ItemGroup>
 </Project>

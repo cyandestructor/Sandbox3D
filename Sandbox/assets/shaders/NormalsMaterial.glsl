@@ -72,7 +72,7 @@ void main()
 	texNormal = normalize(texNormal * 2.0f - 1.0f);
 
 	vec4 diffuseColor = texture(u_diffuseTex, texCoords) * u_color;
-	vec4 ambientLight = vec4(AmbientLight(u_lightColor.xyz, 0.1f), u_ambientReduction);
+	vec4 ambientLight = vec4(AmbientLight(u_lightColor.xyz, u_ambientReduction), 1.0f);
 	vec4 diffuseLight = vec4(DiffuseLight(toLightVector, texNormal, u_lightColor.xyz, u_diffuseReduction), 1.0f);
 	vec4 specularLight = vec4(SpecularLight(lightDirection, texNormal, toCameraVector, u_lightColor.xyz, u_reflectivity, u_shineDamper), 1.0f);
 

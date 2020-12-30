@@ -23,6 +23,11 @@ namespace Jass {
 			s_rendererAPI->SetClearColor(color);
 		}
 		
+		inline static void EnableDepthMask(bool enable)
+		{
+			s_rendererAPI->EnableDepthMask(enable);
+		}
+
 		inline static void Clear()
 		{
 			s_rendererAPI->Clear();
