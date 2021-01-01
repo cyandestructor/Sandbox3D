@@ -1,8 +1,8 @@
 #include "Sandbox3D.h"
 
 Sandbox3D::Sandbox3D()
-	: m_light({ 10.0f, 500.0f, 200.0f }, { 1.0f,1.0f,1.0f,1.0f }),
-	m_terrain("assets/textures/Sandbox3D/heightmap.png", 500, 500)
+	: m_light({ 10.0f, 100.0f, 150.0f }, { 1.0f,1.0f,1.0f,1.0f }),
+	m_terrain("assets/textures/Sandbox3D/heightmap.png", 300, 300, 3.0f)
 {
 	m_cameraController.GetCamera().SetProjection(60.0f, 1280.0f, 720.0f, 0.01f, 1000.0f);
 	m_shaderLib.Load("BasicMaterial", "assets/shaders/BasicMaterial.glsl");
@@ -81,5 +81,6 @@ void Sandbox3D::FixCameraToTerrain()
 {
 	auto cameraPosition = m_cameraController.GetCamera().GetPosition();
 	cameraPosition.y = m_terrain.GetTerrainHeight(cameraPosition.x, cameraPosition.z);
+	cameraPosition.y += 20.0f;
 	m_cameraController.GetCamera().SetPosition(cameraPosition);
 }

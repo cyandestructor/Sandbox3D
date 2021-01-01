@@ -6,6 +6,11 @@
 
 namespace Jass {
 
+	enum class RenderMode
+	{
+		Triangle, TriangleStrip
+	};
+
 	class JASS_API RendererAPI {
 
 	public:
@@ -23,7 +28,7 @@ namespace Jass {
 
 		virtual void EnableDepthMask(bool enable) = 0;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0, RenderMode renderMode = RenderMode::Triangle) = 0;
 
 		static API GetAPI();
 

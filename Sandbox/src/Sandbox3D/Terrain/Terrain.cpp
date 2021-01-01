@@ -13,59 +13,74 @@ float baryCentric(const Jass::JVec3& p1, const Jass::JVec3& p2, const Jass::JVec
 	return l1 * p1.y + l2 * p2.y + l3 * p3.y;
 }
 
-Terrain::Terrain(const std::string& heightMap, unsigned int width, unsigned int height)
-	: m_width((float)width), m_height((float)height)
+Terrain::Terrain(const std::string& heightMap, unsigned int width, unsigned int depth, float step)
+	: m_width(width), m_depth(depth), m_step(step)
 {
-	m_terrainMesh = Generate(heightMap, width, height);
-}
-
-Terrain::Terrain(unsigned int width, unsigned int height, unsigned int wDiv, unsigned int hDiv)
-	: m_width((float)width), m_height((float)height)
-{
-	Plane terrainPlane(width, height, wDiv, hDiv);
-	m_terrainMesh = terrainPlane.Generate();
+	m_vertexArray = Generate(heightMap, width, depth, step);
 }
 
 float Terrain::GetTerrainHeight(float worldX, float worldZ) const
 {
-	float terrainX = worldX - m_position.x;
-	float terrainZ = worldZ - m_position.z;
+	// The terrain extends towards -z, but for our indices we need positive values
+	worldZ = -worldZ;
 
-	// Note this only works on square terrains
+	// Offsets of the coords into a terrain quad
+	float offX = fmodf(worldX, m_step);
+	float offZ = fmodf(worldZ, m_step);
 
-	int inW = (int)m_terrainHeight.size() - 1;
-	int inH = (int)m_terrainHeight[0].size() - 1;
+	// Plane equation for the triangle we are now
+	Jass::JVec3 p1, p2, p3;
+	float A, B, C, D;
+	if (offX + offZ <= m_step) {
+		// First triangle in the quad
 
-	float gridSqW = m_width / (inW);
-	float gridSqH = m_height / (inH);
+		p1.x = trunc(worldX / m_step);
+		p1.z = trunc(worldZ / m_step);
+		p1.y = GetHeight((int)p1.x, (int)p1.z);
 
-	int gridX = (int)floor(terrainX / gridSqW);
-	int gridZ = (int)floor(terrainZ / gridSqH);
+		p2.x = trunc(worldX / m_step) + 1;
+		p2.z = trunc(worldZ / m_step);
+		p2.y = GetHeight((int)p2.x, (int)p2.z);
 
-	if (gridX >= inW || gridX < 0 || gridZ >= inH || gridZ < 0)
-		return 0.0f;
-
-	// Between 0 and 1
-	float xCoord = fmod(terrainX, gridSqW) / gridSqW;
-	float zCoord = fmod(terrainZ, gridSqH) / gridSqH;
-
-	float result;
-	if (xCoord <= (1 - zCoord))
-	{
-		result = baryCentric({ 0, m_terrainHeight[gridX][gridZ], 0 },
-			{ 1, m_terrainHeight[gridX + 1][gridZ], 0 },
-			{ 0, m_terrainHeight[gridX][gridZ + 1], 1 },
-			{ xCoord, zCoord });
+		p3.x = trunc(worldX / m_step);
+		p3.z = trunc(worldZ / m_step) + 1;
+		p3.y = GetHeight((int)p3.x, (int)p3.z);
 	}
-	else
-	{
-		result = baryCentric({ 1, m_terrainHeight[gridX + 1][gridZ], 0 },
-			{ 1, m_terrainHeight[gridX + 1][gridZ + 1], 1 },
-			{ 0, m_terrainHeight[gridX][gridZ + 1], 1 },
-			{ xCoord, zCoord });
+	else {
+		// Second triangle in the quad
+
+		p1.x = trunc(worldX / m_step) + 1;
+		p1.z = trunc(worldZ / m_step);
+		p1.y = GetHeight((int)p1.x, (int)p1.z);
+
+		p2.x = trunc(worldX / m_step);
+		p2.z = trunc(worldZ / m_step) + 1;
+		p2.y = GetHeight((int)p2.x, (int)p2.z);
+
+		p3.x = trunc(worldX / m_step) + 1;
+		p3.z = trunc(worldZ / m_step) + 1;
+		p3.y = GetHeight((int)p3.x, (int)p3.z);
 	}
 
-	return result;
+	// We used terrain coords for x and z to get the height, but for the plane equation we need world coords
+	p1.x *= m_step;
+	p1.z *= m_step;
+
+	p2.x *= m_step;
+	p2.z *= m_step;
+
+	p3.x *= m_step;
+	p3.z *= m_step;
+
+	// Plane equation
+	A = (p2.y - p1.y) * (p3.z - p1.z) - (p3.y - p1.y) * (p2.z - p1.z);
+	B = (p2.z - p1.z) * (p3.x - p1.x) - (p3.z - p1.z) * (p2.x - p1.x);
+	C = (p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y);
+	D = -(A * p1.x + B * p1.y + C * p1.z);
+
+	// Use the equation to get de Y given a X and Z
+	return (-D - C * worldZ - A * worldX) / B;
+
 }
 
 void Terrain::SetBlendMap(const std::string& blendmap)
@@ -108,10 +123,10 @@ void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
 		}
 	}
 
-	Jass::Renderer::Submit(shader, m_terrainMesh.GetVertexArray());
+	Jass::Renderer::Submit(shader, m_vertexArray, Jass::RenderMode::TriangleStrip);
 }
 
-Mesh Terrain::Generate(const std::string& heightmap, unsigned int width, unsigned int height)
+Jass::Ref<Jass::VertexArray> Terrain::Generate(const std::string& heightmap, unsigned int width, unsigned int depth, float step)
 {	
 	std::vector<MeshVertex> vertices;
 	std::vector<unsigned int> indices;
@@ -132,72 +147,119 @@ Mesh Terrain::Generate(const std::string& heightmap, unsigned int width, unsigne
 	imgInfo.Width = imgWidth;
 	imgInfo.Height = imgHeight;
 
-	unsigned int vertexCountW = imgWidth;
-	unsigned int vertexCountH = imgHeight;
+	int vertexCountW = width;
+	int vertexCountD = depth;
 
 	// 2D Vector
-	m_terrainHeight = std::vector<std::vector<float>>(vertexCountW, std::vector<float>(vertexCountH));
+	m_terrainHeight = std::vector<std::vector<float>>(vertexCountW, std::vector<float>(vertexCountD));
 
-	unsigned int totalCount = vertexCountH * vertexCountW;
+	unsigned int totalCount = vertexCountD * vertexCountW;
 	vertices.reserve(totalCount);
-	indices.reserve(6 * ((size_t)vertexCountW - 1) * ((size_t)vertexCountH - 1));
+	unsigned int totalIndices = (vertexCountW - 1) * (vertexCountD * 2) + (vertexCountW - 2) + (vertexCountD - 2);
+	indices.reserve(totalIndices);
 
-	// TODO: CHECK THIS ALGORITHM FOR NONE SQUARE PLANES
+	// Generate vertices
+	for (int vx = 0; vx < vertexCountW; vx++) {
+		for (int vz = 0; vz < vertexCountD; vz++) {
 
-	for (unsigned int i = 0; i < vertexCountW; i++)
-	{
-		for (unsigned int j = 0; j < vertexCountH; j++)
-		{
+			float height = GetHeight(imgInfo, vx, vz);
+			Jass::JVec3 position = { vx * step, height, -vz * step }; // vz is negative because the terrain expands towards -Z
+			m_terrainHeight[vx][vz] = height;
+			Jass::JVec3 normal = CalculateNormal(vx, vz, imgInfo);
+			float u = (float)vx / (m_width - 1);
+			float v = (float)vz / (m_depth - 1);
+			Jass::JVec2 texCoord = { u, v };
+
 			MeshVertex mv;
-			mv.Position.x = -(float)j / ((float)vertexCountW - 1) * (float)width;
-			float vHeight = GetHeight(data, j, i, channels, imgWidth, imgHeight);
-			m_terrainHeight[j][i] = vHeight;
-			mv.Position.y = vHeight;
-			mv.Position.z = -(float)i / ((float)vertexCountH - 1) * (float)height;
-			mv.Normal = CalculateNormal(j, i, imgInfo);
-			mv.TexCoord.x = (float)j / ((float)vertexCountW - 1);
-			mv.TexCoord.y = (float)i / ((float)vertexCountH - 1);
-
+			mv.Position = position;
+			mv.Normal = normal;
+			mv.TexCoord = texCoord;
 			vertices.push_back(mv);
 		}
 	}
 
-	for (unsigned int i = 0; i < vertexCountW - 1; i++)
-	{
-		for (unsigned int j = 0; j < vertexCountH - 1; j++)
-		{
-			unsigned int topLeft = (i * vertexCountW) + j;
-			unsigned int topRight = topLeft + 1;
-			unsigned int bottomLeft = ((i + 1) * vertexCountW) + j;
-			unsigned int bottomRight = bottomLeft + 1;
-
-			indices.push_back(topLeft);
-			indices.push_back(bottomLeft);
-			indices.push_back(topRight);
-			indices.push_back(topRight);
-			indices.push_back(bottomLeft);
-			indices.push_back(bottomRight);
-		}
-	}
+	// Generate indices
+	CalculateIndices(indices);
 
 	if (data)
 		stbi_image_free(data);
 
-	return Mesh(vertices, indices);
+	return PrepareVAO(vertices, indices);
 }
 
-float Terrain::GetHeight(unsigned char* image, unsigned int x, unsigned int y, unsigned int channels, unsigned int imgWidth, unsigned int imgHeight)
+void Terrain::CalculateIndices(std::vector<unsigned int>& indices)
+{
+	int minCol = 0;
+	int maxCol = std::max(m_width - 2, 0);
+
+	int minRow = 0;
+	int maxRow = std::max(m_depth - 1, 0);
+
+	// The terrain is not visible
+	if (minCol == maxCol || minRow == maxRow)
+		return;
+
+	for (int c = minCol; c <= maxCol; c++) {
+		for (int r = minRow; r <= maxRow; r++) {
+
+			// If it is not the first strip, generate a link with the previous strip (degenerate triangle)
+			if (c > minCol && r == minRow)
+				indices.push_back(c * m_depth + r);
+
+			indices.push_back(c * m_depth + r);
+			indices.push_back((c + 1) * m_depth + r);
+
+			// Link with the next triangle strip (degenerate triangle)
+			if (r == maxRow && c < maxCol)
+				indices.push_back((c + 1) * m_depth + r);
+		}
+	}
+}
+
+Jass::Ref<Jass::VertexArray> Terrain::PrepareVAO(std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices)
+{
+	CalculateTangentsBitangents(vertices);
+
+	auto vertexArray = Jass::VertexArray::Create();
+
+	Jass::VertexBufferConfig vbConfig;
+	vbConfig.Data = &vertices[0];
+	vbConfig.Size = (unsigned int)vertices.size() * sizeof(MeshVertex);
+	vbConfig.DataUsage = Jass::DataUsage::StaticDraw;
+	Jass::Ref<Jass::VertexBuffer> vbo = Jass::VertexBuffer::Create(vbConfig);
+
+	vbo->SetLayout({
+		Jass::BufferElement(Jass::ShaderDataType::Float3,"a_position"),
+		Jass::BufferElement(Jass::ShaderDataType::Float3,"a_normal"),
+		Jass::BufferElement(Jass::ShaderDataType::Float2,"a_texCoords"),
+		Jass::BufferElement(Jass::ShaderDataType::Float3,"a_tangent"),
+		Jass::BufferElement(Jass::ShaderDataType::Float3,"a_bitangent")
+		});
+
+	vertexArray->AddVertexBuffer(vbo);
+
+	Jass::Ref<Jass::IndexBuffer> ibo = Jass::IndexBuffer::Create({ &indices[0], (unsigned int)indices.size(), Jass::DataUsage::StaticDraw });
+
+	vertexArray->SetIndexBuffer(ibo);
+
+	return vertexArray;
+}
+
+float Terrain::GetHeight(ImageInfo& imgInfo, int x, int z)
 {
 	const float MAX_PIXEL_COLOR = 255 * 255 * 255;
 
-	if (!image)
+	if (!imgInfo.Image)
 		return 0.0f;
 
-	if (x >= imgWidth || y >= imgHeight)
-		return 0.0f;
+	float scaleX = ((float)imgInfo.Width) / (m_width - 1);
+	float scaleZ = ((float)imgInfo.Height) / (m_depth - 1);
 
-	unsigned int bytePerPixel = channels;
-	unsigned char* pixelOffset = image + (x + imgHeight * y) * bytePerPixel;
+	int imageX = (int)(x * scaleX);
+	int imageY = (int)(z * scaleZ);
+
+	unsigned int bytePerPixel = imgInfo.Channels;
+	unsigned char* pixelOffset = imgInfo.Image + (imageX + imgInfo.Height * imageY) * bytePerPixel;
 
 	float height = float(pixelOffset[0] * pixelOffset[1] * pixelOffset[2]);
 	height += MAX_PIXEL_COLOR / 2;
@@ -206,14 +268,67 @@ float Terrain::GetHeight(unsigned char* image, unsigned int x, unsigned int y, u
 	return height * m_maxHeight;
 }
 
-Jass::JVec3 Terrain::CalculateNormal(unsigned int x, unsigned int y, ImageInfo& imgInfo)
+float Terrain::GetHeight(int x, int z) const
 {
-	float heightL = GetHeight(imgInfo.Image, x - 1, y, imgInfo.Channels, imgInfo.Width, imgInfo.Height);
-	float heightR = GetHeight(imgInfo.Image, x + 1, y, imgInfo.Channels, imgInfo.Width, imgInfo.Height);
-	float heightD = GetHeight(imgInfo.Image, x, y - 1, imgInfo.Channels, imgInfo.Width, imgInfo.Height);
-	float heightU = GetHeight(imgInfo.Image, x, y + 1, imgInfo.Channels, imgInfo.Width, imgInfo.Height);
+	if (!m_terrainHeight.size())
+		return 0.0f;
+	
+	if (x < 0 || x >= m_width || z < 0 || z >= m_depth)
+		return 0.0f;
+
+	return m_terrainHeight[x][z];
+}
+
+Jass::JVec3 Terrain::CalculateNormal(unsigned int x, unsigned int z, ImageInfo& imgInfo)
+{
+	x = x == 0 ? 1 : x;
+	z = z == 0 ? 1 : z;
+
+	float heightL = GetHeight(imgInfo, x - 1, z);
+	float heightR = GetHeight(imgInfo, x + 1, z);
+	// Terrain expands towards -Z
+	float heightD = GetHeight(imgInfo, x, z + 1);
+	float heightU = GetHeight(imgInfo, x, z - 1);
 
 	Jass::JVec3 normal = { heightL - heightR, 2.0f, heightD - heightU };
 
 	return Jass::Normalize(normal);
+}
+
+void Terrain::CalculateTangentsBitangents(std::vector<MeshVertex>& vertices)
+{
+	for (size_t vx = 0; vx < (size_t)m_width - 1; vx++) {
+		for (size_t vz = 0; vz < (size_t)m_depth - 1; vz++) {
+			size_t index0 = vx * m_depth + vz;
+			size_t index1 = (vx + 1) * m_depth + vz;
+			size_t index2 = vx * m_depth + (vz + 1);
+
+			auto& v0 = vertices[index0].Position;
+			auto& v1 = vertices[index1].Position;
+			auto& v2 = vertices[index2].Position;
+
+			auto& uv0 = vertices[index0].TexCoord;
+			auto& uv1 = vertices[index1].TexCoord;
+			auto& uv2 = vertices[index2].TexCoord;
+
+			auto deltaPos1 = v1 - v0;
+			auto deltaPos2 = v2 - v0;
+
+			auto deltaUV1 = uv1 - uv0;
+			auto deltaUV2 = uv2 - uv0;
+
+			float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+
+			auto tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
+			auto bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+
+			vertices[index0].Tangent = tangent;
+			vertices[index1].Tangent = tangent;
+			vertices[index2].Tangent = tangent;
+
+			vertices[index0].Bitangent = bitangent;
+			vertices[index1].Bitangent = bitangent;
+			vertices[index2].Bitangent = bitangent;
+		}
+	}
 }

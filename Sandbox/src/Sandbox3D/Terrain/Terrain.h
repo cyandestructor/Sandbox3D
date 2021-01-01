@@ -7,8 +7,7 @@
 class Terrain {
 
 public:
-	Terrain(const std::string& heightMap, unsigned int width, unsigned int height);
-	Terrain(unsigned int width, unsigned int height, unsigned int wDiv, unsigned int hDiv);
+	Terrain(const std::string& heightMap, unsigned int width, unsigned int depth, float step);
 
 	void SetMaxHeight(float height) { m_maxHeight = height; }
 	void SetPosition(const Jass::JVec3& position) { m_position = position; }
@@ -26,15 +25,19 @@ public:
 	void Render(Jass::Ref<Jass::Shader>& shader, const Light& light);
 
 private:
-	Mesh m_terrainMesh;
-
+	Jass::Ref<Jass::VertexArray> m_vertexArray;
+	
 	float m_ambientReduction = 1.0f, m_diffuseReduction = 1.0f;
-	float m_width, m_height;
+	
+	int m_width, m_depth;
+	float m_step;
 
 	Jass::JVec3 m_position = Jass::JVec3(0.0f);
 
 	float m_uvRepeat = 1.0f;
 	float m_maxHeight = 20.0f;
+
+	std::vector<std::vector<float>> m_terrainHeight;
 
 	struct TerrainTexture
 	{
@@ -43,13 +46,12 @@ private:
 		std::string UniformName;
 	};
 
-	std::vector<std::vector<float>> m_terrainHeight;
-
 	std::vector<TerrainTexture> m_terrainTextures;
 
-	Mesh Generate(const std::string& heightmap, unsigned int width, unsigned int height);
-	float GetHeight(unsigned char* image, unsigned int x, unsigned int y, unsigned int channels, unsigned int imgWidth, unsigned int imgHeight);
-
+	Jass::Ref<Jass::VertexArray> Generate(const std::string& heightmap, unsigned int width, unsigned int depth, float step);
+	void CalculateIndices(std::vector<unsigned int>& indices);
+	Jass::Ref<Jass::VertexArray> PrepareVAO(std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices);
+	
 	struct ImageInfo {
 		unsigned char* Image;
 		unsigned int Channels;
@@ -57,7 +59,10 @@ private:
 		unsigned int Height;
 	};
 
+	float GetHeight(ImageInfo& imgInfo, int x, int z);
+	float GetHeight(int x, int z) const;
 	Jass::JVec3 CalculateNormal(unsigned int x, unsigned int y, ImageInfo& imgInfo);
+	void CalculateTangentsBitangents(std::vector<MeshVertex>& vertices);
 
 };
 

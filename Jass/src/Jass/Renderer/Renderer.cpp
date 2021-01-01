@@ -38,4 +38,15 @@ namespace Jass {
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 
+	void Renderer::Submit(const Ref<Shader>& shader,
+		const Ref<VertexArray>& vertexArray,
+		RenderMode renderMode,
+		const JMat4& transformation)
+	{
+		shader->Bind();
+		shader->SetMat4("u_viewProjection", sceneData->ViewProjectionMatrix);
+		shader->SetMat4("u_transformation", transformation);
+		RenderCommand::DrawIndexed(vertexArray, 0, renderMode);
+	}
+
 }

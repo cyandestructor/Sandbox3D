@@ -5,6 +5,25 @@
 
 namespace Jass {
 
+	unsigned int ToGLEnum(RenderMode renderMode) {
+		unsigned int mode = 0;
+		
+		switch (renderMode)
+		{
+		case RenderMode::Triangle:
+			mode = GL_TRIANGLES;
+			break;
+		case RenderMode::TriangleStrip:
+			mode = GL_TRIANGLE_STRIP;
+			break;
+		default:
+			JASS_ASSERT(false, "Unknown render mode");
+			break;
+		}
+
+		return mode;
+	}
+
 	void OpenGLRendererAPI::Init()
 	{
 		glEnable(GL_BLEND);
@@ -34,14 +53,14 @@ namespace Jass {
 		glDepthMask(enable ? GL_TRUE : GL_FALSE);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount, RenderMode renderMode)
 	{
 		JASS_PROFILE_FUNCTION();
 
 		unsigned int count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
 
 		vertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(ToGLEnum(renderMode), count, GL_UNSIGNED_INT, nullptr);
 	}
 
 }

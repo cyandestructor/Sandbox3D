@@ -21,6 +21,11 @@ namespace Jass {
 			const Ref<VertexArray>& vertexArray,
 			const JMat4& transformation = JMat4(1.0f));
 
+		static void Submit(const Ref<Shader>& shader,
+			const Ref<VertexArray>& vertexArray,
+			RenderMode renderMode,
+			const JMat4& transformation = JMat4(1.0f));
+
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
 	private:

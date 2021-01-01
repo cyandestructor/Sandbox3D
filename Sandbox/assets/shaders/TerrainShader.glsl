@@ -13,6 +13,10 @@ out vec2 texCoords;
 out vec3 toLightVector;
 out vec3 lightDirection;
 
+out vec3 tangent;
+out vec3 bitangent;
+out vec3 normal;
+
 uniform mat4 u_viewProjection;
 uniform mat4 u_transformation;
 
@@ -30,6 +34,10 @@ void main()
 	vec3 N = normalize((u_transformation * vec4(a_normal, 0.0f)).xyz);
 	mat3 TBN = transpose(mat3(T, B, N)); // To convert from world space to tangent space
 
+	tangent = T;
+	bitangent = B;
+	normal = N;
+
 	// Convert to tangent space
 	toLightVector = TBN * normalize(u_lightPosition - worldPosition.xyz);
 	lightDirection = -toLightVector;
@@ -43,6 +51,10 @@ layout(location = 0) out vec4 o_color;
 in vec2 texCoords;
 in vec3 toLightVector;
 in vec3 lightDirection;
+
+in vec3 tangent;
+in vec3 bitangent;
+in vec3 normal;
 
 uniform float u_repeatFactor;
 
@@ -79,7 +91,9 @@ void main()
 	vec4 ambientLight = vec4(AmbientLight(u_lightColor.xyz, u_ambientReduction), 1.0f);
 	vec4 diffuseLight = vec4(DiffuseLight(toLightVector, texNormal, u_lightColor.xyz, u_diffuseReduction), 1.0f);
 
+	//o_color = texColor * (diffuseLight);
 	o_color = texColor * (ambientLight + diffuseLight);
+	//o_color = vec4(normal, 1.0f);
 }
 
 vec4 CalculateColorBlend(sampler2D blend, sampler2D bg, sampler2D red, sampler2D green, sampler2D blue, vec2 texCoords, float repeat)
