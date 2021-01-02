@@ -37,6 +37,15 @@ namespace Jass {
 		};
 
 		ImageData ProcessImage(const std::string& filename);
+		void FreeImage(ImageData image);
+
+		struct Formats {
+			unsigned int InternalFormat = 0;
+			unsigned int Format = 0;
+		};
+
+		static Formats SelectFormats(unsigned int channels);
+		static unsigned int GetBPP(const Formats& formats);
 
 	};
 

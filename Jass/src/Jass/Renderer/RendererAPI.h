@@ -11,6 +11,11 @@ namespace Jass {
 		Triangle, TriangleStrip
 	};
 
+	enum class DepthFunc
+	{
+		Never, Less, Equal, LessEqual, NotEqual, Greater, GreaterEqual, Always
+	};
+
 	class JASS_API RendererAPI {
 
 	public:
@@ -27,6 +32,7 @@ namespace Jass {
 		virtual void Clear() = 0;
 
 		virtual void EnableDepthMask(bool enable) = 0;
+		virtual void SetDepthFunction(DepthFunc function = DepthFunc::Less) = 0;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0, RenderMode renderMode = RenderMode::Triangle) = 0;
 

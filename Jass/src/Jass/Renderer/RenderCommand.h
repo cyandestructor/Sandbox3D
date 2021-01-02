@@ -28,6 +28,10 @@ namespace Jass {
 			s_rendererAPI->EnableDepthMask(enable);
 		}
 
+		inline static void SetDepthFunction(DepthFunc function = DepthFunc::Less) {
+			s_rendererAPI->SetDepthFunction(function);
+		}
+
 		inline static void Clear()
 		{
 			s_rendererAPI->Clear();

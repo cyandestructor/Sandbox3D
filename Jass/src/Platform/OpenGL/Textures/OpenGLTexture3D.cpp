@@ -14,16 +14,17 @@ namespace Jass {
 		glGenTextures(1, &m_rendererID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_rendererID);
 
-		for (size_t i = 0; i < filenames.size(); i++)
+		for (unsigned int i = 0; i < filenames.size(); i++)
 		{
 			auto imageData = ProcessImage(filenames[i]);
+			auto textureFormats = OpenGLTexture3D::SelectFormats(imageData.Channels);
 
 			if (imageData.Data)
 			{
 				glTexImage2D(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-					0, GL_RGB, imageData.Width, imageData.Height, 0,
-					GL_RGB, GL_UNSIGNED_BYTE, imageData.Data
+					0, textureFormats.InternalFormat, imageData.Width, imageData.Height, 0,
+					textureFormats.Format, GL_UNSIGNED_BYTE, imageData.Data
 				);
 			}
 			else
@@ -75,6 +76,49 @@ namespace Jass {
 		}
 
 		return { data, (unsigned int)width, (unsigned int)height, (unsigned int)channels };
+	}
+
+	void OpenGLTexture3D::FreeImage(ImageData image)
+	{
+		stbi_image_free(image.Data);
+	}
+
+	OpenGLTexture3D::Formats OpenGLTexture3D::SelectFormats(unsigned int channels)
+	{
+		Formats formats;
+
+		switch (channels)
+		{
+		case 3:
+			formats.InternalFormat = GL_RGB8;
+			formats.Format = GL_RGB;
+			break;
+		case 4:
+			formats.InternalFormat = GL_RGBA8;
+			formats.Format = GL_RGBA;
+			break;
+		default:
+			JASS_CORE_ASSERT(false, "Unsupported number of channels");
+			break;
+		}
+
+		JASS_CORE_ASSERT(formats.InternalFormat && formats.Format, "Format could not be specified");
+
+		return formats;
+	}
+
+	unsigned int OpenGLTexture3D::GetBPP(const Formats& formats)
+	{
+		switch (formats.Format)
+		{
+		case GL_RGB:
+			return 3;
+		case GL_RGBA:
+			return 4;
+		}
+
+		JASS_CORE_ASSERT(false, "Unknow data format");
+		return 0;
 	}
 
 }

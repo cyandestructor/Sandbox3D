@@ -16,6 +16,7 @@ namespace Jass {
 		virtual void Clear() override;
 
 		virtual void EnableDepthMask(bool enable) override;
+		virtual void SetDepthFunction(DepthFunc function = DepthFunc::Less) override;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount = 0, RenderMode renderMode = RenderMode::Triangle) override;
 

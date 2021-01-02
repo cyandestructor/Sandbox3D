@@ -10,9 +10,9 @@ uniform mat4 u_viewProjection;
 
 void main()
 {
-	gl_Position = u_viewProjection * position;
 	texCoords = position.xyz;
-	//gl_Position = gl_Position.xyww;
+	gl_Position = u_viewProjection * position;
+	gl_Position = gl_Position.xyww;
 }
 
 #type pixel

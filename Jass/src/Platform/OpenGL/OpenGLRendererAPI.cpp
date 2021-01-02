@@ -24,6 +24,43 @@ namespace Jass {
 		return mode;
 	}
 
+	unsigned int ToGLEnum(DepthFunc function) {
+		unsigned int mode = 0;
+
+		switch (function)
+		{
+		case DepthFunc::Never:
+			mode = GL_NEVER;
+			break;
+		case DepthFunc::Less:
+			mode = GL_LESS;
+			break;
+		case DepthFunc::Equal:
+			mode = GL_EQUAL;
+			break;
+		case DepthFunc::LessEqual:
+			mode = GL_LEQUAL;
+			break;
+		case DepthFunc::NotEqual:
+			mode = GL_NOTEQUAL;
+			break;
+		case DepthFunc::Greater:
+			mode = GL_GREATER;
+			break;
+		case DepthFunc::GreaterEqual:
+			mode = GL_GEQUAL;
+			break;
+		case DepthFunc::Always:
+			mode = GL_ALWAYS;
+			break;
+		default:
+			JASS_ASSERT(false, "Unknown depth function");
+			break;
+		}
+
+		return mode;
+	}
+
 	void OpenGLRendererAPI::Init()
 	{
 		glEnable(GL_BLEND);
@@ -51,6 +88,11 @@ namespace Jass {
 	void OpenGLRendererAPI::EnableDepthMask(bool enable)
 	{
 		glDepthMask(enable ? GL_TRUE : GL_FALSE);
+	}
+
+	void OpenGLRendererAPI::SetDepthFunction(DepthFunc function)
+	{
+		glDepthFunc(ToGLEnum(function));
 	}
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, unsigned int indexCount, RenderMode renderMode)

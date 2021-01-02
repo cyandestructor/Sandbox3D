@@ -9,7 +9,6 @@ Sandbox3D::Sandbox3D()
 	m_shaderLib.Load("NormalsMaterial", "assets/shaders/NormalsMaterial.glsl");
 	m_shaderLib.Load("TerrainMaterial", "assets/shaders/TerrainShader.glsl");
 	m_shaderLib.Load("SkyboxShader", "assets/shaders/SkyboxShader.glsl");
-	m_skybox.SetShader(m_shaderLib.GetShader("SkyboxShader"));
 }
 
 void Sandbox3D::OnAttach()
@@ -21,7 +20,7 @@ void Sandbox3D::OnAttach()
 		"assets/textures/Sandbox3D/Skybox/top.png",
 		"assets/textures/Sandbox3D/Skybox/bottom.png",
 		"assets/textures/Sandbox3D/Skybox/front.png",
-		"assets/textures/Sandbox3D/Skybox/back.png",
+		"assets/textures/Sandbox3D/Skybox/back.png"
 	};
 
 	m_skybox.SetTexture(textures);
@@ -62,12 +61,11 @@ void Sandbox3D::OnUpdate(Jass::Timestep ts)
 
 	Jass::Renderer::BeginScene(m_cameraController.GetCamera());
 	
-	m_skybox.SetCamera(m_cameraController.GetCamera());
-	m_skybox.Render();
 	m_shaderLib.GetShader("NormalsMaterial")->Bind();
 	m_shaderLib.GetShader("NormalsMaterial")->SetFloat3("u_cameraPosition", m_cameraController.GetCamera().GetPosition());
 	m_model.Render(m_shaderLib.GetShader("NormalsMaterial"), m_light);
 	m_terrain.Render(m_shaderLib.GetShader("TerrainMaterial"), m_light);
+	m_skybox.Render(m_shaderLib.GetShader("SkyboxShader"), m_cameraController.GetCamera());
 	
 	Jass::Renderer::EndScene();
 }

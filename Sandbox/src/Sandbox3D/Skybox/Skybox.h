@@ -10,14 +10,9 @@ public:
 
 	void SetTexture(const std::vector<std::string>& filenames);
 
-	void SetShader(const Jass::Ref<Jass::Shader>& shader) { m_shader = shader; }
-
-	void SetCamera(const Jass::Camera& camera);
-
-	void Render();
+	void Render(const Jass::Ref<Jass::Shader>& shader, const Jass::Camera& camera);
 
 private:
-	Jass::Ref<Jass::Shader> m_shader;
 	Jass::Ref<Jass::Texture3D> m_texture;
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
 
