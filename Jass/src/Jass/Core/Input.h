@@ -5,10 +5,17 @@
 
 namespace Jass {
 
+	enum class CursorMode
+	{
+		Normal, Hidden, Disabled
+	};
+
 	class JASS_API Input {
 
 	public:
 		static bool IsKeyPressed(int keycode);
+
+		static void SetCursorMode(CursorMode mode);
 
 		static bool IsMouseButtonPressed(int button);
 		static std::pair<float, float> GetMousePos();

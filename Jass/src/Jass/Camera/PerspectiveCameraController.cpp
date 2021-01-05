@@ -7,20 +7,34 @@
 
 namespace Jass {
 
+	PerspectiveCameraController::PerspectiveCameraController()
+	{
+		Input::SetCursorMode(CursorMode::Disabled);
+	}
+
+	void PerspectiveCameraController::CalculateCamera()
+	{
+		m_camera.LookAtTarget(m_camera.GetPosition() + m_front);
+	}
+
 	void PerspectiveCameraController::OnUpdate(Timestep ts)
 	{
+		auto [x, y] = Input::GetMousePos();
+		ProcessMouse(x, y);
 		ProcessInput(ts);
-		m_camera.LookAtTarget(m_camera.GetPosition() + m_front);
+		CalculateCamera();
 	}
 
 	void PerspectiveCameraController::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(PerspectiveCameraController::OnMouseMovedEvent));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(PerspectiveCameraController::OnWindowResizeEvent));
 	}
 
 	void PerspectiveCameraController::OnResize(unsigned int width, unsigned int height)
 	{
+		const auto& cameraSettings = m_camera.GetSettings();
+		m_camera.SetProjection(cameraSettings.FOV, (float)width, (float)height, cameraSettings.Near, cameraSettings.Far);
 	}
 
 	void PerspectiveCameraController::ProcessInput(Timestep ts)
@@ -73,9 +87,9 @@ namespace Jass {
 		m_front = Normalize(direction);
 	}
 
-	bool PerspectiveCameraController::OnMouseMovedEvent(MouseMovedEvent& e)
+	bool PerspectiveCameraController::OnWindowResizeEvent(WindowResizeEvent& e)
 	{
-		ProcessMouse(e.GetX(), e.GetY());
+		OnResize(e.GetWidth(), e.GetHeight());
 
 		return false;
 	}

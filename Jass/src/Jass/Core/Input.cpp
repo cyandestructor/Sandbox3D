@@ -17,6 +17,31 @@ namespace Jass {
 		return (status == GLFW_PRESS) || (status == GLFW_REPEAT);
 	}
 
+	void Input::SetCursorMode(CursorMode mode)
+	{
+		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+
+		int modeValue;
+
+		switch (mode)
+		{
+		case CursorMode::Normal:
+			modeValue = GLFW_CURSOR_NORMAL;
+			break;
+		case CursorMode::Hidden:
+			modeValue = GLFW_CURSOR_HIDDEN;
+			break;
+		case CursorMode::Disabled:
+			modeValue = GLFW_CURSOR_DISABLED;
+			break;
+		default:
+			JASS_CORE_ASSERT(false, "Unknown cursor mode");
+			break;
+		}
+
+		glfwSetInputMode(window, GLFW_CURSOR, modeValue);
+	}
+
 	bool Input::IsMouseButtonPressed(int button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

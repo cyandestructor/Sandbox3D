@@ -39,7 +39,8 @@ private:
 
 	void PrepareWaterReflection(Jass::Timestep ts);
 	void PrepareWaterRefraction(Jass::Timestep ts);
-	void RenderScene(Jass::Timestep ts, const Jass::JVec4& clipPlane = Jass::JVec4(0.0f));
+	void RenderScene(Jass::Timestep ts);
+	void RenderWaterScene(Jass::Timestep ts, const Jass::JVec4& clipPlane = Jass::JVec4(0.0f));
 
 };
 

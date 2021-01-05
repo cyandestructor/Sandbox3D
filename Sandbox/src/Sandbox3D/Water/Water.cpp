@@ -91,8 +91,8 @@ void Water::Render(const Jass::Ref<Jass::Shader>& shader, const Light& light, co
 	shader->SetFloat3("u_cameraPosition", camera.GetPosition());
 
 	// Bind textures and send samplers
-	//m_reflectionFbo->BindColorAttachment(0);
-	//shader->SetInt("u_reflection", 0);
+	m_reflectionFbo->BindColorAttachment(0);
+	shader->SetInt("u_reflection", 0);
 	m_refractionFbo->BindColorAttachment(1);
 	shader->SetInt("u_refraction", 1);
 	

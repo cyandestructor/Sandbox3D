@@ -11,6 +11,7 @@ namespace Jass {
 	class JASS_API PerspectiveCameraController {
 
 	public:
+		PerspectiveCameraController();
 
 		PerspectiveCamera& GetCamera() { return m_camera; }
 		const PerspectiveCamera& GetCamera() const { return m_camera; }
@@ -18,15 +19,22 @@ namespace Jass {
 		void SetSpeed(float speed) { m_cameraSpeed = speed; }
 		float GetSpeed() const { return m_cameraSpeed; }
 
+		void SetPitch(float pitch) { m_pitch = pitch; }
+		float GetPitch() const { return m_pitch; }
+
+		void SetYaw(float yaw) { m_yaw = yaw; }
+		float GetYaw() const { return m_yaw; }
+
 		void SetSensitivity(float sensitivity) { m_sensitivity = sensitivity; }
 		float GetSensitivity() const { return m_sensitivity; }
 
 		void SetFlyMode(bool mode) { m_flyMode = mode; }
 
+		void CalculateCamera();
+
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 		void OnResize(unsigned int width, unsigned int height);
-
 
 	private:
 		PerspectiveCamera m_camera;
@@ -47,7 +55,8 @@ namespace Jass {
 		void ProcessInput(Timestep ts);
 		void ProcessMouse(float x, float y);
 
-		bool OnMouseMovedEvent(MouseMovedEvent& e);
+		bool OnWindowResizeEvent(WindowResizeEvent& e);
+
 	};
 
 }

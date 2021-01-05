@@ -51,7 +51,7 @@ uniform float u_shineDamper;
 uniform vec4 u_lightColor;
 uniform vec4 u_color;
 
-//uniform sampler2D u_reflection;
+uniform sampler2D u_reflection;
 uniform sampler2D u_refraction;
 
 uniform sampler2D u_distortion;
@@ -84,10 +84,16 @@ void main()
 	reflectionTexCoords.x = clamp(reflectionTexCoords.x, 0.0001, 0.9990);
 	reflectionTexCoords.y = clamp(reflectionTexCoords.y, -0.9999, -0.0001);
 
-	//vec4 reflection = texture(u_reflection, reflectionTexCoords);
+	// Fresnel effect
+	float refractiveFactor = dot(toCameraVector, vec3(0.0f, 1.0f, 0.0f));
+	refractiveFactor = pow(refractiveFactor, 0.3f);
+
+	vec4 reflection = texture(u_reflection, reflectionTexCoords);
 	vec4 refraction = texture(u_refraction, refractionTexCoords);
 
-	o_color = mix(refraction, u_color, 0.2f) + vec4(specular, 0.0f);
+	vec4 waterColor = mix(reflection, refraction, refractiveFactor);
+
+	o_color = mix(waterColor, u_color, 0.2f) + vec4(specular, 0.0f);
 }
 
 vec3 SpecularLight(vec3 lightDirection, vec3 normal, vec3 toCameraVector, vec3 lightColor, float reflectivity, float shineDamper)
