@@ -1,14 +1,16 @@
 #include "Sandbox3D.h"
 
 Sandbox3D::Sandbox3D()
-	: m_light({ 10.0f, 100.0f, 150.0f }, { 1.0f,1.0f,1.0f,1.0f }),
-	m_terrain("assets/textures/Sandbox3D/heightmap.png", 300, 300, 3.0f)
+	: m_light({ 10.0f, 500.0f, 0.0f }, { 1.0f,1.0f,1.0f,1.0f }),
+	m_terrain("assets/textures/Sandbox3D/heightmap.png", 300, 300, 2.0f),
+	m_water({ 600.0f, 600.0f })
 {
 	m_cameraController.GetCamera().SetProjection(60.0f, 1280.0f, 720.0f, 0.01f, 1000.0f);
 	m_shaderLib.Load("BasicMaterial", "assets/shaders/BasicMaterial.glsl");
 	m_shaderLib.Load("NormalsMaterial", "assets/shaders/NormalsMaterial.glsl");
 	m_shaderLib.Load("TerrainMaterial", "assets/shaders/TerrainShader.glsl");
 	m_shaderLib.Load("SkyboxShader", "assets/shaders/SkyboxShader.glsl");
+	m_shaderLib.Load("WaterMaterial", "assets/shaders/WaterShader.glsl");
 }
 
 void Sandbox3D::OnAttach()
@@ -36,15 +38,18 @@ void Sandbox3D::OnAttach()
 	m_terrain.AddTexture("assets/textures/Terrain/snowNorm.jpg", "u_normalTexB", 8);
 	m_terrain.SetUVRepeat(10.0f);
 	m_terrain.SetAmbientReduction(0.6f);
+	m_terrain.SetPosition({ -300.0f, 0.0f, 300.0f });
 
 	m_model.Load("assets/models/sphere.obj");
 	m_model.GetMaterial().SetDiffuseTexture("assets/textures/Sandbox3D/Dirt/dirt_color.jpg");
 	m_model.GetMaterial().SetNormalTexture("assets/textures/Sandbox3D/Dirt/dirt_norm.jpg");
 
-	Jass::JMat4 transformation = m_model.GetTransformation();
-	Jass::Translate(transformation, { 0.0f, 0.0f,-30.0f });
-	Jass::Scale(transformation, { 0.0001f, 0.0001f, 0.0001f });
-	m_model.SetTransformation(transformation);
+	m_water.SetPosition({ 0.0f, 25.0f, 0.0f });
+	m_water.SetColor({ 0.2f, 0.6f, 0.8f, 1.0f });
+	m_water.SetTilingFactor(7.0f);
+	m_water.SetDistortionFactor(0.02f);
+	m_water.SetSpecularProperties(1.0f, 10.0f);
+	m_water.SetTextures("assets/textures/Water/dudv.png", "assets/textures/Water/normal.png");
 }
 
 void Sandbox3D::OnDetach()
@@ -60,11 +65,14 @@ void Sandbox3D::OnUpdate(Jass::Timestep ts)
 	Jass::RenderCommand::Clear();
 
 	Jass::Renderer::BeginScene(m_cameraController.GetCamera());
-	
-	m_shaderLib.GetShader("NormalsMaterial")->Bind();
-	m_shaderLib.GetShader("NormalsMaterial")->SetFloat3("u_cameraPosition", m_cameraController.GetCamera().GetPosition());
-	m_model.Render(m_shaderLib.GetShader("NormalsMaterial"), m_light);
-	m_terrain.Render(m_shaderLib.GetShader("TerrainMaterial"), m_light);
+
+	//PrepareWaterReflection(ts);
+	PrepareWaterRefraction(ts);
+	RenderScene(ts);
+	m_waterMotion += m_waterMotionSpeed * ts;
+	m_waterMotion = m_waterMotion > 1.0f ? 0.0f : m_waterMotion;
+	m_water.SetMotionFactor(m_waterMotion);
+	m_water.Render(m_shaderLib.GetShader("WaterMaterial"), m_light, m_cameraController.GetCamera());
 	m_skybox.Render(m_shaderLib.GetShader("SkyboxShader"), m_cameraController.GetCamera());
 	
 	Jass::Renderer::EndScene();
@@ -81,4 +89,32 @@ void Sandbox3D::FixCameraToTerrain()
 	cameraPosition.y = m_terrain.GetTerrainHeight(cameraPosition.x, cameraPosition.z);
 	cameraPosition.y += 20.0f;
 	m_cameraController.GetCamera().SetPosition(cameraPosition);
+}
+
+void Sandbox3D::PrepareWaterReflection(Jass::Timestep ts)
+{
+	m_water.BeginReflection();
+	Jass::RenderCommand::EnableClipDistance(true);
+	RenderScene(ts, { 0.0f, 1.0f, 0.0f, -m_water.GetPosition().y });
+	Jass::RenderCommand::EnableClipDistance(false);
+	m_skybox.Render(m_shaderLib.GetShader("SkyboxShader"), m_cameraController.GetCamera());
+	m_water.EndReflection();
+}
+
+void Sandbox3D::PrepareWaterRefraction(Jass::Timestep ts)
+{
+	m_water.BeginRefraction();
+	Jass::RenderCommand::EnableClipDistance(true);
+	RenderScene(ts, { 0.0f, -1.0f, 0.0f, m_water.GetPosition().y });
+	Jass::RenderCommand::EnableClipDistance(false);
+	m_skybox.Render(m_shaderLib.GetShader("SkyboxShader"), m_cameraController.GetCamera());
+	m_water.EndRefraction();
+}
+
+void Sandbox3D::RenderScene(Jass::Timestep ts, const Jass::JVec4& clipPlane)
+{
+	m_shaderLib.GetShader("NormalsMaterial")->Bind();
+	m_shaderLib.GetShader("NormalsMaterial")->SetFloat3("u_cameraPosition", m_cameraController.GetCamera().GetPosition());
+	m_model.Render(m_shaderLib.GetShader("NormalsMaterial"), m_light, clipPlane);
+	m_terrain.Render(m_shaderLib.GetShader("TerrainMaterial"), m_light, clipPlane);
 }

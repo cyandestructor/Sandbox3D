@@ -82,4 +82,24 @@ namespace Jass {
 		return glm::normalize(vector);
 	}
 
+	JMat3 Transpose(const JMat3& matrix)
+	{
+		return glm::transpose(matrix);
+	}
+
+	JMat4 Transpose(const JMat4& matrix)
+	{
+		return glm::transpose(matrix);
+	}
+
+	JMat3 Inverse(const JMat3& matrix)
+	{
+		return glm::inverse(matrix);
+	}
+
+	JMat4 Inverse(const JMat4& matrix)
+	{
+		return glm::inverse(matrix);
+	}
+
 }

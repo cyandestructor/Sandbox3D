@@ -13,6 +13,8 @@ out vec2 texCoords;
 out vec3 toLightVector;
 out vec3 lightDirection;
 
+out float gl_ClipDistance[1];
+
 out vec3 tangent;
 out vec3 bitangent;
 out vec3 normal;
@@ -22,10 +24,13 @@ uniform mat4 u_transformation;
 
 uniform vec3 u_lightPosition;
 
+uniform vec4 u_clipPlane;
+
 void main()
 {
 	vec4 worldPosition = u_transformation * a_position;
 	gl_Position = u_viewProjection * worldPosition;
+	gl_ClipDistance[0] = dot(worldPosition, u_clipPlane);
 	texCoords = a_texCoords;
 
 	// TBN matrix

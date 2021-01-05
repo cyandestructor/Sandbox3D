@@ -10,7 +10,9 @@ public:
 	Terrain(const std::string& heightMap, unsigned int width, unsigned int depth, float step);
 
 	void SetMaxHeight(float height) { m_maxHeight = height; }
-	void SetPosition(const Jass::JVec3& position) { m_position = position; }
+
+	void SetPosition(const Jass::JVec3& position);
+	const Jass::JVec3& GetPosition() const { return m_position; }
 
 	void SetAmbientReduction(float reductionFactor) { m_ambientReduction = reductionFactor; }
 	void SetDiffuseReduction(float reductionFactor) { m_diffuseReduction = reductionFactor; }
@@ -22,7 +24,7 @@ public:
 	void SetUVRepeat(float repeatFactor) { m_uvRepeat = repeatFactor; }
 	void AddTexture(const std::string& texture, const std::string& uniformName, unsigned int slot);
 
-	void Render(Jass::Ref<Jass::Shader>& shader, const Light& light);
+	void Render(Jass::Ref<Jass::Shader>& shader, const Light& light, const Jass::JVec4& clipPlane = Jass::JVec4(0.0f));
 
 private:
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
@@ -33,6 +35,8 @@ private:
 	float m_step;
 
 	Jass::JVec3 m_position = Jass::JVec3(0.0f);
+
+	Jass::JMat4 m_transformation = Jass::JMat4(1.0f);
 
 	float m_uvRepeat = 1.0f;
 	float m_maxHeight = 20.0f;

@@ -34,6 +34,11 @@ namespace Jass {
 	JVec3 Cross(const JVec3& v1, const JVec3& v2);
 	JVec3 Normalize(const JVec3& vector);
 
+	JMat3 Transpose(const JMat3& matrix);
+	JMat4 Transpose(const JMat4& matrix);
+	
+	JMat3 Inverse(const JMat3& matrix);
+	JMat4 Inverse(const JMat4& matrix);
 }
 
 #endif // !JMATH_H

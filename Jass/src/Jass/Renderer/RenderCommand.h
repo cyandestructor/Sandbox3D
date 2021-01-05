@@ -23,6 +23,10 @@ namespace Jass {
 			s_rendererAPI->SetClearColor(color);
 		}
 		
+		inline static void EnableClipDistance(bool enable, unsigned int index = 0) {
+			s_rendererAPI->EnableClipDistance(enable, index);
+		}
+
 		inline static void EnableDepthMask(bool enable)
 		{
 			s_rendererAPI->EnableDepthMask(enable);

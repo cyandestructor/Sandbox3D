@@ -31,6 +31,8 @@ namespace Jass {
 		virtual void SetClearColor(const JVec4& color) = 0;
 		virtual void Clear() = 0;
 
+		virtual void EnableClipDistance(bool enable, unsigned int index = 0) = 0;
+
 		virtual void EnableDepthMask(bool enable) = 0;
 		virtual void SetDepthFunction(DepthFunc function = DepthFunc::Less) = 0;
 

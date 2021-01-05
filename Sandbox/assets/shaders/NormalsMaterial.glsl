@@ -15,23 +15,28 @@ out vec3 surfaceNormal;
 out vec3 toCameraVector;
 out vec3 lightDirection;
 
+out float gl_ClipDistance[1];
+
+uniform mat4 u_normalMatrix;
 uniform mat4 u_viewProjection;
 uniform mat4 u_transformation;
 
 uniform vec3 u_cameraPosition;
 uniform vec3 u_lightPosition;
 
+uniform vec4 u_clipPlane;
+
 void main()
 {
 	vec4 worldPosition = u_transformation * a_position;
 	gl_Position = u_viewProjection * worldPosition;
-	
+	gl_ClipDistance[0] = dot(worldPosition, u_clipPlane);
 	texCoords = a_texCoords;
 	
 	// TBN matrix
-	vec3 T = normalize((u_transformation * vec4(a_tangent, 0.0f)).xyz);
-	vec3 B = normalize((u_transformation * vec4(a_bitangent, 0.0f)).xyz);
-	vec3 N = normalize((u_transformation * vec4(a_normal, 0.0f)).xyz);
+	vec3 T = normalize((u_normalMatrix * vec4(a_tangent, 0.0f)).xyz);
+	vec3 B = normalize((u_normalMatrix * vec4(a_bitangent, 0.0f)).xyz);
+	vec3 N = normalize((u_normalMatrix * vec4(a_normal, 0.0f)).xyz);
 	mat3 TBN = transpose(mat3(T, B, N)); // To convert from world space to tangent space
 
 	// Convert to tangent space

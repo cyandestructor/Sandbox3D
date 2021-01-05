@@ -85,6 +85,14 @@ namespace Jass {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void OpenGLRendererAPI::EnableClipDistance(bool enable, unsigned int index)
+	{
+		if (enable)
+			glEnable(GL_CLIP_DISTANCE0 + index);
+		else
+			glDisable(GL_CLIP_DISTANCE0 + index);
+	}
+
 	void OpenGLRendererAPI::EnableDepthMask(bool enable)
 	{
 		glDepthMask(enable ? GL_TRUE : GL_FALSE);

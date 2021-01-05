@@ -26,6 +26,11 @@ namespace Jass {
 		Invalidate();
 	}
 
+	void OpenGLFramebuffer::BindColorAttachment(unsigned int slot) const
+	{
+		glBindTextureUnit(slot, m_colorAttachment);
+	}
+
 	void OpenGLFramebuffer::Bind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_rendererID);

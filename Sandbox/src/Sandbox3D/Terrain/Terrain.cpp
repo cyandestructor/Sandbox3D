@@ -1,17 +1,5 @@
 #include "Terrain.h"
-
-#include "../Primitives/Plane.h"
 #include "../stb_image/stb_image.h"
-
-// A little hacky hack ;) Of course is temporary
-
-float baryCentric(const Jass::JVec3& p1, const Jass::JVec3& p2, const Jass::JVec3& p3, const Jass::JVec2& pos) {
-	float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
-	float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
-	float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
-	float l3 = 1.0f - l1 - l2;
-	return l1 * p1.y + l2 * p2.y + l3 * p3.y;
-}
 
 Terrain::Terrain(const std::string& heightMap, unsigned int width, unsigned int depth, float step)
 	: m_width(width), m_depth(depth), m_step(step)
@@ -19,8 +7,21 @@ Terrain::Terrain(const std::string& heightMap, unsigned int width, unsigned int 
 	m_vertexArray = Generate(heightMap, width, depth, step);
 }
 
+void Terrain::SetPosition(const Jass::JVec3& position)
+{
+	m_position = position;
+
+	m_transformation = Jass::Translate(m_transformation, m_position);
+}
+
 float Terrain::GetTerrainHeight(float worldX, float worldZ) const
 {
+	// Transform the coordinates to match the terrain transformation
+	auto transformedPosition = Jass::Inverse(m_transformation) * Jass::JVec4({ worldX, 0.0f, worldZ, 1.0f });
+	
+	worldX = transformedPosition.x;
+	worldZ = transformedPosition.z;
+
 	// The terrain extends towards -z, but for our indices we need positive values
 	worldZ = -worldZ;
 
@@ -102,7 +103,7 @@ void Terrain::AddTexture(const std::string& texture, const std::string& uniformN
 	m_terrainTextures.push_back(tt);
 }
 
-void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
+void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light, const Jass::JVec4& clipPlane)
 {
 	shader->Bind();
 	
@@ -114,6 +115,8 @@ void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
 
 	shader->SetFloat("u_repeatFactor", m_uvRepeat);
 	
+	shader->SetFloat4("u_clipPlane", clipPlane);
+
 	for (const auto& texture : m_terrainTextures)
 	{
 		if (texture.Texture)
@@ -123,7 +126,7 @@ void Terrain::Render(Jass::Ref<Jass::Shader>& shader, const Light& light)
 		}
 	}
 
-	Jass::Renderer::Submit(shader, m_vertexArray, Jass::RenderMode::TriangleStrip);
+	Jass::Renderer::Submit(shader, m_vertexArray, Jass::RenderMode::TriangleStrip, m_transformation);
 }
 
 Jass::Ref<Jass::VertexArray> Terrain::Generate(const std::string& heightmap, unsigned int width, unsigned int depth, float step)

@@ -16,6 +16,7 @@ namespace Jass {
 		virtual void Resize(unsigned int width, unsigned int height) override;
 
 		virtual unsigned int GetColorAttachmentRendererID() const override { return m_colorAttachment; }
+		virtual void BindColorAttachment(unsigned int slot = 0) const override;
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
