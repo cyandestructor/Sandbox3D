@@ -44,14 +44,26 @@ namespace Jass {
 		auto cameraPosition = m_camera.GetPosition();
 		auto rightVector = Normalize(Cross(m_front, m_camera.GetUpVector()));
 
-		if (Input::IsKeyPressed(JASS_KEY_W))
-			cameraPosition += m_front * speed;
-		if (Input::IsKeyPressed(JASS_KEY_S))
-			cameraPosition -= m_front * speed;
-		if (Input::IsKeyPressed(JASS_KEY_A))
-			cameraPosition -= rightVector * speed;
-		if (Input::IsKeyPressed(JASS_KEY_D))
-			cameraPosition += rightVector * speed;
+		if (m_collision) {
+			if (Input::IsKeyPressed(JASS_KEY_W))
+				cameraPosition += m_front * -speed;
+			if (Input::IsKeyPressed(JASS_KEY_S))
+				cameraPosition -= m_front * -speed;
+			if (Input::IsKeyPressed(JASS_KEY_A))
+				cameraPosition -= rightVector * -speed;
+			if (Input::IsKeyPressed(JASS_KEY_D))
+				cameraPosition += rightVector * -speed;
+		}
+		else {
+			if (Input::IsKeyPressed(JASS_KEY_W))
+				cameraPosition += m_front * speed;
+			if (Input::IsKeyPressed(JASS_KEY_S))
+				cameraPosition -= m_front * speed;
+			if (Input::IsKeyPressed(JASS_KEY_A))
+				cameraPosition -= rightVector * speed;
+			if (Input::IsKeyPressed(JASS_KEY_D))
+				cameraPosition += rightVector * speed;
+		}
 
 		m_camera.SetPosition(cameraPosition);
 	}

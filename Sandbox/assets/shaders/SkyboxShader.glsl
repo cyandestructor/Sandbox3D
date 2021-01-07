@@ -22,10 +22,18 @@ layout(location = 0) out vec4 o_color;
 	
 in vec3 texCoords;
 
+uniform float u_blendLevel;
+
 uniform samplerCube u_texture;
+uniform samplerCube u_texture2;
 
 void main()
 {
-	o_color = texture(u_texture, texCoords);
+	vec4 color1 = texture(u_texture, texCoords);
+	vec4 color2 = texture(u_texture2, texCoords);
+
+	vec4 totalColor = mix(color1, color2, u_blendLevel);
+
+	o_color = totalColor;
 	//o_color = vec4(1.0,1.0,1.0,1.0);
 }

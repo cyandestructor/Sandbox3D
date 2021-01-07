@@ -28,6 +28,8 @@ namespace Jass {
 		void SetSensitivity(float sensitivity) { m_sensitivity = sensitivity; }
 		float GetSensitivity() const { return m_sensitivity; }
 
+		void SetCollision(bool collision) { m_collision = collision; }
+
 		void SetFlyMode(bool mode) { m_flyMode = mode; }
 
 		void CalculateCamera();
@@ -40,6 +42,7 @@ namespace Jass {
 		PerspectiveCamera m_camera;
 		JVec3 m_front = { 0.0f, 0.0f, -1.0f };
 
+		bool m_collision = false;
 		bool m_flyMode = true;
 
 		float m_cameraSpeed = 20.0f;

@@ -28,9 +28,11 @@ namespace Jass {
 	float* GetPtr(JMat3& matrix);
 	float* GetPtr(JMat4& matrix);
 	float* GetPtr(JVec4& vector);
+	float* GetPtr(JVec3& vector);
 	const float* GetPtr(const JMat3& matrix);
 	const float* GetPtr(const JMat4& matrix);
 	const float* GetPtr(const JVec4& vector);
+	const float* GetPtr(const JVec3& vector);
 	JVec3 Cross(const JVec3& v1, const JVec3& v2);
 	JVec3 Normalize(const JVec3& vector);
 

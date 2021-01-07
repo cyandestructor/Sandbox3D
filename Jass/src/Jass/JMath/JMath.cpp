@@ -57,6 +57,11 @@ namespace Jass {
 		return glm::value_ptr(vector);
 	}
 
+	float* GetPtr(JVec3& vector)
+	{
+		return glm::value_ptr(vector);
+	}
+
 	const float* GetPtr(const JMat3& matrix)
 	{
 		return glm::value_ptr(matrix);
@@ -68,6 +73,11 @@ namespace Jass {
 	}
 
 	const float* GetPtr(const JVec4& vector)
+	{
+		return glm::value_ptr(vector);
+	}
+
+	const float* GetPtr(const JVec3& vector)
 	{
 		return glm::value_ptr(vector);
 	}

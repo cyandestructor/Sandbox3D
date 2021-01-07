@@ -48,6 +48,8 @@ uniform float u_motionFactor;
 uniform float u_reflectivity;
 uniform float u_shineDamper;
 
+uniform float u_ambientReduction;
+
 uniform vec4 u_lightColor;
 uniform vec4 u_color;
 
@@ -57,6 +59,7 @@ uniform sampler2D u_refraction;
 uniform sampler2D u_distortion;
 uniform sampler2D u_normal;
 
+vec3 AmbientLight(vec3 lightColor, float reductionFactor);
 vec3 SpecularLight(vec3 lightDirection, vec3 normal, vec3 toCameraVector, vec3 lightColor, float reflectivity, float shineDamper);
 
 void main()
@@ -74,6 +77,7 @@ void main()
 	vec4 normalMap = texture(u_normal, distortedTexCoords);
 	vec3 normal = normalize(vec3(normalMap.r * 2.0f - 1.0f, normalMap.b, normalMap.g * 2.0f - 1.0f));
 
+	vec3 ambient = AmbientLight(u_lightColor.rgb, u_ambientReduction);
 	vec3 specular = SpecularLight(lightDirection, normal, toCameraVector, u_lightColor.rgb, u_reflectivity, u_shineDamper);
 
 	refractionTexCoords += distortion;
@@ -93,7 +97,13 @@ void main()
 
 	vec4 waterColor = mix(reflection, refraction, refractiveFactor);
 
-	o_color = mix(waterColor, u_color, 0.2f) + vec4(specular, 0.0f);
+	o_color = mix(waterColor, u_color, 0.2f) * vec4(ambient, 1.0f) + vec4(specular, 0.0f);
+}
+
+vec3 AmbientLight(vec3 lightColor, float reductionFactor)
+{
+	vec3 ambientLight = lightColor * reductionFactor;
+	return ambientLight;
 }
 
 vec3 SpecularLight(vec3 lightDirection, vec3 normal, vec3 toCameraVector, vec3 lightColor, float reflectivity, float shineDamper)

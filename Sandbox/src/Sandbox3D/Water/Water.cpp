@@ -82,6 +82,8 @@ void Water::Render(const Jass::Ref<Jass::Shader>& shader, const Light& light, co
 	shader->SetFloat("u_reflectivity", m_reflectivity);
 	shader->SetFloat("u_shineDamper", m_shineDamper);
 
+	shader->SetFloat("u_ambientReduction", m_ambientReduction);
+
 	shader->SetFloat3("u_lightPosition", light.GetPosition());
 	shader->SetFloat4("u_lightColor", light.GetColor());
 

@@ -14,6 +14,8 @@ public:
 	void BeginRefraction() const;
 	void EndRefraction() const;
 
+	void SetAmbientReduction(float reductionFactor) { m_ambientReduction = reductionFactor; }
+
 	void SetDistortionFactor(float distortionFactor) { m_distortionFactor = distortionFactor; }
 	void SetMotionFactor(float motionFactor) { m_motionFactor = motionFactor; }
 
@@ -40,6 +42,8 @@ private:
 
 	float m_distortionFactor = 1.0f;
 	float m_motionFactor = 0.0f;
+
+	float m_ambientReduction = 1.0f;
 
 	float m_reflectivity = 1.0f;
 	float m_shineDamper = 1.0f;
