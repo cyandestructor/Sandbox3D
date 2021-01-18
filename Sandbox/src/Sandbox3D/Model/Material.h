@@ -35,8 +35,8 @@ private:
 	Jass::Ref<Jass::Texture2D> m_diffuseTexture;
 	float m_diffuseReduction = 1.0f;
 	
-	float m_reflectivity = 1.0f;
-	float m_shineDamper = 1.0f;
+	float m_reflectivity = 0.0f;
+	float m_shineDamper = 0.0f;
 
 	Jass::Ref<Jass::Texture2D> m_normalTexture;
 

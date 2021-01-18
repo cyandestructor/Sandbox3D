@@ -4,6 +4,10 @@
 #include "Jass.h"
 #include "Material.h"
 
+enum class BillboardType {
+	Cylindrical, Spherical
+};
+
 class Billboard {
 
 public:
@@ -13,6 +17,9 @@ public:
 	void SetPosition(const Jass::JVec3& position) { m_position = position; }
 	const Jass::JVec3& GetPosition() const { return m_position; }
 	
+	void SetType(BillboardType type) { m_type = type; }
+	BillboardType GetType() const { return m_type; }
+
 	void SetScale(const Jass::JVec3& scale) { m_scale = scale; }
 	const Jass::JVec3& GetScale() const { return m_scale; }
 
@@ -25,6 +32,8 @@ private:
 
 	Jass::JVec3 m_position = Jass::JVec3(0.0f);
 	Jass::JVec3 m_scale = Jass::JVec3(1.0f);
+
+	BillboardType m_type = BillboardType::Spherical;
 
 	Material m_material;
 };

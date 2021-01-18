@@ -9,7 +9,7 @@ namespace Jass {
 
 	PerspectiveCameraController::PerspectiveCameraController()
 	{
-		Input::SetCursorMode(CursorMode::Disabled);
+		//Input::SetCursorMode(CursorMode::Disabled);
 	}
 
 	void PerspectiveCameraController::CalculateCamera()

@@ -31,13 +31,15 @@ private:
 
 	Light m_light;
 
-	Model m_model;
-	GameObject m_testObject;
+	Model m_testModel;
+
+	Model m_sunModel;
+	//GameObject m_testObject;
 
 	std::vector<Model> m_sceneModels;
 	std::vector<Billboard> m_sceneBillboards;
 
-	Billboard m_testBillboard;
+	//Billboard m_testBillboard;
 
 	Terrain m_terrain;
 
@@ -56,7 +58,11 @@ private:
 	Jass::JVec3 m_modelPosition = Jass::JVec3(0.0f);
 	Jass::JVec3 m_modelScale = Jass::JVec3(1.0f);
 
-	bool m_flyMode = true;
+	bool m_loadAllModels = true;
+	bool m_flyMode = false;
+	bool m_disableCursor = true;
+
+	bool OnKeyPressedEvent(Jass::KeyPressedEvent& e);
 
 	void FixCameraToTerrain();
 	void UpdateCollisions(Jass::Timestep ts);
@@ -66,6 +72,7 @@ private:
 	void LoadSkyboxTextures();
 
 	void LoadModels();
+	void LoadBillboards();
 
 	void PrepareWaterReflection(Jass::Timestep ts);
 	void PrepareWaterRefraction(Jass::Timestep ts);

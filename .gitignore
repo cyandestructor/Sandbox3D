@@ -3,6 +3,9 @@
 bin/
 bin-int/
 
+# Avoid upload all the models and textures
+Sandbox/assets/models
+
 # Extensions
 *.user
 *.json
