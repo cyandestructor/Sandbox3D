@@ -275,79 +275,15 @@ void Sandbox3D::LoadModels()
 	if (!m_loadAllModels)
 		return;
 
-	/*Model wall;
-	wall.Load("assets/models/Wall/wall.obj");
-	wall.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall.SetPosition({ -200.0f, 30.0f, -300.0f });
-	wall.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall);
+	Model cabin;
+	cabin.Load("assets/models/Cabin/cabin.obj");
+	cabin.GetMaterial().SetDiffuseTexture("assets/models/Cabin/diffuse.jpg");
+	cabin.GetMaterial().SetNormalTexture("assets/models/Cabin/normal.jpg");
+	cabin.SetPosition({ -100.0f, 34.5f,-70.0f });
+	m_sceneModels.push_back(cabin);
 
-	Model wall2;
-	wall2.Load("assets/models/Wall/wall.obj");
-	wall2.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall2.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall2.SetPosition({ 0.0f, 30.0f, -300.0f });
-	wall2.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall2);
-
-	Model wall3;
-	wall3.Load("assets/models/Wall/wall.obj");
-	wall3.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall3.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall3.SetPosition({ 200.0f, 30.0f, -300.0f });
-	wall3.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall3);*/
-
-	/*Model wall4;
-	wall4.Load("assets/models/Wall/wall.obj");
-	wall4.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall4.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall4.SetPosition({ -200.0f, 20.0f, 280.0f });
-	wall4.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall4);
-
-	Model wall5;
-	wall5.Load("assets/models/Wall/wall.obj");
-	wall5.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall5.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall5.SetPosition({ 0.0f, 20.0f, 280.0f });
-	wall5.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall5);
-
-	Model wall6;
-	wall6.Load("assets/models/Wall/wall.obj");
-	wall6.GetMaterial().SetDiffuseTexture("assets/models/Wall/diffuse.png");
-	wall6.GetMaterial().SetNormalTexture("assets/models/Wall/normal2.png");
-	wall6.SetPosition({ 200.0f, 20.0f, 280.0f });
-	wall6.SetScale({ 2.0f, 2.0f, 2.0f });
-	m_sceneModels.push_back(wall6);*/
-
-	//m_testModel.Load("assets/models/Stone1/stone1.obj");
-	//m_testModel.GetMaterial().SetDiffuseTexture("assets/models/Stone1/diffuse.jpg");
-	//m_testModel.GetMaterial().SetNormalTexture("assets/models/Stone1/normal.jpg");
-	//m_testModel.Load("assets/models/Stone2/stone2.obj");
-	//m_testModel.GetMaterial().SetDiffuseTexture("assets/models/Stone2/diffuse.jpg");
-	//m_testModel.GetMaterial().SetNormalTexture("assets/models/Stone2/normal.jpg");
+	return;
 	
-	///////////////////////////////////////////////
-
-	Model stone5;
-	stone5.Load("assets/models/Stone3/stone3.obj");
-	stone5.GetMaterial().SetDiffuseTexture("assets/models/Stone3/diffuse.jpg");
-	stone5.GetMaterial().SetNormalTexture("assets/models/Stone3/normal.jpg");
-	stone5.SetPosition({ -200.0f, 23.0f, 93.0f });
-	stone5.SetScale({ 0.2f,0.2f,0.2f });
-	m_sceneModels.push_back(stone5);
-
-	Model stone4;
-	stone4.Load("assets/models/Stone3/stone3.obj");
-	stone4.GetMaterial().SetDiffuseTexture("assets/models/Stone3/diffuse.jpg");
-	stone4.GetMaterial().SetNormalTexture("assets/models/Stone3/normal.jpg");
-	stone4.SetPosition({ 13.0f, 25.0f, 108.0f });
-	stone4.SetScale({ 0.2f,0.2f,0.2f });
-	m_sceneModels.push_back(stone4);
-
 	Model stone;
 	stone.Load("assets/models/Stone2/stone2.obj");
 	stone.GetMaterial().SetDiffuseTexture("assets/models/Stone2/diffuse.jpg");
@@ -372,6 +308,22 @@ void Sandbox3D::LoadModels()
 	stone3.SetScale({ 0.2f,0.2f,0.2f });
 	m_sceneModels.push_back(stone3);
 
+	Model stone4;
+	stone4.Load("assets/models/Stone3/stone3.obj");
+	stone4.GetMaterial().SetDiffuseTexture("assets/models/Stone3/diffuse.jpg");
+	stone4.GetMaterial().SetNormalTexture("assets/models/Stone3/normal.jpg");
+	stone4.SetPosition({ 13.0f, 25.0f, 108.0f });
+	stone4.SetScale({ 0.2f,0.2f,0.2f });
+	m_sceneModels.push_back(stone4);
+
+	Model stone5;
+	stone5.Load("assets/models/Stone3/stone3.obj");
+	stone5.GetMaterial().SetDiffuseTexture("assets/models/Stone3/diffuse.jpg");
+	stone5.GetMaterial().SetNormalTexture("assets/models/Stone3/normal.jpg");
+	stone5.SetPosition({ -200.0f, 23.0f, 93.0f });
+	stone5.SetScale({ 0.2f,0.2f,0.2f });
+	m_sceneModels.push_back(stone5);
+
 	Model lantern;
 	lantern.Load("assets/models/Lantern/lantern.obj");
 	lantern.GetMaterial().SetDiffuseTexture("assets/models/Lantern/diffuse.jpg");
@@ -387,13 +339,6 @@ void Sandbox3D::LoadModels()
 	lantern2.SetPosition({ -150.0f, 41.0f, 220.0f });
 	lantern2.SetScale({ 12.0f, 12.0f, 12.0f });
 	m_sceneModels.push_back(lantern2);
-
-	Model cabin;
-	cabin.Load("assets/models/Cabin/cabin.obj");
-	cabin.GetMaterial().SetDiffuseTexture("assets/models/Cabin/diffuse.jpg");
-	cabin.GetMaterial().SetNormalTexture("assets/models/Cabin/normal.jpg");
-	cabin.SetPosition({ -100.0f, 34.5f,-70.0f });
-	m_sceneModels.push_back(cabin);
 	
 	Model cabin2;
 	cabin2.Load("assets/models/Cabin2/cabin2.obj");

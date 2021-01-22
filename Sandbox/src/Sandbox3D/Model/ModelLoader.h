@@ -10,7 +10,6 @@ public:
 
 private:
 	static void ReadFile(const std::string& filename, std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices);
-	static void ReadFile2(const std::string& filename, std::vector<MeshVertex>& vertices, std::vector<unsigned int>& indices);
 };
 
 #endif // !MODEL_LOADER_H

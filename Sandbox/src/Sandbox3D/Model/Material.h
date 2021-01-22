@@ -30,6 +30,7 @@ private:
 	float m_ambientReduction = 1.0f;
 	
 	Jass::Ref<Jass::Texture2D> m_whiteTexture;
+	Jass::Ref<Jass::Texture2D> m_neutralNormalTexture;
 	Jass::JVec4 m_color = Jass::JVec4(1.0f);
 
 	Jass::Ref<Jass::Texture2D> m_diffuseTexture;
