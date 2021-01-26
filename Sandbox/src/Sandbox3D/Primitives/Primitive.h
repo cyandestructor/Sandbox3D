@@ -6,11 +6,7 @@
 class Primitive {
 
 public:
-	virtual Mesh Generate() { return Mesh(m_vertices, m_indices); }
-
-protected:
-	std::vector<MeshVertex> m_vertices;
-	std::vector<unsigned int> m_indices;
+	virtual Mesh Generate() = 0;
 
 };
 

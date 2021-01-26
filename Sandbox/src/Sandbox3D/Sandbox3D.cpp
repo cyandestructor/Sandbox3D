@@ -1,5 +1,6 @@
 #include "Sandbox3D.h"
 #include <imgui.h>
+#include "Primitives/Plane.h"
 
 Sandbox3D::Sandbox3D()
 	: m_light({ 10.0f, 500.0f, 100.0f }, { 1.0f,1.0f,1.0f,1.0f }),
@@ -44,14 +45,12 @@ void Sandbox3D::OnAttach()
 	//m_testObject.GetModel()->SetPosition({ 50.0f, 70.0f, 0.0f });
 
 	m_sunModel.Load("assets/models/sphere.obj");
-	m_sunModel.GetMaterial().SetDiffuseTexture("assets/textures/Sandbox3D/Dirt/dirt_color.jpg");
-	m_sunModel.GetMaterial().SetNormalTexture("assets/textures/Sandbox3D/Dirt/dirt_norm.jpg");
 
 	m_water.SetPosition({ 0.0f, 25.0f, 0.0f });
 	m_water.SetColor({ 0.2f, 0.6f, 0.8f, 1.0f });
 	m_water.SetTilingFactor(7.0f);
 	m_water.SetDistortionFactor(0.02f);
-	m_water.SetSpecularProperties(0.5f, 1.0f);
+	m_water.SetSpecularProperties(0.5f, 10.0f);
 	m_water.SetTextures("assets/textures/Water/dudv.png", "assets/textures/Water/normal.png");
 }
 
@@ -274,6 +273,13 @@ void Sandbox3D::LoadModels()
 	
 	if (!m_loadAllModels)
 		return;
+
+	Plane plane(100.0f, 100.0f, 1, 1);
+	Model planeModel(plane.Generate());
+	planeModel.SetPosition({ 0.0f, 50.0f, 0.0f });
+	planeModel.GetMaterial().SetDiffuseTexture("assets/textures/Terrain/dirt.jpg");
+	planeModel.GetMaterial().SetNormalTexture("assets/textures/Terrain/dirtNorm.jpg");
+	m_sceneModels.push_back(planeModel);
 
 	Model cabin;
 	cabin.Load("assets/models/Cabin/cabin.obj");

@@ -184,6 +184,8 @@ Jass::Ref<Jass::VertexArray> Terrain::Generate(const std::string& heightmap, uns
 	// Generate indices
 	CalculateIndices(indices);
 
+	JASS_ASSERT(indices.size() > 0, "The index buffer is empty");
+
 	if (data)
 		stbi_image_free(data);
 

@@ -9,8 +9,11 @@ class Model {
 public:
 	Model();
 	Model(const std::string& filename);
+	Model(const Mesh& mesh) : m_mesh(mesh) {}
 
 	void Load(const std::string& filename);
+
+	void SetMesh(const Mesh& mesh) { m_mesh = mesh; }
 
 	void SetPosition(const Jass::JVec3& position);
 	const Jass::JVec3& GetPosition() const { return m_position; }

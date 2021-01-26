@@ -1,6 +1,6 @@
 #include "Water.h"
 
-Water::Water(const Jass::JVec2& scale, unsigned int screenWidth, unsigned int screenHeight)
+Water::Water(const Jass::JVec2& scale, unsigned int widthDiv, unsigned int depthDiv, unsigned int screenWidth, unsigned int screenHeight)
 {
 	Jass::FramebufferConfig fboConfig;
 	fboConfig.Width = screenWidth;
@@ -8,37 +8,9 @@ Water::Water(const Jass::JVec2& scale, unsigned int screenWidth, unsigned int sc
 
 	m_reflectionFbo = Jass::Framebuffer::Create(fboConfig);
 	m_refractionFbo = Jass::Framebuffer::Create(fboConfig);
-
-	float quad[] = {
-		-0.5f * scale.x, 0.0f, -0.5f * scale.y,
-		0.0f, 1.0f,
-		-0.5f * scale.x, 0.0f, 0.5f * scale.y,
-		0.0f, 0.0f,
-		0.5f * scale.x, 0.0f, -0.5f * scale.y,
-		1.0f, 1.0f,
-		0.5f * scale.x, 0.0f, 0.5f * scale.y,
-		1.0f, 0.0f,
-	};
-
-	m_vertexArray = Jass::VertexArray::Create();
-
-	auto vbo = Jass::VertexBuffer::Create({ quad, sizeof(quad), Jass::DataUsage::StaticDraw });
-
-	vbo->SetLayout({
-		Jass::BufferElement(Jass::ShaderDataType::Float3, "a_position"),
-		Jass::BufferElement(Jass::ShaderDataType::Float2, "a_texCoords")
-		});
-
-	m_vertexArray->AddVertexBuffer(vbo);
-
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 1, 3
-	};
-
-	auto ibo = Jass::IndexBuffer::Create({ indices, 6, Jass::DataUsage::StaticDraw });
-
-	m_vertexArray->SetIndexBuffer(ibo);
+	
+	Plane plane(scale.x, scale.y, widthDiv, depthDiv);
+	m_mesh = plane.Generate();
 }
 
 void Water::BeginReflection() const
@@ -110,5 +82,5 @@ void Water::Render(const Jass::Ref<Jass::Shader>& shader, const Light& light, co
 
 	// Render
 	Jass::JMat4 transformation = Jass::Translate(Jass::JMat4(1.0f), m_position);
-	Jass::Renderer::Submit(shader, m_vertexArray, transformation);
+	Jass::Renderer::Submit(shader, m_mesh.GetVertexArray(), m_mesh.GetRenderMode(), transformation);
 }

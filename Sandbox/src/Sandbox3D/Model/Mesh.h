@@ -16,11 +16,20 @@ class Mesh {
 public:
 	Mesh() = default;
 	Mesh(std::vector<MeshVertex>& vertices, const std::vector<unsigned int>& indices);
+	Mesh(const Jass::Ref<Jass::VertexArray>& vertexArray, Jass::RenderMode renderMode = Jass::RenderMode::Triangle)
+		:m_renderMode(renderMode)
+	{
+		m_vertexArray = vertexArray;
+	}
+
+	void SetRenderMode(Jass::RenderMode renderMode) { m_renderMode = renderMode; }
+	Jass::RenderMode GetRenderMode() const { return m_renderMode; }
 
 	inline const Jass::Ref<Jass::VertexArray>& GetVertexArray() const { return m_vertexArray; }
 
 private:
 	Jass::Ref<Jass::VertexArray> m_vertexArray;
+	Jass::RenderMode m_renderMode = Jass::RenderMode::Triangle;
 
 	void CalculateTangentsBitangents(std::vector<MeshVertex>& vertices);
 

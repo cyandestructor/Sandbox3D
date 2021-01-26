@@ -3,11 +3,12 @@
 
 #include "Jass.h"
 #include "../Model/Light.h"
+#include "../Primitives/Plane.h"
 
 class Water {
 
 public:
-	Water(const Jass::JVec2& scale, unsigned int screenWidth = 1280, unsigned int screenHeight = 720);
+	Water(const Jass::JVec2& scale, unsigned int widthDiv = 10, unsigned int depthDiv = 10, unsigned int screenWidth = 1280, unsigned int screenHeight = 720);
 
 	void BeginReflection() const;
 	void EndReflection() const;
@@ -35,7 +36,7 @@ public:
 	void Render(const Jass::Ref<Jass::Shader>& shader, const Light& light, const Jass::Camera& camera) const;
 
 private:
-	Jass::Ref<Jass::VertexArray> m_vertexArray;
+	Mesh m_mesh;
 
 	Jass::Ref<Jass::Framebuffer> m_reflectionFbo;
 	Jass::Ref<Jass::Framebuffer> m_refractionFbo;
