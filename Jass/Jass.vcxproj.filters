@@ -1518,6 +1518,9 @@
     <ClInclude Include="src\Jass\Camera\PerspectiveCameraController.h" />
     <ClInclude Include="src\Jass\Renderer\Textures\Texture3D.h" />
     <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.h" />
+    <ClInclude Include="src\Jass\Core\InputEnums.h" />
+    <ClInclude Include="src\Jass\Events\JoystickConnectionEvent.h" />
+    <ClInclude Include="src\Jass\Core\Joystick.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">

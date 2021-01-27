@@ -71,6 +71,7 @@ void Sandbox3D::OnImGuiRender()
 void Sandbox3D::OnUpdate(Jass::Timestep ts)
 {
 	UpdateDayCycle(ts);
+	GamepadUpdate();
 
 	if (!m_flyMode)
 		FixCameraToTerrain();
@@ -94,6 +95,7 @@ void Sandbox3D::OnEvent(Jass::Event& e)
 {
 	m_cameraController.OnEvent(e);
 	Jass::EventDispatcher dispatcher(e);
+	dispatcher.Dispatch<Jass::JoystickConnectionEvent>(BIND_EVENT_FN(Sandbox3D::OnJoystickConnectionEvent));
 	dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(Sandbox3D::OnKeyPressedEvent));
 }
 
@@ -122,6 +124,20 @@ bool Sandbox3D::OnKeyPressedEvent(Jass::KeyPressedEvent& e)
 	}
 
 	return false;
+}
+
+bool Sandbox3D::OnJoystickConnectionEvent(Jass::JoystickConnectionEvent& e)
+{
+	Jass::Joystick joystick = e.GetJoystick();
+	JASS_LOG_INFO("{0} Gamepad Name : {1}", e.ToString(), Jass::Input::GetGamepadName(joystick));
+
+	return false;
+}
+
+void Sandbox3D::GamepadUpdate()
+{
+	JASS_LOG_INFO("Axis Y: {0}", Jass::Input::GetGamepadAxis(Jass::Joystick::Slot1, Jass::GamepadAxis::LeftY));
+	JASS_LOG_INFO("Axis X: {0}", Jass::Input::GetGamepadAxis(Jass::Joystick::Slot1, Jass::GamepadAxis::LeftX));
 }
 
 void Sandbox3D::FixCameraToTerrain()

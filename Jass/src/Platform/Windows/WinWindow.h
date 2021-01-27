@@ -41,6 +41,7 @@ namespace Jass {
 
 	private:
 		static bool s_glfwInitialized;
+		static std::vector<GLFWwindow*> s_windows;
 
 		GLFWwindow* m_window;
 		std::unique_ptr<IRenderContext> m_context;
@@ -64,6 +65,7 @@ namespace Jass {
 		void SetWindowMouseButtonCallback();
 		void SetWindowMouseMoveCallback();
 		void SetWindowMouseScrollCallback();
+		void SetWindowJoystickConnectionCallback();
 
 	};
 

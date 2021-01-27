@@ -150,8 +150,10 @@
     <ClInclude Include="src\Jass\Core\Core.h" />
     <ClInclude Include="src\Jass\Core\Core_Config.h" />
     <ClInclude Include="src\Jass\Core\EntryPoint.h" />
+    <ClInclude Include="src\Jass\Core\InputEnums.h" />
     <ClInclude Include="src\Jass\Core\IWindow.h" />
     <ClInclude Include="src\Jass\Core\Input.h" />
+    <ClInclude Include="src\Jass\Core\Joystick.h" />
     <ClInclude Include="src\Jass\Core\KeyCodes.h" />
     <ClInclude Include="src\Jass\Core\Layer.h" />
     <ClInclude Include="src\Jass\Core\LayerStack.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="src\Jass\Events\EventDispatcher.h" />
     <ClInclude Include="src\Jass\Events\EventEnums.h" />
     <ClInclude Include="src\Jass\Events\Events.h" />
+    <ClInclude Include="src\Jass\Events\JoystickConnectionEvent.h" />
     <ClInclude Include="src\Jass\Events\KeyEvent.h" />
     <ClInclude Include="src\Jass\Events\KeyEvents.h" />
     <ClInclude Include="src\Jass\Events\KeyPressedEvent.h" />

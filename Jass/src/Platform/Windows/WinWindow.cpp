@@ -17,6 +17,7 @@ namespace Jass {
 	}
 
 	bool WinWindow::s_glfwInitialized = false;
+	std::vector<GLFWwindow*> WinWindow::s_windows;
 
 	void WinWindow::OnUpdate()
 	{
@@ -78,10 +79,15 @@ namespace Jass {
 
 		// Set the GLFW callbacks
 		SetWindowEventCallbacks();
+
+		// s_windows are the total glfw windows instantiated
+		s_windows.push_back(m_window);
 	}
 
 	void WinWindow::Shutdown()
 	{
+		// Remove the window from the instantiated glfw windows, then destroy it
+		s_windows.erase(std::remove(s_windows.begin(), s_windows.end(), m_window), s_windows.end());
 		glfwDestroyWindow(m_window);
 	}
 
@@ -94,6 +100,7 @@ namespace Jass {
 		SetWindowMouseButtonCallback();
 		SetWindowMouseScrollCallback();
 		SetWindowMouseMoveCallback();
+		SetWindowJoystickConnectionCallback();
 	}
 
 	void WinWindow::SetWindowSizeCallback()
@@ -199,6 +206,22 @@ namespace Jass {
 
 			MouseScrolledEvent e((float)xOffset, (float)yOffset);
 			data.EventCallback(e);
+
+			});
+	}
+
+	void WinWindow::SetWindowJoystickConnectionCallback()
+	{
+		glfwSetJoystickCallback([](int joystickID, int isConnected) {
+			Joystick joystick = Joystick(joystickID - GLFW_JOYSTICK_1);
+			bool connection = isConnected == GLFW_CONNECTED;
+
+			JoystickConnectionEvent e(joystick, connection);
+			for (auto window : s_windows)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				data.EventCallback(e);
+			}
 
 			});
 	}

@@ -4,5 +4,6 @@
 #include "ApplicationEvents.h"
 #include "KeyEvents.h"
 #include "MouseEvents.h"
+#include "JoystickConnectionEvent.h"
 
 #endif // !JASS_EVENTS_H
