@@ -66,12 +66,26 @@ void Sandbox3D::OnImGuiRender()
 	//ImGui::InputFloat3("Model position", Jass::GetPtr(m_modelPosition), 3);
 	//ImGui::InputFloat3("Model scale", Jass::GetPtr(m_modelScale), 3);
 	//ImGui::End();
+
+	// Use this code to test your joystick if it is not a valid gamepad
+	/*ImGui::Begin("Joystick 1");
+	int i = 0;
+	for (auto axis : Jass::Input::GetJoystickAxes(Jass::Joystick::Slot1))
+	{
+		ImGui::Text("Axis %d: %f", i++, axis);
+	}
+	ImGui::Separator();
+	i = 0;
+	for (auto button : Jass::Input::GetJoystickButtons(Jass::Joystick::Slot1))
+	{
+		ImGui::Text("Button %d: %s", i++, ((int)button ? "pressed" : "released"));
+	}
+	ImGui::End();*/
 }
 
 void Sandbox3D::OnUpdate(Jass::Timestep ts)
 {
 	UpdateDayCycle(ts);
-	GamepadUpdate();
 
 	if (!m_flyMode)
 		FixCameraToTerrain();
@@ -132,12 +146,6 @@ bool Sandbox3D::OnJoystickConnectionEvent(Jass::JoystickConnectionEvent& e)
 	JASS_LOG_INFO("{0} Gamepad Name : {1}", e.ToString(), Jass::Input::GetGamepadName(joystick));
 
 	return false;
-}
-
-void Sandbox3D::GamepadUpdate()
-{
-	JASS_LOG_INFO("Axis Y: {0}", Jass::Input::GetGamepadAxis(Jass::Joystick::Slot1, Jass::GamepadAxis::LeftY));
-	JASS_LOG_INFO("Axis X: {0}", Jass::Input::GetGamepadAxis(Jass::Joystick::Slot1, Jass::GamepadAxis::LeftX));
 }
 
 void Sandbox3D::FixCameraToTerrain()

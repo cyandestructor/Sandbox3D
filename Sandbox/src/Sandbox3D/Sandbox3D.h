@@ -65,8 +65,6 @@ private:
 	bool OnKeyPressedEvent(Jass::KeyPressedEvent& e);
 	bool OnJoystickConnectionEvent(Jass::JoystickConnectionEvent& e);
 
-	void GamepadUpdate();
-
 	void FixCameraToTerrain();
 	void UpdateCollisions(Jass::Timestep ts);
 

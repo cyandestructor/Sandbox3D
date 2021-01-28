@@ -16,6 +16,10 @@ namespace Jass {
 		static bool IsMouseButtonPressed(int button);
 		static std::pair<float, float> GetMousePos();
 
+		static bool IsJoystickConnected(Joystick joystick);
+		static std::vector<ButtonState> GetJoystickButtons(Joystick joystick);
+		static std::vector<float> GetJoystickAxes(Joystick joystick);
+
 		static bool IsGamepadConnected(Joystick gamepad);
 		static std::string GetGamepadName(Joystick gamepad);
 		static bool IsGamepadButtonPressed(Joystick gamepad, GamepadButton button);

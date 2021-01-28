@@ -155,6 +155,47 @@ namespace Jass {
 		return value;
 	}
 
+	bool Input::IsJoystickConnected(Joystick joystick)
+	{
+		return glfwJoystickPresent(ToGLFW(joystick));
+	}
+
+	std::vector<ButtonState> Input::GetJoystickButtons(Joystick joystick)
+	{
+		std::vector<ButtonState> buttons;
+		int count = 0;
+		const unsigned char* states = glfwGetJoystickButtons(ToGLFW(joystick), &count);
+		
+		if (count)
+		{
+			buttons.reserve(count);
+			for (int i = 0; i < count; i++)
+			{
+				buttons.push_back(ButtonState(states[i]));
+			}
+		}
+
+		return buttons;
+	}
+
+	std::vector<float> Input::GetJoystickAxes(Joystick joystick)
+	{
+		std::vector<float> axes;
+		int count = 0;
+		const float* values = glfwGetJoystickAxes(ToGLFW(joystick), &count);
+
+		if (count)
+		{
+			axes.reserve(count);
+			for (int i = 0; i < count; i++)
+			{
+				axes.push_back(values[i]);
+			}
+		}
+
+		return axes;
+	}
+
 	bool Input::IsGamepadConnected(Joystick gamepad)
 	{
 		return glfwJoystickIsGamepad(ToGLFW(gamepad));

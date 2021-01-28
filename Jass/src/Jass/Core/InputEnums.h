@@ -50,6 +50,12 @@ namespace Jass {
 		RightTrigger
 	};
 
+	enum class ButtonState
+	{
+		Released = 0,
+		Pressed = 1
+	};
+
 }
 
 #endif // !INPUT_ENUMS_JASS
