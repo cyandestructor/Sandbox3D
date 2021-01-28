@@ -8,6 +8,7 @@
 #include "Skybox/Skybox.h"
 #include "Water/Water.h"
 #include "Model/Billboard.h"
+#include "Player/PlayerController.h"
 
 class Sandbox3D : public Jass::Layer {
 
@@ -22,7 +23,7 @@ public:
 	virtual void OnEvent(Jass::Event& e) override;
 
 private:
-	Jass::PerspectiveCameraController m_cameraController;
+	PlayerController m_cameraController;
 	
 	float m_skyRotation = 0.0f;
 	float m_blendNight = 0.0f;

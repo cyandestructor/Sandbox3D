@@ -142,6 +142,7 @@
     <ClInclude Include="src\Sandbox3D\Model\ModelLoader.h" />
     <ClInclude Include="src\Sandbox3D\Model\Billboard.h" />
     <ClInclude Include="src\Sandbox3D\Model\tinyobjloader\tiny_obj_loader.h" />
+    <ClInclude Include="src\Sandbox3D\Player\PlayerController.h" />
     <ClInclude Include="src\Sandbox3D\Primitives\Plane.h" />
     <ClInclude Include="src\Sandbox3D\Primitives\Primitive.h" />
     <ClInclude Include="src\Sandbox3D\Sandbox3D.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="src\Sandbox3D\Model\Model.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\ModelLoader.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Billboard.cpp" />
+    <ClCompile Include="src\Sandbox3D\Player\PlayerController.cpp" />
     <ClCompile Include="src\Sandbox3D\Primitives\Plane.cpp" />
     <ClCompile Include="src\Sandbox3D\Sandbox3D.cpp" />
     <ClCompile Include="src\Sandbox3D\Skybox\Skybox.cpp" />
