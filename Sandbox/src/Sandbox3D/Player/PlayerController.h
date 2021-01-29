@@ -61,6 +61,7 @@ private:
 	void ProcessInput(Jass::Timestep ts);
 	void ProcessMouse(float x, float y);
 	void ProcessGamepad(Jass::Timestep ts);
+	void ProcessJoystick(Jass::Timestep ts);
 
 	bool OnWindowResizeEvent(Jass::WindowResizeEvent& e);
 

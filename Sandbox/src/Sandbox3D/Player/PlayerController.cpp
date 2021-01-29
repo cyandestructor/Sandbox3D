@@ -7,8 +7,14 @@ void PlayerController::CalculateCamera()
 
 void PlayerController::OnUpdate(Jass::Timestep ts)
 {
-	if(Jass::Input::IsJoystickConnected(m_joystick))
+	if (Jass::Input::IsGamepadConnected(m_joystick))
+	{
 		ProcessGamepad(ts);
+	}
+	else if (Jass::Input::IsJoystickConnected(m_joystick))
+	{
+		ProcessJoystick(ts);
+	}
 	else
 	{
 		auto [x, y] = Jass::Input::GetMousePos();
@@ -95,6 +101,50 @@ void PlayerController::ProcessMouse(float x, float y)
 
 void PlayerController::ProcessGamepad(Jass::Timestep ts)
 {
+	float sensitivity = m_gamepadSensitivity;
+
+	// Camera rotation
+
+	float valueX = Jass::Input::GetGamepadAxis(m_joystick, Jass::GamepadAxis::RightX) * sensitivity;
+	float valueY = -Jass::Input::GetGamepadAxis(m_joystick, Jass::GamepadAxis::RightY) * sensitivity;
+
+	valueX = std::abs(valueX) > m_gamepadDeadZone ? valueX : 0.0f;
+	valueY = std::abs(valueY) > m_gamepadDeadZone ? valueY : 0.0f;
+
+	m_yaw += valueX;
+	m_pitch += valueY;
+
+	m_pitch = m_pitch > 89.0f ? 89.0f : m_pitch;
+	m_pitch = m_pitch < -89.0f ? -89.0f : m_pitch;
+
+	Jass::JVec3 direction;
+	direction.x = cos(Jass::Radians(m_yaw)) * cos(Jass::Radians(m_pitch));
+	direction.y = sin(Jass::Radians(m_pitch));
+	direction.z = sin(Jass::Radians(m_yaw)) * cos(Jass::Radians(m_pitch));
+
+	m_front = Jass::Normalize(direction);
+
+	// Camera motion
+
+	float speed = m_cameraSpeed * ts;
+
+	auto cameraPosition = m_camera.GetPosition();
+	auto rightVector = Jass::Normalize(Jass::Cross(m_front, m_camera.GetUpVector()));
+
+	float frontMotion = -Jass::Input::GetGamepadAxis(m_joystick, Jass::GamepadAxis::LeftY) * sensitivity;
+	float rightMotion = Jass::Input::GetGamepadAxis(m_joystick, Jass::GamepadAxis::LeftX) * sensitivity;
+
+	frontMotion = std::abs(frontMotion) > m_gamepadDeadZone ? frontMotion : 0.0f;
+	rightMotion = std::abs(rightMotion) > m_gamepadDeadZone ? rightMotion : 0.0f;
+
+	cameraPosition += m_front * frontMotion * speed;
+	cameraPosition += rightVector * rightMotion * speed;
+
+	m_camera.SetPosition(cameraPosition);
+}
+
+void PlayerController::ProcessJoystick(Jass::Timestep ts)
+{
 	/* This is 100% mapped to my own gamepad (A gamecube controller),
 	so it may not work for yours (it can even crash)*/
 	const int ButtonA = 1;
@@ -126,10 +176,29 @@ void PlayerController::ProcessGamepad(Jass::Timestep ts)
 
 	float sensitivity = m_gamepadSensitivity;
 
+	float
+		rightAxisX = 0.0f,
+		rightAxisY = 0.0f,
+		leftAxisX = 0.0f,
+		leftAxisY = 0.0f;
+
+	try
+	{
+		rightAxisX = axes[RightAxisX];
+		rightAxisY = axes[RightAxisY];
+		leftAxisX = axes[LeftAxisX];
+		leftAxisY = axes[LeftAxisY];
+	}
+	catch (const std::exception& e)
+	{
+		JASS_LOG_ERR("Joystick axis could not be found and caused an exception");
+		JASS_LOG_ERR("{0}", e.what());
+	}
+
 	// Camera rotation
 
-	float valueX = -axes[RightAxisX] * sensitivity; // On my joystick, this axis seems to be inverted
-	float valueY = axes[RightAxisY] * sensitivity;
+	float valueX = -rightAxisX * sensitivity; // On my joystick, this axis seems to be inverted
+	float valueY = rightAxisY * sensitivity;
 
 	valueX = std::abs(valueX) > m_gamepadDeadZone ? valueX : 0.0f;
 	valueY = std::abs(valueY) > m_gamepadDeadZone ? valueY : 0.0f;
