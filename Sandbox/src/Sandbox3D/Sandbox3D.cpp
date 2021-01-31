@@ -232,13 +232,15 @@ void Sandbox3D::UpdateDayCycle(Jass::Timestep ts)
 	m_light.SetPosition(m_lightDirection);
 	m_sunModel.SetPosition(m_lightDirection);
 
-	float lightIntensity = std::max(sin(Jass::Radians(m_lightAngle)), 0.1f);
+	float lightIntensity = std::max(sin(Jass::Radians(m_lightAngle)), 0.01f);
 	m_ambientReduction = m_diffuseReduction = lightIntensity;
 
 	//m_testBillboard.GetMaterial().SetAmbientReduction(m_ambientReduction);
+	//m_testBillboard.GetMaterial().SetDiffuseReduction(m_ambientReduction);
 
 	for (auto& billboard : m_sceneBillboards) {
 		billboard.GetMaterial().SetAmbientReduction(m_ambientReduction);
+		billboard.GetMaterial().SetDiffuseReduction(m_ambientReduction);
 	}
 
 	m_terrain.SetAmbientReduction(m_ambientReduction);
@@ -294,16 +296,16 @@ void Sandbox3D::LoadModels()
 	m_testModel.GetMaterial().SetNormalTexture("assets/models/Boat/normal.png");
 	m_testModel.Rotate({ 0.0f, 1.0f, 0.0f }, 180.0f);
 	m_testModel.SetScale({ 0.1f, 0.1f, 0.1f });*/
-	
+
 	if (!m_loadAllModels)
 		return;
 
-	Plane plane(100.0f, 100.0f, 1, 1);
+	/*Plane plane(100.0f, 100.0f, 1, 1);
 	Model planeModel(plane.Generate());
 	planeModel.SetPosition({ 0.0f, 50.0f, 0.0f });
 	planeModel.GetMaterial().SetDiffuseTexture("assets/textures/Terrain/dirt.jpg");
 	planeModel.GetMaterial().SetNormalTexture("assets/textures/Terrain/dirtNorm.jpg");
-	m_sceneModels.push_back(planeModel);
+	m_sceneModels.push_back(planeModel);*/
 
 	Model cabin;
 	cabin.Load("assets/models/Cabin/cabin.obj");
@@ -312,8 +314,6 @@ void Sandbox3D::LoadModels()
 	cabin.SetPosition({ -100.0f, 34.5f,-70.0f });
 	m_sceneModels.push_back(cabin);
 
-	return;
-	
 	Model stone;
 	stone.Load("assets/models/Stone2/stone2.obj");
 	stone.GetMaterial().SetDiffuseTexture("assets/models/Stone2/diffuse.jpg");
@@ -395,9 +395,10 @@ void Sandbox3D::LoadBillboards()
 	arbol.SetPosition({ 0.0f, 52.0f, 200.0f });
 	arbol.SetScale({ 30.0f, 50.0f, 1.0f });
 	arbol.GetMaterial().SetDiffuseTexture("assets/textures/Billboard/arbol.png");
+	arbol.GetMaterial().SetNormalTexture("assets/textures/Billboard/arbolNormal.png");
 	arbol.SetType(BillboardType::Cylindrical);
 	m_sceneBillboards.push_back(arbol);
-
+	
 	Billboard cesped;
 	cesped.SetPosition({ 100.0f, 44.0f, 150.0f });
 	cesped.SetScale({ 15.0f, 15.0f, 1.0f });

@@ -1,5 +1,3 @@
-// Shader to show a simple texture
-
 #type vertex
 #version 330 core
 
