@@ -11,7 +11,7 @@ void Terrain::SetPosition(const Jass::JVec3& position)
 {
 	m_position = position;
 
-	m_transformation = Jass::Translate(m_transformation, m_position);
+	m_transformation = Jass::Translate(Jass::JMat4(1.0f), m_position);
 }
 
 float Terrain::GetTerrainHeight(float worldX, float worldZ) const
