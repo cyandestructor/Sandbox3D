@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ExampleLayer.h" />
+    <ClInclude Include="src\Examples\ModelLoading\ModelLoading.h" />
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D\Model\Billboard.h" />
     <ClInclude Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="src\Sandbox3D\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Examples\ModelLoading\ModelLoading.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Billboard.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.cpp" />
