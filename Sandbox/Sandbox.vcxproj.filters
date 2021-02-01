@@ -1,126 +1,136 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Sandbox3D">
+      <UniqueIdentifier>{CB155D3F-3780-11B6-80BE-C25BEC67EF0A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Sandbox3D\Model">
+      <UniqueIdentifier>{4B6BD995-B7F6-465A-C007-CA4E2C12A35A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Sandbox3D\Model\Collisions">
+      <UniqueIdentifier>{59BFECDA-45CF-98AB-AE88-FDC99AB78744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Model\tinyobjloader">
+      <UniqueIdentifier>{D0CDA807-3CE6-8F31-0593-1FCB716A24CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Player">
+      <UniqueIdentifier>{87B4CE57-73AD-EDA9-9CDF-D22E8837CDB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Primitives">
+      <UniqueIdentifier>{C67E86DC-B20D-10A6-5B2C-24A1479A204C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Skybox">
+      <UniqueIdentifier>{7ADEC85E-66D7-E7B0-8F09-CD357B61C7BC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Terrain">
+      <UniqueIdentifier>{2FD46976-9BEA-670C-E461-F32D50B73894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\Water">
+      <UniqueIdentifier>{1DF78696-8982-F45A-9293-774FFE9D505B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sandbox3D\stb_image">
+      <UniqueIdentifier>{25C0B9AF-9121-97BD-1A8F-DD6F86EFCD7C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SandboxApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Sandbox3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\ModelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Primitives\Plane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Terrain\Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\stb_image\stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Skybox\Skybox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Water\Water.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Model\Billboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sandbox3D\Player\PlayerController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Sandbox2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ExampleLayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Sandbox3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\ModelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\tinyobjloader\tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Terrain\Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Primitives\Primitive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Primitives\Plane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\stb_image\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Skybox\Skybox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Water\Water.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\ExampleLayer.h" />
+    <ClInclude Include="src\Sandbox2D.h" />
+    <ClInclude Include="src\Sandbox3D\Model\Billboard.h">
+      <Filter>Sandbox3D\Model</Filter>
     </ClInclude>
     <ClInclude Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.h">
-      <Filter>Header Files</Filter>
+      <Filter>Sandbox3D\Model\Collisions</Filter>
     </ClInclude>
     <ClInclude Include="src\Sandbox3D\Model\GameObject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Sandbox3D\Model</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sandbox3D\Model\Billboard.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Sandbox3D\Model\Light.h">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Model\Material.h">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Model\Mesh.h">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Model\Model.h">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Model\ModelLoader.h">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Model\tinyobjloader\tiny_obj_loader.h">
+      <Filter>Sandbox3D\Model\tinyobjloader</Filter>
     </ClInclude>
     <ClInclude Include="src\Sandbox3D\Player\PlayerController.h">
-      <Filter>Header Files</Filter>
+      <Filter>Sandbox3D\Player</Filter>
     </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Primitives\Plane.h">
+      <Filter>Sandbox3D\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Primitives\Primitive.h">
+      <Filter>Sandbox3D\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Sandbox3D.h">
+      <Filter>Sandbox3D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Skybox\Skybox.h">
+      <Filter>Sandbox3D\Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Terrain\Terrain.h">
+      <Filter>Sandbox3D\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\Water\Water.h">
+      <Filter>Sandbox3D\Water</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox3D\stb_image\stb_image.h">
+      <Filter>Sandbox3D\stb_image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Sandbox2D.cpp" />
+    <ClCompile Include="src\Sandbox3D\Model\Billboard.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.cpp">
+      <Filter>Sandbox3D\Model\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\GameObject.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\Material.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\Mesh.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\Model.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Model\ModelLoader.cpp">
+      <Filter>Sandbox3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Player\PlayerController.cpp">
+      <Filter>Sandbox3D\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Primitives\Plane.cpp">
+      <Filter>Sandbox3D\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Sandbox3D.cpp">
+      <Filter>Sandbox3D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Skybox\Skybox.cpp">
+      <Filter>Sandbox3D\Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Terrain\Terrain.cpp">
+      <Filter>Sandbox3D\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\Water\Water.cpp">
+      <Filter>Sandbox3D\Water</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sandbox3D\stb_image\stb_image.cpp">
+      <Filter>Sandbox3D\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
 </Project>

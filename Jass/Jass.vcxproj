@@ -150,9 +150,9 @@
     <ClInclude Include="src\Jass\Core\Core.h" />
     <ClInclude Include="src\Jass\Core\Core_Config.h" />
     <ClInclude Include="src\Jass\Core\EntryPoint.h" />
-    <ClInclude Include="src\Jass\Core\InputEnums.h" />
     <ClInclude Include="src\Jass\Core\IWindow.h" />
     <ClInclude Include="src\Jass\Core\Input.h" />
+    <ClInclude Include="src\Jass\Core\InputEnums.h" />
     <ClInclude Include="src\Jass\Core\Joystick.h" />
     <ClInclude Include="src\Jass\Core\KeyCodes.h" />
     <ClInclude Include="src\Jass\Core\Layer.h" />

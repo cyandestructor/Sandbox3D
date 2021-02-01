@@ -16,6 +16,12 @@
     <Filter Include="src\Jass\Debug">
       <UniqueIdentifier>{23378FE3-0F05-83E9-F898-F30FE4055F4E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Jass\ECS">
+      <UniqueIdentifier>{B7118336-A374-12DB-4CFA-4A91383CDE5D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Jass\ECS\Components">
+      <UniqueIdentifier>{6C16FBC2-D84D-435A-E157-A77D4D0E6A53}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Jass\Events">
       <UniqueIdentifier>{316E0059-9DF9-6D1D-A60A-F1111215CA1D}</UniqueIdentifier>
     </Filter>
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="src\Jass\Renderer\Textures">
       <UniqueIdentifier>{66288EB6-5238-3A87-BBF1-9EA5A7202920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Jass\Scene">
+      <UniqueIdentifier>{CA999DE4-B667-91EA-9FFB-01118B686D4F}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Jass\Utility">
       <UniqueIdentifier>{30CA4E44-1CC3-6D96-45F5-521B314D4DA2}</UniqueIdentifier>
@@ -90,6 +99,9 @@
     <ClInclude Include="src\Jass\Camera\PerspectiveCamera.h">
       <Filter>src\Jass\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Camera\PerspectiveCameraController.h">
+      <Filter>src\Jass\Camera</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Core\Application.h">
       <Filter>src\Jass\Core</Filter>
     </ClInclude>
@@ -106,6 +118,12 @@
       <Filter>src\Jass\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Core\Input.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\InputEnums.h">
+      <Filter>src\Jass\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Core\Joystick.h">
       <Filter>src\Jass\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Core\KeyCodes.h">
@@ -141,6 +159,12 @@
     <ClInclude Include="src\Jass\Debug\RendererDebugLog.h">
       <Filter>src\Jass\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\ECS\Components\Components.h">
+      <Filter>src\Jass\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\ECS\Entity.h">
+      <Filter>src\Jass\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Events\ApplicationEvents.h">
       <Filter>src\Jass\Events</Filter>
     </ClInclude>
@@ -154,6 +178,9 @@
       <Filter>src\Jass\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\Events.h">
+      <Filter>src\Jass\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Events\JoystickConnectionEvent.h">
       <Filter>src\Jass\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Events\KeyEvent.h">
@@ -243,11 +270,17 @@
     <ClInclude Include="src\Jass\Renderer\Textures\Texture2D.h">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClInclude>
+    <ClInclude Include="src\Jass\Renderer\Textures\Texture3D.h">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClInclude>
     <ClInclude Include="src\Jass\Renderer\VertexArray.h">
       <Filter>src\Jass\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Renderer\VertexBuffer.h">
       <Filter>src\Jass\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jass\Scene\Scene.h">
+      <Filter>src\Jass\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Jass\Utility\JassUtilities.h">
       <Filter>src\Jass\Utility</Filter>
@@ -277,6 +310,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.h">
+      <Filter>src\Platform\OpenGL\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.h">
       <Filter>src\Platform\OpenGL\Textures</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WinWindow.h">
@@ -1512,15 +1548,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Jass\Scene\Scene.h" />
-    <ClInclude Include="src\Jass\ECS\Components\Components.h" />
-    <ClInclude Include="src\Jass\ECS\Entity.h" />
-    <ClInclude Include="src\Jass\Camera\PerspectiveCameraController.h" />
-    <ClInclude Include="src\Jass\Renderer\Textures\Texture3D.h" />
-    <ClInclude Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.h" />
-    <ClInclude Include="src\Jass\Core\InputEnums.h" />
-    <ClInclude Include="src\Jass\Events\JoystickConnectionEvent.h" />
-    <ClInclude Include="src\Jass\Core\Joystick.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Jass\Camera\OrthographicCamera.cpp">
@@ -1530,6 +1557,9 @@
       <Filter>src\Jass\Camera</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Camera\PerspectiveCamera.cpp">
+      <Filter>src\Jass\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Camera\PerspectiveCameraController.cpp">
       <Filter>src\Jass\Camera</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Core\Application.cpp">
@@ -1549,6 +1579,9 @@
     </ClCompile>
     <ClCompile Include="src\Jass\Debug\RendererDebugLog.cpp">
       <Filter>src\Jass\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\ECS\Entity.cpp">
+      <Filter>src\Jass\ECS</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\ImGui\BuildImGui.cpp">
       <Filter>src\Jass\ImGui</Filter>
@@ -1592,11 +1625,17 @@
     <ClCompile Include="src\Jass\Renderer\Textures\Texture2D.cpp">
       <Filter>src\Jass\Renderer\Textures</Filter>
     </ClCompile>
+    <ClCompile Include="src\Jass\Renderer\Textures\Texture3D.cpp">
+      <Filter>src\Jass\Renderer\Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\Jass\Renderer\VertexArray.cpp">
       <Filter>src\Jass\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Renderer\VertexBuffer.cpp">
       <Filter>src\Jass\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jass\Scene\Scene.cpp">
+      <Filter>src\Jass\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Jass\Utility\JassUtilities.cpp">
       <Filter>src\Jass\Utility</Filter>
@@ -1628,6 +1667,9 @@
     <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture2D.cpp">
       <Filter>src\Platform\OpenGL\Textures</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.cpp">
+      <Filter>src\Platform\OpenGL\Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WinWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1637,10 +1679,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Jass\Scene\Scene.cpp" />
-    <ClCompile Include="src\Jass\ECS\Entity.cpp" />
-    <ClCompile Include="src\Jass\Camera\PerspectiveCameraController.cpp" />
-    <ClCompile Include="src\Jass\Renderer\Textures\Texture3D.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\Textures\OpenGLTexture3D.cpp" />
   </ItemGroup>
 </Project>
