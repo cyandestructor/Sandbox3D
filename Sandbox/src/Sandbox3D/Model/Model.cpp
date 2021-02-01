@@ -22,9 +22,19 @@ void Model::SetPosition(const Jass::JVec3& position)
 	CalculateTransformation();
 }
 
+void Model::Rotate(const Jass::JVec3& angles)
+{
+	m_rotation = Jass::Rotate(Jass::JMat4(1.0f), angles.x, { 1.0f, 0.0f, 0.0f });
+	m_rotation = Jass::Rotate(m_rotation, angles.y, { 0.0f, 1.0f, 0.0f });
+	m_rotation = Jass::Rotate(m_rotation, angles.z, { 0.0f, 0.0f, 1.0f });
+
+	CalculateTransformation();
+}
+
 void Model::Rotate(const Jass::JVec3& axis, float angle)
 {
 	m_rotation = Jass::Rotate(m_rotation, Jass::Radians(angle), axis);
+
 	CalculateTransformation();
 }
 

@@ -18,6 +18,7 @@ public:
 	void SetPosition(const Jass::JVec3& position);
 	const Jass::JVec3& GetPosition() const { return m_position; }
 
+	void Rotate(const Jass::JVec3& angles);
 	void Rotate(const Jass::JVec3& axis, float angle);
 	Jass::JMat4 GetRotation() const { return m_rotation; }
 

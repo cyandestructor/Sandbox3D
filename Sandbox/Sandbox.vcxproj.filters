@@ -87,6 +87,7 @@
       <Filter>Sandbox3D\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Examples\ModelLoading\ModelLoading.h" />
+    <ClInclude Include="src\Examples\Transformations\Transformations.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
@@ -134,5 +135,6 @@
     </ClCompile>
     <ClCompile Include="src\SandboxApp.cpp" />
     <ClCompile Include="src\Examples\ModelLoading\ModelLoading.cpp" />
+    <ClCompile Include="src\Examples\Transformations\Transformations.cpp" />
   </ItemGroup>
 </Project>
