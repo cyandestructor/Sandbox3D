@@ -11,6 +11,7 @@ uniform vec3 u_billboardPosition;
 uniform vec3 u_billboardScale;
 
 uniform vec3 u_lightPosition;
+uniform vec3 u_cameraPosition;
 
 uniform vec4 u_clipPlane;
 
@@ -21,6 +22,7 @@ out vec3 normal;
 
 out vec3 toLightVector;
 out vec3 lightDirection;
+out vec3 toCameraVector;
 
 void main()
 {
@@ -45,6 +47,7 @@ void main()
 
 	toLightVector = tbn * normalize(u_lightPosition - worldPosition);
 	lightDirection = -toLightVector;
+	toCameraVector = tbn * normalize(u_cameraPosition - worldPosition);
 }
 
 #type pixel
@@ -53,18 +56,25 @@ void main()
 layout(location = 0) out vec4 o_color;
 	
 in vec2 texCoords;
+
 in vec3 toLightVector;
 in vec3 lightDirection;
+in vec3 toCameraVector;
+
+uniform vec4 u_color;
+uniform vec4 u_lightColor;
 
 uniform float u_ambientReduction;
 uniform float u_diffuseReduction;
-uniform vec4 u_lightColor;
+uniform float u_reflectivity;
+uniform float u_shineDamper;
 
 uniform sampler2D u_diffuseTex;
 uniform sampler2D u_normalTex;
 
 vec3 AmbientLight(vec3 lightColor, float reductionFactor);
 vec3 DiffuseLight(vec3 toLightVector, vec3 normal, vec3 lightColor, float reductionFactor);
+vec3 SpecularLight(vec3 lightDirection, vec3 normal, vec3 toCameraVector, vec3 lightColor, float reflectivity, float shineDamper);
 
 void main()
 {
@@ -73,8 +83,11 @@ void main()
 
 	vec4 ambientLight = vec4(AmbientLight(u_lightColor.rgb, u_ambientReduction), 1.0f);
 	vec4 diffuseLight = vec4(DiffuseLight(toLightVector, texNormal, u_lightColor.rgb, u_diffuseReduction), 1.0f);
-	
-	vec4 color = texture(u_diffuseTex, texCoords) * (ambientLight + diffuseLight);
+	vec4 specularLight = vec4(SpecularLight(lightDirection, texNormal, toCameraVector, u_lightColor.rgb, u_reflectivity, u_shineDamper), 1.0f);
+
+	vec4 diffuseColor = texture(u_diffuseTex, texCoords) * u_color;
+
+	vec4 color = diffuseColor * (ambientLight + diffuseLight + specularLight);
 	
 	if(color.a < 0.5f)
 	{
@@ -96,7 +109,21 @@ vec3 DiffuseLight(vec3 toLightVector, vec3 normal, vec3 lightColor, float reduct
 {
 	float dotProduct = dot(normal, toLightVector);
 	float brightness = max(dotProduct, 0.001f);
-	vec3 diffuseLight = lightColor * brightness;
+	vec3 diffuseLight = lightColor * brightness * reductionFactor;
 
 	return diffuseLight;
+}
+
+vec3 SpecularLight(vec3 lightDirection, vec3 normal, vec3 toCameraVector, vec3 lightColor, float reflectivity, float shineDamper)
+{
+	vec3 reflectedLightDirection = reflect(lightDirection, normal);
+	
+	float specularFactor = dot(reflectedLightDirection, toCameraVector);
+	specularFactor = max(specularFactor, 0.001f);
+
+	float dampedFactor = pow(specularFactor, shineDamper);
+
+	vec3 specularLight = lightColor * dampedFactor * reflectivity;
+
+	return specularLight;
 }

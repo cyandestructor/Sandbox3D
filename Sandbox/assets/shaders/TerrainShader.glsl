@@ -129,7 +129,7 @@ vec3 DiffuseLight(vec3 toLightVector, vec3 normal, vec3 lightColor, float reduct
 {
 	float dotProduct = dot(normal, toLightVector);
 	float brightness = max(dotProduct, 0.01f);
-	vec3 diffuseLight = lightColor * brightness;
+	vec3 diffuseLight = lightColor * brightness * reductionFactor;
 
 	return diffuseLight;
 }
