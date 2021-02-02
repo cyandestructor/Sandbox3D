@@ -7,7 +7,6 @@ SkyboxLoading::SkyboxLoading()
 {
 	float width = float(Jass::Application::Get().GetWindow().GetWidth());
 	float height = float(Jass::Application::Get().GetWindow().GetHeight());
-	// You can get the internal camera of the controller with the GetCamera method and set its settings
 	m_playerController.GetCamera().SetProjection(60.0f, width, height, 0.01f, 1000.0f);
 	m_playerController.GetCamera().SetPosition({ 0.0f, 40.0f, 0.0f });
 

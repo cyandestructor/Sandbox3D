@@ -90,6 +90,7 @@
     <ClInclude Include="src\Examples\Transformations\Transformations.h" />
     <ClInclude Include="src\Examples\TerrainLoading\TerrainLoading.h" />
     <ClInclude Include="src\Examples\SkyboxLoading\SkyboxLoading.h" />
+    <ClInclude Include="src\Examples\BillboardLoading\BillboardLoading.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
@@ -140,5 +141,6 @@
     <ClCompile Include="src\Examples\Transformations\Transformations.cpp" />
     <ClCompile Include="src\Examples\TerrainLoading\TerrainLoading.cpp" />
     <ClCompile Include="src\Examples\SkyboxLoading\SkyboxLoading.cpp" />
+    <ClCompile Include="src\Examples\BillboardLoading\BillboardLoading.cpp" />
   </ItemGroup>
 </Project>

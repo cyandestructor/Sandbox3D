@@ -130,9 +130,16 @@ void TerrainLoading::LoadTerrainTextures()
 
 void TerrainLoading::UpdateTerrain()
 {
+	// Set a min value of 1
+	m_terrainUVRepeat = std::max(m_terrainUVRepeat, 1.0f);
+	
 	// You can change the terrain position and the UV repeat factor of the textures
 	m_terrain.SetPosition(m_terrainPosition);
 	m_terrain.SetUVRepeat(m_terrainUVRepeat);
+
+	// Clamp the values between 0 and 1
+	m_ambientReduction = std::clamp(m_ambientReduction, 0.0f, 1.0f);
+	m_diffuseReduction = std::clamp(m_diffuseReduction, 0.0f, 1.0f);
 
 	// You can also modify the ambient and diffuse reduction
 	m_terrain.SetAmbientReduction(m_ambientReduction);
