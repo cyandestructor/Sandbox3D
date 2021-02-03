@@ -26,12 +26,17 @@ public:
 private:
 	Jass::PerspectiveCamera m_camera;
 
+	float m_cameraRotation;
+
 	Model m_model;
 
 	Jass::JVec3 m_modelPosition;
 	Jass::JVec3 m_modelScale;
 	Jass::JVec3 m_modelRotation;
+
 	Jass::JVec4 m_modelColor;
+	float m_modelReflectivity;
+	float m_modelShineDamper;
 
 	Light m_light;
 	
@@ -41,6 +46,7 @@ private:
 	void LoadModels();
 
 	void UpdateModel();
+	void UpdateCamera(Jass::Timestep ts);
 
 	bool OnKeyPressedEvent(Jass::KeyPressedEvent& e);
 	bool OnWindowResizeEvent(Jass::WindowResizeEvent& e);

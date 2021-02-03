@@ -44,6 +44,10 @@ void ModelLoading::OnUpdate(Jass::Timestep ts)
 
 	Jass::Renderer::BeginScene(m_camera);
 	
+	// In this lines, we bind the shader and then we pass the camera position for the specular light
+	m_shaderLib.GetShader("ModelMaterial")->Bind();
+	m_shaderLib.GetShader("ModelMaterial")->SetFloat3("u_cameraPosition", m_camera.GetPosition());
+
 	// Render here!
 
 	/*
