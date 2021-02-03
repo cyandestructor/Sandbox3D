@@ -30,6 +30,8 @@ public:
 
 	void SetTilingFactor(float tilingFactor) { m_tilingFactor = tilingFactor; }
 
+	void OnWindowResizeEvent(Jass::WindowResizeEvent& e);
+
 	void SetColor(const Jass::JVec4& color) { m_color = color; }
 	void SetTextures(const std::string& dudv, const std::string& normal);
 

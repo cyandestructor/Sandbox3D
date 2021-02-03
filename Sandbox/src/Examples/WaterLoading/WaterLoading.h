@@ -84,6 +84,7 @@ private:
 	void FixCameraToTerrain();
 
 	bool OnKeyPressedEvent(Jass::KeyPressedEvent& e);
+	bool OnWindowResizeEvent(Jass::WindowResizeEvent& e);
 
 };
 

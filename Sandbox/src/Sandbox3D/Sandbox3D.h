@@ -64,6 +64,7 @@ private:
 	bool m_disableCursor = true;
 
 	bool OnKeyPressedEvent(Jass::KeyPressedEvent& e);
+	bool OnWindowResizeEvent(Jass::WindowResizeEvent& e);
 	bool OnJoystickConnectionEvent(Jass::JoystickConnectionEvent& e);
 
 	void FixCameraToTerrain();

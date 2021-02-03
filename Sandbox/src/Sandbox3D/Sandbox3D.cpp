@@ -111,6 +111,7 @@ void Sandbox3D::OnEvent(Jass::Event& e)
 	Jass::EventDispatcher dispatcher(e);
 	dispatcher.Dispatch<Jass::JoystickConnectionEvent>(BIND_EVENT_FN(Sandbox3D::OnJoystickConnectionEvent));
 	dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(Sandbox3D::OnKeyPressedEvent));
+	dispatcher.Dispatch<Jass::WindowResizeEvent>(BIND_EVENT_FN(Sandbox3D::OnWindowResizeEvent));
 }
 
 bool Sandbox3D::OnKeyPressedEvent(Jass::KeyPressedEvent& e)
@@ -137,6 +138,12 @@ bool Sandbox3D::OnKeyPressedEvent(Jass::KeyPressedEvent& e)
 			break;
 	}
 
+	return false;
+}
+
+bool Sandbox3D::OnWindowResizeEvent(Jass::WindowResizeEvent& e)
+{
+	m_water.OnWindowResizeEvent(e);
 	return false;
 }
 

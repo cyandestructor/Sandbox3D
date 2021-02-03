@@ -37,6 +37,12 @@ void Water::EndRefraction() const
 	m_refractionFbo->Unbind();
 }
 
+void Water::OnWindowResizeEvent(Jass::WindowResizeEvent& e)
+{
+	m_reflectionFbo->Resize(e.GetWidth(), e.GetHeight());
+	m_refractionFbo->Resize(e.GetWidth(), e.GetHeight());
+}
+
 void Water::SetTextures(const std::string& dudv, const std::string& normal)
 {
 	m_dudvTexture = Jass::Texture2D::Create(dudv);

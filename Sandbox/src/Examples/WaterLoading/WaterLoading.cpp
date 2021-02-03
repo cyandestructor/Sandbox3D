@@ -113,7 +113,9 @@ void WaterLoading::OnUpdate(Jass::Timestep ts)
 void WaterLoading::OnEvent(Jass::Event& e)
 {
 	Jass::EventDispatcher dispatcher(e);
+	
 	dispatcher.Dispatch<Jass::KeyPressedEvent>(BIND_EVENT_FN(WaterLoading::OnKeyPressedEvent));
+	dispatcher.Dispatch<Jass::WindowResizeEvent>(BIND_EVENT_FN(WaterLoading::OnWindowResizeEvent));
 	m_playerController.OnEvent(e);
 }
 
@@ -352,5 +354,11 @@ bool WaterLoading::OnKeyPressedEvent(Jass::KeyPressedEvent& e)
 		break;
 	}
 
+	return false;
+}
+
+bool WaterLoading::OnWindowResizeEvent(Jass::WindowResizeEvent& e)
+{
+	m_water.OnWindowResizeEvent(e);
 	return false;
 }
