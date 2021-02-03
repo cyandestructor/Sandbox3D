@@ -137,6 +137,7 @@
     <ClInclude Include="src\Examples\SkyboxLoading\SkyboxLoading.h" />
     <ClInclude Include="src\Examples\TerrainLoading\TerrainLoading.h" />
     <ClInclude Include="src\Examples\Transformations\Transformations.h" />
+    <ClInclude Include="src\Examples\WaterLoading\WaterLoading.h" />
     <ClInclude Include="src\Sandbox2D.h" />
     <ClInclude Include="src\Sandbox3D\Model\Billboard.h" />
     <ClInclude Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\Examples\SkyboxLoading\SkyboxLoading.cpp" />
     <ClCompile Include="src\Examples\TerrainLoading\TerrainLoading.cpp" />
     <ClCompile Include="src\Examples\Transformations\Transformations.cpp" />
+    <ClCompile Include="src\Examples\WaterLoading\WaterLoading.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Billboard.cpp" />
     <ClCompile Include="src\Sandbox3D\Model\Collisions\CollisionBox3D.cpp" />

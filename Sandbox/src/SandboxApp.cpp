@@ -6,7 +6,8 @@
 //#include "Examples/Transformations/Transformations.h"
 //#include "Examples/TerrainLoading/TerrainLoading.h"
 //#include "Examples/SkyboxLoading/SkyboxLoading.h"
-#include "Examples/BillboardLoading/BillboardLoading.h"
+//#include "Examples/BillboardLoading/BillboardLoading.h"
+#include "Examples/WaterLoading/WaterLoading.h"
 
 class Sandbox : public Jass::Application {
 
@@ -17,7 +18,8 @@ public:
 		//PushLayer(new Transformations);
 		//PushLayer(new TerrainLoading);
 		//PushLayer(new SkyboxLoading);
-		PushLayer(new BillboardLoading);
+		//PushLayer(new BillboardLoading);
+		PushLayer(new WaterLoading);
 	}
 
 	~Sandbox() {

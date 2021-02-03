@@ -91,6 +91,7 @@
     <ClInclude Include="src\Examples\TerrainLoading\TerrainLoading.h" />
     <ClInclude Include="src\Examples\SkyboxLoading\SkyboxLoading.h" />
     <ClInclude Include="src\Examples\BillboardLoading\BillboardLoading.h" />
+    <ClInclude Include="src\Examples\WaterLoading\WaterLoading.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
@@ -142,5 +143,6 @@
     <ClCompile Include="src\Examples\TerrainLoading\TerrainLoading.cpp" />
     <ClCompile Include="src\Examples\SkyboxLoading\SkyboxLoading.cpp" />
     <ClCompile Include="src\Examples\BillboardLoading\BillboardLoading.cpp" />
+    <ClCompile Include="src\Examples\WaterLoading\WaterLoading.cpp" />
   </ItemGroup>
 </Project>
