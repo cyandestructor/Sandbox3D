@@ -39,8 +39,9 @@ The code in the examples has useful comments, but there are some things that are
 ### Steps
 
 1. Clone the repository: `git clone --recursive https://github.com/cyandestructor/Sandbox3D.git`
-2. Extract the Example models zip file on Sandbox/assets
-3. Open the Jass.sln file and run
+2. Run the scripts/Win-GenSolutionFiles.bat file to create the necessary projects
+3. Extract the Example models zip file on Sandbox/assets
+4. Open the Jass.sln file and run
 
 ### How to check the examples
 
